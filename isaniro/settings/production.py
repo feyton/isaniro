@@ -1,5 +1,4 @@
 from decouple import config
-from isaniro.settings import SITE_ID
 
 from .base import *
 
@@ -15,10 +14,10 @@ DATABASES = {
     }
 }
 
-STATIC_ROOT = 'home/isancjhv/public_html/static'
+STATIC_ROOT = '/home/isancjhv/public_html/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = "home/isancjhv/public_html/static"
+MEDIA_ROOT = "/home/isancjhv/public_html/media/"
 
 SITE_ID = 1
