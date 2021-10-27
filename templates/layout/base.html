@@ -1,0 +1,43 @@
+{% load static%}
+
+<!DOCTYPE html>
+<html lang="en">
+{% include "layout/head.html"%}
+
+<body id='top'>
+    <div class="wrapper row1">
+        <header id="header" class="hoc clear">
+            <!-- ################################################################################################ -->
+            <div id="logo" class="fl_left">
+                <h1><a href="{% url 'home'%}">ISANIRO</a></h1>
+            </div>
+            <nav id="mainav" class="fl_right">
+                <ul class="clear">
+                    <li class="active"><a href="#">Ahabanza</a></li>
+                    <li><a class="drop" href="#">Blog</a>
+                        <ul>
+                            <li><a href="{%url 'blog' %}">Inkuru</a></li>
+                            <li><a href="#">Video</a></li>
+                        </ul>
+                    </li>
+                    <li><a class="drop" href="#">Services</a>
+                        <ul>
+                            <li><a href="#">Ubwubatsi</a></li>
+                            <li><a>Gutegurirwa isoko</a></li>
+                            <li><a>Kugura ibikoresho byubwubatsi</a> </li>
+
+                        </ul>
+                    </li>
+                    <li><a href="#">Ibitabo</a></li>
+                </ul>
+            </nav>
+            <!-- ################################################################################################ -->
+        </header>
+    </div>
+    {% block content%}
+    {% endblock%}
+    {% include "layout/footer.html"%}
+
+</body>
+
+</html>

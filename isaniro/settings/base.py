@@ -1,8 +1,9 @@
 import os
 from pathlib import Path
 
-BASE_DIR = BASE_DIR = Path(__file__).resolve().parent.parent.parent
+from django.contrib.messages import constants as messages
 
+BASE_DIR = BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 # Application definition
 
@@ -13,9 +14,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'django.contrib.humanize',
     'blog',
     'services',
-    'books'
+    'books',
+    'user',
+    'index',
+    # CK Editor
+    'ckeditor',
+    'ckeditor_uploader',
+    # AllAuth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
 ]
 
 MIDDLEWARE = [
@@ -63,4 +75,62 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = 'user.User'
+
 STATIC_URL = '/static/'
+
+CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
+
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+CKEDITOR_IMAGE_BACKEND = "pillow"
+CKEDITOR_RESTRICT_BY_USER = True
+CKEDITOR_BROWSE_SHOW_DIRS = True
+CKEDITOR_UPLOAD_SLUGIFY_FILENAME = False
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': None,
+    },
+
+}
+
+# REGISTRATION-LOGIN URLS
+LOGIN_URL = 'account_login'
+LOGOUT_URL = 'account_logout'
+LOGIN_REDIRECT_URL = 'home'
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+# All Auth SETTINGS
+SIGNUP_FORM_CLASS = 'user.forms.CreateUserForm'
+ACCOUNT_AUTHENTICATION_METHOD = "email"
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5
+ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 300
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = True
+SOCIALACCOUNT_AUTO_SIGNUP = True
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_LOGOUT_ON_GET = True
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+ACCOUNT_SESSION_REMEMBER = True
+ACCOUNT_SIGNUP_FORM_CLASS = SIGNUP_FORM_CLASS
+ACCOUNT_LOGIN_ON_EMAIL_COMFIRMATION = False
+ACCOUNT_PASSWORD_INPUT_RENDER_VALUE = True
+ACCOUNT_EMAIL_SUBJECT_PREFIX = 'Isaniro |'
+
+
+def ACCOUNT_USER_DISPLAY(user):
+    return user.get_full_name()
+
+
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger',
+}
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'

@@ -1,4 +1,8 @@
 
+from typing import cast
+
+from decouple import config
+
 from .base import *
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -8,7 +12,7 @@ from .base import *
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-5i&d(xd33wjb=vrqzfg3d32n3l_cpqm-!risebl^%1g8qpi4t8'
+SECRET_KEY = config("SECRET_KEY", cast=str)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True

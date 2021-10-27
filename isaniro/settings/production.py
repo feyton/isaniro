@@ -2,9 +2,9 @@ from decouple import config
 
 from .base import *
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["isaniro.com", 'www.isaniro.com', '127.0.0.1']
 
-SECRET_KEY = 'django-insecure-5i&d(xd33wjb=vrqzfg3d32n3l_cpqm-!risebl^%1g8qpi4t8'
+SECRET_KEY = config("SECRET_KEY", cast=str)
 
 
 DATABASES = {
@@ -21,3 +21,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = "/home/isancjhv/public_html/media/"
 
 SITE_ID = 1
+
+
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
