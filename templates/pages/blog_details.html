@@ -1,220 +1,80 @@
 {% extends 'layout/base.html' %}
 {% load static %}
+{% load humanize%}
+
+{% block content %}
+<div>
+  <main role="main" class="container clear">
+    <div class="row">
+      <div class="col-md-8 blog-main">
+        <h3 class="pb-3 mb-4 font-italic border-bottom">
+          {{post.category}}
+        </h3>
+
+        <div class="blog-post">
+          <h2 class="blog-post-title">{{post.title|title}}</h2>
+          <p class="blog-post-meta">January 1, 2014 by <a href="#">{{post.author.first_name}}</a></p>
+
+          <!-- Post Content Start -->
+
+          {{post.content|safe}}
+          <!-- Blog post ending -->
+        </div><!-- /.blog-post -->
+        <br>
+        <hr>
+        <!-- Recommended posts -->
+        <div class="blog-post">
+          <h2 class="blog-post-title">Another blog post</h2>
+          <p class="blog-post-meta">December 23, 2013 by <a href="#">Jacob</a></p>
+
+          <p>Cum sociis natoque penatibus et magnis <a href="#">dis parturient montes</a>, nascetur ridiculus mus.
+            Aenean
+            eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at
+            lobortis. Cras mattis consectetur purus sit amet fermentum.</p>
+
+        </div><!-- /.blog-post -->
 
 
 
+        <nav class="blog-pagination">
+          <a class="btn btn-outline-primary" href="#">Older</a>
+          <a class="btn btn-outline-secondary disabled" href="#">Newer</a>
+        </nav>
 
+      </div><!-- /.blog-main -->
 
-<head>
-  <title>Exative | Pages | Sidebar Left</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <link href="../layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
-</head>
-
-<body id="top">
-  <!-- ################################################################################################ -->
-  <!-- ################################################################################################ -->
-  <!-- ################################################################################################ -->
-
-  <!-- ################################################################################################ -->
-  <!-- ################################################################################################ -->
-  <!-- ################################################################################################ -->
-  <div class="wrapper row1">
-    <header id="header" class="hoc clear">
-      <!-- ################################################################################################ -->
-      {% block content %}
-      <!-- ################################################################################################ -->
-
-      <!-- ################################################################################################ -->
-      <!-- ################################################################################################ -->
-      <!-- ################################################################################################ -->
-      <div class="wrapper row2">
-        <div id="breadcrumb" class="hoc clear">
-          <!-- ################################################################################################ -->
-          <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Lorem</a></li>
-            <li><a href="#">Ipsum</a></li>
-            <li><a href="#">Dolor</a></li>
-          </ul>
-          <!-- ################################################################################################ -->
+      <aside class="col-md-4 blog-sidebar">
+        <div class="p-3 mb-3 bg-light rounded">
+          <h4 class="font-italic">Umwanditsi</h4>
+          <p class="mb-0">Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit
+            amet
+            fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
         </div>
-      </div>
-      <!-- ################################################################################################ -->
-      <!-- ################################################################################################ -->
-      <!-- ################################################################################################ -->
-      <div class="wrapper row3">
-        <main class="hoc container clear">
-          <!-- main body -->
-          <!-- ################################################################################################ -->
-          <div class="sidebar one_quarter first">
-            <!-- ################################################################################################ -->
-            <h6>Izindi nkuru</h6>
-            <nav class="sdb_holder">
-              <ul>
-                <li><a href="#">Navigation - Level 1</a></li>
-                <li><a href="#">Navigation - Level 1</a>
-                  <ul>
-                    <li><a href="#">Navigation - Level 2</a></li>
-                    <li><a href="#">Navigation - Level 2</a></li>
-                  </ul>
-                </li>
-                <li><a href="#">Navigation - Level 1</a>
-                  <ul>
-                    <li><a href="#">Navigation - Level 2</a></li>
-                    <li><a href="#">Navigation - Level 2</a>
-                      <ul>
-                        <li><a href="#">Navigation - Level 3</a></li>
-                        <li><a href="#">Navigation - Level 3</a></li>
-                      </ul>
-                    </li>
-                  </ul>
-                </li>
-                <li><a href="#">Navigation - Level 1</a></li>
-              </ul>
-            </nav>
-            <div class="sdb_holder">
-              <h6>Lorem ipsum dolor</h6>
-              <address>
-                Full Name<br>
-                Address Line 1<br>
-                Address Line 2<br>
-                Town/City<br>
-                Postcode/Zip<br>
-                <br>
-                Tel: xxxx xxxx xxxxxx<br>
-                Email: <a href="#">contact@domain.com</a>
-              </address>
-            </div>
-            <div class="sdb_holder">
-              <article>
-                <h6>Lorem ipsum dolor</h6>
-                <p>Nuncsed sed conseque a at quismodo tris mauristibus sed habiturpiscinia sed.</p>
-                <ul>
-                  <li><a href="#">Lorem ipsum dolor sit</a></li>
-                  <li>Etiam vel sapien et</li>
-                  <li><a href="#">Etiam vel sapien et</a></li>
-                </ul>
-                <p>Nuncsed sed conseque a at quismodo tris mauristibus sed habiturpiscinia sed. Condimentumsantincidunt
-                  dui
-                  mattis magna intesque purus orci augue lor nibh.</p>
-                <p class="more"><a href="#">Continue Reading &raquo;</a></p>
-              </article>
-            </div>
-            <!-- ################################################################################################ -->
-          </div>
-          <!-- ################################################################################################ -->
-          <!-- ################################################################################################ -->
-          <div class="content three_quarter">
-            <!-- ################################################################################################ -->
-            <h1>{{post.title}}</h1>
-            <img class="imgr borderedbox inspace-5" src="../images/demo/imgr.gif" alt="">
-            <p>Aliquatjusto quisque nam consequat doloreet vest orna partur scetur portortis nam. Metadipiscing eget
-              facilis
-              elit sagittis felisi eger id justo maurisus convallicitur.</p>
-            <p>Dapiensociis <a href="#">temper donec auctortortis cumsan</a> et curabitur condis lorem loborttis leo.
-              Ipsumcommodo libero nunc at in velis tincidunt pellentum tincidunt vel lorem.</p>
-            <img class="imgl borderedbox inspace-5" src="../images/demo/imgl.gif" alt="">
-            <p>This is a W3C compliant free website template from <a href="http://www.os-templates.com/"
-                title="Free Website Templates">OS Templates</a>. For full terms of use of this template please read our
-              <a href="http://www.os-templates.com/template-terms">website template licence</a>.
-            </p>
-            <p>You can use and modify the template for both personal and commercial use. You must keep all copyright
-              information and credit links in the template and associated files. For more website templates visit our <a
-                href="http://www.os-templates.com/">free website templates</a> section.</p>
-            <p>Portortornec condimenterdum eget consectetuer condis consequam pretium pellus sed mauris enim. Puruselit
-              mauris nulla hendimentesque elit semper nam a sapien urna sempus.</p>
 
+        <div class="p-3">
+          <h4 class="font-italic">Categories</h4>
+          <ol class="list-unstyled mb-0">
+            <li><a href="#">Ubuzima</a></li>
+            <li><a href="#">Ubukungu</a></li>
+            <li><a href="#">January 2014</a></li>
+          </ol>
+        </div>
 
-            <div id="comments">
-              <h2>Ibitekerezo</h2>
-              <ul>
-                <li>
-                  <article>
-                    <header>
-                      <figure class="avatar"><img src="/static/images/demo/avatar.png" alt=""></figure>
-                      <address>
-                        By <a href="#">A Name</a>
-                      </address>
-                      <time datetime="2045-04-06T08:15+00:00">Friday, 6<sup>th</sup> April 2045 @08:15:00</time>
-                    </header>
-                    <div class="comcont">
-                      <p>This is an example of a comment made on a post. You can either edit the comment, delete the
-                        comment
-                        or reply to the comment. Use this as a place to respond to the post or to share what you are
-                        thinking.</p>
-                    </div>
-                  </article>
-                </li>
-                <li>
-                  <article>
-                    <header>
-                      <figure class="avatar"><img src="../images/demo/avatar.png" alt=""></figure>
-                      <address>
-                        By <a href="#">A Name</a>
-                      </address>
-                      <time datetime="2045-04-06T08:15+00:00">Friday, 6<sup>th</sup> April 2045 @08:15:00</time>
-                    </header>
-                    <div class="comcont">
-                      <p>This is an example of a comment made on a post. You can either edit the comment, delete the
-                        comment
-                        or reply to the comment. Use this as a place to respond to the post or to share what you are
-                        thinking.</p>
-                    </div>
-                  </article>
-                </li>
-                <li>
-                  <article>
-                    <header>
-                      <figure class="avatar"><img src="../images/demo/avatar.png" alt=""></figure>
-                      <address>
-                        By <a href="#">A Name</a>
-                      </address>
-                      <time datetime="2045-04-06T08:15+00:00">Friday, 6<sup>th</sup> April 2045 @08:15:00</time>
-                    </header>
-                    <div class="comcont">
-                      <p>This is an example of a comment made on a post. You can either edit the comment, delete the
-                        comment
-                        or reply to the comment. Use this as a place to respond to the post or to share what you are
-                        thinking.</p>
-                    </div>
-                  </article>
-                </li>
-              </ul>
-              <h2>Write A Comment</h2>
-              <form action="#" method="post">
-                <div class="one_third first">
-                  <label for="name">Name <span>*</span></label>
-                  <input type="text" name="name" id="name" value="" size="22" required>
-                </div>
-                <div class="one_third">
-                  <label for="email">Mail <span>*</span></label>
-                  <input type="email" name="email" id="email" value="" size="22" required>
-                </div>
-                <div class="one_third">
-                  <label for="url">Website</label>
-                  <input type="url" name="url" id="url" value="" size="22">
-                </div>
-                <div class="block clear">
-                  <label for="comment">Your Comment</label>
-                  <textarea name="comment" id="comment" cols="25" rows="10"></textarea>
-                </div>
-                <div>
-                  <input type="submit" name="submit" value="Submit Form">
-                  &nbsp;
-                  <input type="reset" name="reset" value="Reset Form">
-                </div>
-              </form>
-            </div>
-            <!-- ################################################################################################ -->
-          </div>
-          <!-- ################################################################################################ -->
-          <!-- / main body -->
-          <div class="clear"></div>
-        </main>
-      </div>
-      <!-- ################################################################################################ -->
-      <!-- ################################################################################################ -->
-      <!-- ################################################################################################ -->
-      {% endblock content %}
+        <div class="p-3">
+          <h4 class="font-italic">Share this story</h4>
+          <ol class="list-unstyled">
+            <li><a href="#">Twitter</a></li>
+            <li><a href="#">WhatsApp</a></li>
+            <li><a href="#">Facebook</a></li>
+          </ol>
+        </div>
+      </aside><!-- /.blog-sidebar -->
+
+    </div><!-- /.row -->
+
+  </main><!-- /.container -->
+
+  <!-- ################################################################################################ -->
+  <!-- ################################################################################################ -->
+  <!-- ################################################################################################ -->
+  {% endblock content %}

@@ -10,12 +10,17 @@ from .models import Category, Post, SearchTerms, Tag
 
 class BlogListView(View):
     def get(self, *args, **kwargs):
+        for post in Post.objects.all():
+            if not post.thumbnail_image:
+                post.set_thumbnail()
         context = {
             'posts': Post.objects.filter(published=True).order_by('-published_date'),
             'tags': Tag.objects.all,
             'categories': Category.objects.all(),
-            'tags': Tag.objects.all()
+            'tags': Tag.objects.all(),
+            'featured': Post.objects.filter(published=True)[0]
         }
+
         return render(self.request, 'pages/list.html', context)
 
 

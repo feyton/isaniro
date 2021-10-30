@@ -13,22 +13,27 @@
             </div>
             <nav id="mainav" class="fl_right">
                 <ul class="clear">
-                    <li class="active"><a href="#">Ahabanza</a></li>
-                    <li><a class="drop" href="#">Blog</a>
+                    <li class="active"><a href="{% url 'home'%}">Ahabanza</a></li>
+                    <li><a class="drop" href="{%url 'blog' %}">Blog</a>
                         <ul>
-                            <li><a href="{%url 'blog' %}">Inkuru</a></li>
-                            <li><a href="#">Video</a></li>
+                            <li><a href="#">Ubuzima</a></li>
+                            <li><a href="#">Urukundo</a></li>
+                            <li><a href="#">Amafaranga</a></li>
+                            <li><a href="#">Inama</a></li>
                         </ul>
                     </li>
-                    <li><a class="drop" href="#">Services</a>
+                    <li><a class="drop" href="#">Serivisi</a>
                         <ul>
                             <li><a href="#">Ubwubatsi</a></li>
-                            <li><a>Gutegurirwa isoko</a></li>
-                            <li><a>Kugura ibikoresho byubwubatsi</a> </li>
+                            <li><a href="#coming" class="coming-soon">Gutegurirwa isoko</a></li>
 
+                            <li><a href="#coming" class="coming-soon">Kugura ibikoresho by'ubwubatsi</a> </li>
+                            <li><a href="#coming" class="coming-soon">Ubujyanama bwo kwandika</a> </li>
                         </ul>
                     </li>
-                    <li><a href="#">Ibitabo</a></li>
+                    <li><a href="#" class="coming-soon">Ibitabo</a></li>
+                    <li class="videos"><a href="#">Videos</a></li>
+                    <li class="search text-primary" id="search"><a href="#">Shakisha</a></li>
                 </ul>
             </nav>
             <!-- ################################################################################################ -->

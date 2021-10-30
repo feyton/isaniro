@@ -62,6 +62,9 @@ class Post(models.Model):
     thumbnail = models.ImageField(
         upload_to='blog', blank=True, null=True, default='/blog/default.jpg')
     visits = models.PositiveIntegerField(default=1)
+    # thumbnail_image = models.FilePathField(blank=True, null=True)
+    thumbnail_image = models.ImageField(
+        upload_to='blog/thumnails', blank=True, null=True, default='/blog/default_thumb.jpg')
 
     def __str__(self):
         return self.title
@@ -77,9 +80,21 @@ class Post(models.Model):
         if not self.summary and self.content:
             text = strip_tags(self.content)
             if len(text) > 200:
-                text = '%s ...' % text[:200]
+                text = '%s ...' % text[:150]
             self.summary = text
         super().save(*args, **kwargs)
+        self.set_thumbnail()
+
+    def set_thumbnail(self):
+        if self.thumbnail and not self.thumbnail_image:
+            self.thumbnail_image = self.thumbnail
+            from PIL import Image
+
+            img = Image.open(self.thumbnail_image.path)
+            if img.height > 250 or img.width > 200:
+                output_size = (250, 200)
+                img.thumbnail(output_size)
+                img.save(self.thumbnail_image.path)
 
 
 class Comment(models.Model):

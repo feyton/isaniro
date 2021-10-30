@@ -24,7 +24,7 @@
               <p class="font-x1 uppercase bold">Inkuru nshya buri munsi!!!</p>
               <footer>
                 <ul class="nospace inline pushright">
-                  <li><a class="btn" href="#">Soma Byinshi hano</a></li>
+                  <li><a class="btn" href="{% url 'blog' %}">Soma Byinshi hano</a></li>
                   <li><a class="btn inverse" href="#">Ibigezweho</a></li>
                 </ul>
               </footer>
@@ -39,7 +39,8 @@
                 <ul class="nospace inline pushright">
                   <li><a class="btn" target="_blank"
                       href="https://www.youtube.com/channel/UCDo3ISUi1Qve0VHwReHcgNA">Dusure</a></li>
-                  <li><a class="btn inverse" href="#">Subscribe</a></li>
+                  <li><a class="btn inverse" href="https://www.youtube.com/channel/UCDo3ISUi1Qve0VHwReHcgNA"
+                      target="_blank">Subscribe</a></li>
                 </ul>
               </footer>
             </article>
@@ -51,8 +52,8 @@
               <p class="font-x1 uppercase bold">Nibindi biracyaza</p>
               <footer>
                 <ul class="nospace inline pushright">
-                  <li><a class="btn" href="#">Soma ibitabo</a></li>
-                  <li><a class="btn inverse" href="#">Igitabo gikunzwe</a></li>
+                  <li><a class="btn coming-soon" href="#">Soma ibitabo</a></li>
+                  <li><a class="btn inverse coming-soon" href="#">Igitabo gikunzwe</a></li>
                 </ul>
               </footer>
             </article>
@@ -95,10 +96,6 @@
             </li>
           </ul>
         </div>
-        <div class="one_third"><a href="#"><img class="inspace-10 btmspace-15 borderedbox"
-              src="/static/images/demo/320x180.png" alt=""></a><br>
-          <a href="#"><img class="inspace-10 borderedbox" src="/static/images/demo/320x180.png" alt=""></a>
-        </div>
       </div>
       <!-- ################################################################################################ -->
       <!-- / main body -->
@@ -108,13 +105,13 @@
   <!-- ################################################################################################ -->
   <!-- ################################################################################################ -->
   <!-- ################################################################################################ -->
-  <div class="wrapper bgded overlay" style="background-image:url('/static/images/demo/backgrounds/03.png');">
+  <div class="wrapper bgded overlay" style="background-image:url('/static/images/demo/backgrounds/03.svg');">
     <div id="testimonial" class="hoc container clear">
       <!-- ################################################################################################ -->
       <blockquote>Gusoma inkuru zisangwa kurubuga Isaniro.com byamfashije guhindura uko niyumvaga
         kubuzima bwa buri munsi. Zaranyubatse ndetse na video zabo nzisangiza abandi.
       </blockquote>
-      <figure><img class="circle" src="/static/images/demo/60x60.png" alt="">
+      <figure><img class="circle" src="https://i.pravatar.cc/60" alt="">
         <figcaption><strong>H. Fabrice</strong><br>
           <em>CEO, Feyton Inc</em>
         </figcaption>
@@ -134,7 +131,11 @@
       <div class="group latest">
         {% for post in posts%}
         <article class="one_third">
-          <figure><a href="#"><img src="{{post.thumbnail.url}}" alt="" width="60px" height="60px"></a>
+          <figure><a href="{{post.get_absolute_url}}">
+
+              {% if post.thumbnail%}
+              <img src="{{post.thumbnail.url}}" alt="" width="60px" height="60px">
+              {% endif %}</a>
             <figcaption>
               <time datetime="2045-04-06T08:15+00:00"><strong>{{post.published_date|date:"d"}}</strong>
                 <em>{{post.published_date|date:"m"}}</em></time>
