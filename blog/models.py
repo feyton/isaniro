@@ -32,6 +32,20 @@ class Category(models.Model):
         return reverse('category-view', kwargs={'pk': self.pk, 'title': self.slug})
 
 
+class Author(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    bio = models.TextField(blank=True, null=True)
+    profile_picture = models.ImageField(
+        upload_to='blog/authors', blank=True, null=True)
+    facebook_page = models.CharField(max_length=30, blank=True, null=True)
+
+    def __str__(self):
+        return self.user.first_name
+
+    def first_name(self):
+        return self.user.first_name
+
+
 class Tag(models.Model):
     name = models.CharField(max_length=10)
 

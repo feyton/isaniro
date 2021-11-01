@@ -47,7 +47,7 @@ Isaniro| Blog
             <div class="card-body d-flex flex-column align-items-start">
                 <strong class="d-inline-block mb-2 text-primary capitalize">{{post.category|title}}</strong>
                 <h3 class="mb-0 capitalise">
-                    <a class="text-dark" href="{{post.get_absolute_url}}">{{post.title}}t</a>
+                    <a class="text-dark" href="{{post.get_absolute_url}}">{{post.title}}</a>
                 </h3>
                 <div class="mb-1 text-muted">{{post.published_date}}</div>
                 <p class="card-text mb-auto">{{post.summary|safe|truncatechars:100}}</p>
@@ -92,7 +92,7 @@ Isaniro| Blog
                         <time
                             datetime="2045-04-06T08:15+00:00"><strong>Yanditswe&nbsp;</strong>{{post.published_date}}</time>
                         <div class="comcont">
-                            <p>{{post.content|truncatechars:50}}</p>
+                            <p>{{post.summary|safe|truncatechars:50}}</p>
                         </div>
                     </div>
                 </div>

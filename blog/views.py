@@ -31,7 +31,6 @@ def post_view(request, pk, title):
     tags = Tag.objects.all()
     posts = Post.objects.filter(
         published=True, category=post.category).exclude(pk=pk)
-    print(post.pk)
     if request.method == 'POST':
         form = CommentForm(request.POST)
         context = {

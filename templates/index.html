@@ -162,7 +162,7 @@
             <li>by <a href="#">{{post.author.first_name}}</a></li>
             <li>in <a href="#">{{post.category.title}}</a></li>
           </ul>
-          <p>{{post.content|truncatechars:50}}&hellip;</p>
+          <p>{{post.summary|safe|truncatechars:50}}&hellip;</p>
           <footer><a href="{{post.get_absolute_url}}">Soma hano &raquo;</a></footer>
         </div>
       </article>

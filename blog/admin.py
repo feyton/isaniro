@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Category, Comment, Post, Service, Tag, SearchTerms
+from .models import Author, Category, Comment, Post, SearchTerms, Service, Tag
 
 
 @admin.register(Comment)
@@ -19,3 +19,4 @@ admin.site.register(Category)
 admin.site.register(Service)
 admin.site.register(Tag)
 admin.site.register(SearchTerms)
+admin.site.register(Author)

@@ -9,8 +9,8 @@ Isaniro| {{post.title}}
 {% endblock title %}
 
 {% block content %}
-<div>
-  <main role="main" class="container clear">
+<div class="bg-light mb-1">
+  <main role="main" class="container bg-light p-2">
     <div class="row">
       <div class="col-md-8 blog-main">
         <h3 class="pb-3 mb-4 font-italic border-bottom">
@@ -57,7 +57,10 @@ Isaniro| {{post.title}}
       <aside class="col-md-4 blog-sidebar">
         <div class="p-3 mb-3 bg-light rounded">
           <h4 class="font-italic">Umwanditsi</h4>
-          <p class="mb-0">{{post.author.first_name}}</p>
+          <h6 class="mb-0">{{post.author.first_name}}</h6>
+
+
+
         </div>
 
         <div class="p-3">
