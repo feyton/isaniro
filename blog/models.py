@@ -34,6 +34,7 @@ class Category(models.Model):
 
 class Author(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=50, blank=True, null=True)
     bio = models.TextField(blank=True, null=True)
     profile_picture = models.ImageField(
         upload_to='blog/authors', blank=True, null=True)
@@ -44,6 +45,11 @@ class Author(models.Model):
 
     def first_name(self):
         return self.user.first_name
+
+    def save(self, *args, **kwargs):
+        if not self.name and self.user:
+            self.name = self.user.get_full_name()
+        super().save(*args, **kwargs)
 
 
 class Tag(models.Model):
