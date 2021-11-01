@@ -16,10 +16,30 @@
         integrity="sha384-jLKHWM3JRmfMU0A5x5AkjWkw/EYfGUAGagvnfryNV3F9VqM98XiIH7VBGVoxVSc7" crossorigin="anonymous">
     <link href="/static/styles/layout.css" rel="stylesheet" type="text/css" media="all">
     <link rel="icon" href="/static/images/icon.jpg.png">
-</head>
-{% block style %}
+    {% block header %}
+    <meta name="description" property="og:description"
+        content="Soma inkuru zigufasha buri munsi ndetse unirebere video zigezweho kurubuga rwacu.">
+    <meta name="author" content="Bellarme">
+    <!-- Facebook tags -->
+    <meta property="og:url" content="https://isaniro.com" />
+    <meta property="og:title" content="Isaniro" />
+    <meta property="og:image" content="https://isaniro.com/static/images/banner.png" />
+    <meta property="og:image:alt" content="isaniro banner image" />
+    <!-- End of Facebook tags -->
 
-{% endblock style %}
+    <!-- Twitter tags -->
+    <meta name="twitter:image" content="https://isaniro.com/static/images/banner.png" />
+    <meta property="twitter:image:alt" content="isaniro banner image" />
+    <meta name="twitter:card"
+        content="Soma inkuru zigufasha buri munsi ndetse unirebere video zigezweho kurubuga rwacu." />
+    <meta name="twitter:site" content="@feytonf" />
+    {% endblock header %}
+
+    {% block style %}
+
+    {% endblock style %}
+</head>
+
 
 <body id='top'>
     <div class="wrapper row1">

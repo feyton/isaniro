@@ -8,6 +8,26 @@ Isaniro| {{post.title}}
 
 {% endblock title %}
 
+{% block header %}
+<meta name="description" property="og:description" content="{{post.summary|safe}}">
+<meta name="author" content="{{post.author.first_name}}">
+<!-- Facebook tags -->
+<meta property="og:url" content="{{request.build_absolute_uri}}" />
+<meta property="og:title" content="{{post.title}}" />
+<meta property="og:image" content="https://isaniro.com{{post.thumbnail.url}}" />
+<meta property="og:image:alt" content="{{post.title|truncatechars:30}}" />
+<!-- End of Facebook tags -->
+
+<!-- Twitter tags -->
+<meta name="twitter:image" content="https://isaniro.com{{post.thumbnail.url}}" />
+<meta property="twitter:image:alt" content="{{post.title|truncatechars:20}}" />
+<meta name="twitter:card" content="{{post.summary|safe|truncatechars:150}}" />
+<meta name="twitter:site" content="@feytonf" />
+
+<!-- End of twitter tags -->
+
+{% endblock header %}
+
 {% block content %}
 <div class="bg-light mb-1">
   <main role="main" class="container bg-light p-2">
