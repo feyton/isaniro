@@ -10,6 +10,17 @@ $(document).ready(function () {
       showCancelButton: true,
       confirmButtonText: "Shaka",
       showLoaderOnConfirm: true,
+      preConfirm: (login) => {
+        console.log(login);
+        if (login !== "") {
+          console.log("Searchable term");
+          var url = $("#search").data("url");
+          return (window.location.href = `${url}?q=${login}`);
+        } else {
+        }
+      },
+    }).catch((error) => {
+      Swal.showValidationMessage(`Andika ikintu ushakisha`);
     });
   }
   $(".search").click(function () {

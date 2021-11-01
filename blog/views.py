@@ -29,7 +29,9 @@ def post_view(request, pk, title):
     post = get_object_or_404(Post, pk=pk)
     categories = Category.objects.all()
     tags = Tag.objects.all()
-    posts = Post.objects.filter(published=True, category=post.category)
+    posts = Post.objects.filter(
+        published=True, category=post.category).exclude(pk=pk)
+    print(post.pk)
     if request.method == 'POST':
         form = CommentForm(request.POST)
         context = {
@@ -98,9 +100,9 @@ def search(request, *args, **kwargs):
     if query:
         queryset = query_set.filter(
             Q(title__icontains=query) | Q(content__icontains=query) | Q(tags__name__icontains=query) | Q(category__title__icontains=query) | Q(author__first_name__icontains=query)).distinct()
-    else:
-        messages.error(request, "Type a valid term")
-        return redirect('blog')
+    # else:
+    #     messages.error(request, "Type a valid term")
+    #     return redirect('blog')
     context = {
         'posts': queryset,
         'query': query,
@@ -113,7 +115,7 @@ def search(request, *args, **kwargs):
     else:
         term = SearchTerms(term=query)
         term.save()
-    return render(request, 'blog/search.html', context)
+    return render(request, 'pages/search.html', context)
 
 
 def register_hit(request, pk):

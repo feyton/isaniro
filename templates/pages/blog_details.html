@@ -19,12 +19,15 @@ Isaniro| {{post.title}}
         <img src="{{post.thumbnail.url}}" alt="">
 
         <div class="blog-post">
-          <h2 class="blog-post-title">{{post.title|title}}</h2>
+          <h2 class="blog-post-title capitalise">{{post.title}}</h2>
           <p class="blog-post-meta">{{post.published_date}} by <a href="#">{{post.author.first_name}}</a></p>
+          <div style="text-transform: none;">
+            {{post.content|safe}}
+          </div>
 
           <!-- Post Content Start -->
 
-          {{post.content|safe}}
+
           <!-- Blog post ending -->
         </div><!-- /.blog-post -->
         <br>
@@ -38,9 +41,11 @@ Isaniro| {{post.title}}
 
           {% endfor %}
           <h2 class="blog-post-title"><a href="{{post.get_absolute_url}}">{{post.title}}</a></h2>
-          <p class="blog-post-meta">{{post.published_date}} by <a href="#">{{post.author.first_name}}</a></p>
+          <p class="blog-post-meta">{{post.published_date}} by <a href="#author"
+              class="author">{{post.author.first_name}}</a>
+          </p>
 
-          <p>{{post.summary}}</p>
+          <p>{{post.summary|safe}}</p>
 
         </div><!-- /.blog-post -->
 
@@ -70,6 +75,9 @@ Isaniro| {{post.title}}
           <ol class="list-unstyled">
             <li>{% post_to_facebook object_or_url "Sangiza kuri Facebook"%}</li>
             <li>{% post_to_whatsapp object_or_url "Share via WhatsApp" %}</li>
+            <li>{% post_to_twitter "New from Isaniro: {{post.title}} Check it out!" object_or_url "Post to Twitter" %}
+            </li>
+
 
           </ol>
         </div>
