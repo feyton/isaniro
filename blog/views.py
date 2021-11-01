@@ -98,7 +98,7 @@ def search(request, *args, **kwargs):
     categories = Category.objects.all()
     if query:
         queryset = query_set.filter(
-            Q(title__icontains=query) | Q(content__icontains=query) | Q(tags__name__icontains=query) | Q(category__title__icontains=query) | Q(author__first_name__icontains=query)).distinct()
+            Q(title__icontains=query) | Q(content__icontains=query) | Q(tags__name__icontains=query) | Q(category__title__icontains=query) | Q(author__name__icontains=query)).distinct()
     # else:
     #     messages.error(request, "Type a valid term")
     #     return redirect('blog')

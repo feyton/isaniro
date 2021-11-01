@@ -56,7 +56,7 @@
                         <time
                             datetime="2045-04-06T08:15+00:00"><strong>Yanditswe&nbsp;</strong>{{post.published_date}}</time>
                         <div class="comcont">
-                            <p>{{post.content|truncatechars:50}}</p>
+                            <p>{{post.content|safe|truncatechars:50}}</p>
                         </div>
                     </div>
                 </div>
