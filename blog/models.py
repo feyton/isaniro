@@ -64,7 +64,7 @@ class Tag(models.Model):
 
 class Post(models.Model):
     author = models.ForeignKey(
-        User, blank=True, null=True, on_delete=models.SET_NULL, related_name='posts')
+        Author, blank=True, null=True, on_delete=models.SET_NULL, related_name='posts')
     title = models.CharField(max_length=255, blank=False, null=False)
     slug = AutoSlugField(_('slug'), populate_from='title',
                          unique=True, primary_key=False)
