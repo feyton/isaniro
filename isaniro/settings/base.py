@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     'books',
     'user',
     'index',
+    'django_social_share',
     # CK Editor
     'ckeditor',
     'ckeditor_uploader',

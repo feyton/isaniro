@@ -1,5 +1,29 @@
 {% extends "layout/base.html" %}
 
+
+{% block title %}
+Isaniro| Blog
+
+{% endblock title %}
+{% block style %}
+<style>
+    .thumbnail {
+        height: 250px !important;
+        width: 200px !important;
+    }
+
+    .bold {
+        font-weight: bold;
+    }
+
+    .thumb {
+        width: 150px;
+        height: 100px;
+    }
+</style>
+
+{% endblock style %}
+
 {% block content %}
 
 
@@ -8,7 +32,8 @@
     <div class="col-md-6 px-0">
         <h1 class="display-4 font-italic">{{featured.title|title}}</h1>
         <p class="lead my-3">{{featured.summary|safe}}</p>
-        <p class="lead mb-0"><a href="{{feature.get_absolute_url}}" class="text-white font-weight-bold">Komeza Usome</a>
+        <p class="lead mb-0"><a href="{{feature.get_absolute_url}}" class="text-primary font-weight-bold">Komeza
+                Usome</a>
         </p>
     </div>
 </div>
@@ -20,9 +45,9 @@
     <div class="col-md-6">
         <div class="card flex-md-row mb-4 box-shadow h-md-250">
             <div class="card-body d-flex flex-column align-items-start">
-                <strong class="d-inline-block mb-2 text-primary">{{post.category}}</strong>
+                <strong class="d-inline-block mb-2 text-primary capitalize">{{post.category|title}}</strong>
                 <h3 class="mb-0">
-                    <a class="text-dark" href="#">Featured post</a>
+                    <a class="text-dark" href="{{post.get_absolute_url}}">{{post.title|title}}t</a>
                 </h3>
                 <div class="mb-1 text-muted">{{post.published_date}}</div>
                 <p class="card-text mb-auto">{{post.summary|safe|truncatechars:100}}</p>
@@ -33,7 +58,7 @@
 
 
 
-            <img class="card-img-right flex-auto d-none d-md-block" src="{{post.thumbnail.url}}" width="200px"
+            <img class="card-img-right flex-auto d-none d-md-block thumbnail" src="{{post.thumbnail.url}}" width="200px"
                 height="250px" alt="{{post.title}} image">
             {% endif %}
         </div>
@@ -52,51 +77,29 @@
 
             <div id="comments">
                 <h2>Inkuru</h2>
-                <ul>
-                    {% for post in posts%}
-                    <li>
-                        <article>
-                            <header>
-                                <figure class="avatar"><img src="{{post.thumbnail.url}}" width="50px" height="50px"
-                                        alt="">
-                                </figure>
-                                <address><a href="{{post.get_absolute_url}}">
-                                        {{post.title}}</a>
-                                </address>
-                                <time datetime="2045-04-06T08:15+00:00">{{post.published_date}}0</time>
-                            </header>
-                            <div class="comcont">
-                                <p>{{post.content|truncatechars:50}}</p>
-                            </div>
-                        </article>
-                    </li>
-                    {% endfor%}
 
-                </ul>
-                <h2>Write A Comment</h2>
-                <form action="#" method="post">
-                    <div class="one_third first">
-                        <label for="name">Name <span>*</span></label>
-                        <input type="text" name="name" id="name" value="" size="22" required>
+                {% for post in posts%}
+                <div class="row mb-1">
+                    <div class="col-md-3">
+                        <figure><img src="{{post.thumbnail.url}}" class="thumb thumb-link" alt="">
+                        </figure>
+
                     </div>
-                    <div class="one_third">
-                        <label for="email">Mail <span>*</span></label>
-                        <input type="email" name="email" id="email" value="" size="22" required>
+                    <div class="col-md-9 pt-2">
+                        <address><a href="{{post.get_absolute_url}}">
+                                {{post.title}}</a>
+                        </address>
+                        <time
+                            datetime="2045-04-06T08:15+00:00"><strong>Yanditswe&nbsp;</strong>{{post.published_date}}</time>
+                        <div class="comcont">
+                            <p>{{post.content|truncatechars:50}}</p>
+                        </div>
                     </div>
-                    <div class="one_third">
-                        <label for="url">Website</label>
-                        <input type="url" name="url" id="url" value="" size="22">
-                    </div>
-                    <div class="block clear">
-                        <label for="comment">Your Comment</label>
-                        <textarea name="comment" id="comment" cols="25" rows="10"></textarea>
-                    </div>
-                    <div>
-                        <input type="submit" name="submit" value="Submit Form">
-                        &nbsp;
-                        <input type="reset" name="reset" value="Reset Form">
-                    </div>
-                </form>
+                </div>
+
+                {% endfor%}
+
+
             </div>
             <!-- ################################################################################################ -->
         </div>
@@ -107,59 +110,30 @@
             <h6>Izikunzwe</h6>
             <nav class="sdb_holder">
                 <ul>
-                    <li><a href="#">Navigation - Level 1</a></li>
-                    <li><a href="#">Navigation - Level 1</a>
-                        <ul>
-                            <li><a href="#">Navigation - Level 2</a></li>
-                            <li><a href="#">Navigation - Level 2</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#">Navigation - Level 1</a>
-                        <ul>
-                            <li><a href="#">Navigation - Level 2</a></li>
-                            <li><a href="#">Navigation - Level 2</a>
-                                <ul>
-                                    <li><a href="#">Navigation - Level 3</a></li>
-                                    <li><a href="#">Navigation - Level 3</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <li><a href="#">Navigation - Level 1</a></li>
+                    {% for post in posts %}
+
+
+                    <li><a href="{{post.get_absolute_url}}">{{post.title}}</a></li>
+                    {% endfor %}
+
                 </ul>
             </nav>
             <div class="sdb_holder">
-                <h6>Lorem ipsum dolor</h6>
-                <address>
-                    Full Name<br>
-                    Address Line 1<br>
-                    Address Line 2<br>
-                    Town/City<br>
-                    Postcode/Zip<br>
-                    <br>
-                    Tel: xxxx xxxx xxxxxx<br>
-                    Email: <a href="#">contact@domain.com</a>
-                </address>
+                <h6>Popular categories</h6>
+                <ul>
+                    {% for cat in categories %}
+                    <li class="text-secondary bold"><a href="{{cat.get_absolute_url}}"
+                            class="category-link">{{cat.title|title}}</a></li>
+                    {% endfor %}
+
+                </ul>
+
             </div>
-            <div class="sdb_holder">
-                <article>
-                    <h6>Lorem ipsum dolor</h6>
-                    <p>Nuncsed sed conseque a at quismodo tris mauristibus sed habiturpiscinia sed.</p>
-                    <ul>
-                        <li><a href="#">Lorem ipsum dolor sit</a></li>
-                        <li>Etiam vel sapien et</li>
-                        <li><a href="#">Etiam vel sapien et</a></li>
-                    </ul>
-                    <p>Nuncsed sed conseque a at quismodo tris mauristibus sed habiturpiscinia sed.
-                        Condimentumsantincidunt dui mattis magna intesque purus orci augue lor nibh.</p>
-                    <p class="more"><a href="#">Continue Reading &raquo;</a></p>
-                </article>
-            </div>
+
             <!-- ################################################################################################ -->
         </div>
         <!-- ################################################################################################ -->
-        <!-- / main body -->
-        <div class="clear"></div>
+
     </main>
 </div>
 

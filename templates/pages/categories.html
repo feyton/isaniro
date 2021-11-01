@@ -1,0 +1,97 @@
+{% extends "layout/base.html" %}
+{% load humanize %}
+
+{% block style %}
+<style>
+    .thumbnail {
+        height: 250px !important;
+        width: 200px !important;
+    }
+
+    .bold {
+        font-weight: bold;
+    }
+</style>
+
+{% endblock style %}
+
+{% block content %}
+
+
+
+<div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
+    <div class="col-md-6 px-0">
+        <h1 class="display-4 font-italic capitalize center">{{category.title}}</h1>
+
+
+    </div>
+</div>
+
+
+
+<div class="wrapper row3">
+    <main class="hoc container clear">
+        <!-- main body -->
+        <!-- ################################################################################################ -->
+        <div class="content three_quarter first">
+
+            <div id="comments">
+
+                <ul>
+                    {% for post in posts%}
+                    <li>
+                        <article>
+                            <header>
+                                <figure><img src="{{post.thumbnail.url}}" class="thumbnail" alt="">
+                                </figure>
+                                <address><a href="{{post.get_absolute_url}}">
+                                        {{post.title}}</a>
+                                </address>
+                                <time datetime="2045-04-06T08:15+00:00">{{post.published_date}}</time>
+                            </header>
+                            <div class="comcont">
+                                <p>{{post.content|truncatechars:50}}</p>
+                            </div>
+                        </article>
+                    </li>
+                    {% endfor%}
+
+                </ul>
+            </div>
+            <!-- ################################################################################################ -->
+        </div>
+        <!-- ################################################################################################ -->
+        <!-- ################################################################################################ -->
+        <div class="sidebar one_quarter">
+            <!-- ################################################################################################ -->
+            <h6>Izikunzwe</h6>
+            <nav class="sdb_holder">
+                <ul>
+                    {% for post in all_posts %}
+
+
+                    <li><a href="{{post.get_absolute_url}}">{{post.title}}</a></li>
+                    {% endfor %}
+
+                </ul>
+            </nav>
+            <div class="sdb_holder">
+                <h6>Popular categories</h6>
+                <ul>
+                    {% for cat in categories %}
+                    <li class="text-secondary bold"><a href="{{cat.get_absolute_url}}"
+                            class="category-link">{{cat.title}}</a></li>
+                    {% endfor %}
+
+                </ul>
+
+            </div>
+
+            <!-- ################################################################################################ -->
+        </div>
+        <!-- ################################################################################################ -->
+
+    </main>
+</div>
+
+{% endblock content %}

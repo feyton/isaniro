@@ -1,166 +1,174 @@
 {% extends 'layout/base.html' %}
 {% load static%}
 
-<!DOCTYPE html>
 
-<html>
-{% include "layout/head.html"%}
+{% block style %}
+<style>
+  .thumbnail {
+    height: 250px !important;
+    width: 200px !important;
+  }
 
-<body id="top">
-  {% block content %}
+  .bold {
+    font-weight: bold;
+  }
+
+  .thumb {
+    width: 150px;
+    height: 100px;
+  }
+</style>
+
+{% endblock style %}
+
+
+{% block content %}
 
 
 
 
-  <div class="bgded" style="background-image:url('/static/images/banner.svg');">
-    <div id="pageintro" class="hoc clear">
-      <!-- ################################################################################################ -->
-      <div class="flexslider basicslider">
-        <ul class="slides">
-          <li>
-            <article>
-              <h3 class="heading"></h3>
-              <p>Inkuru zigufasha kubaho ubuzima bwuzuye kandi wishimiye</p>
-              <p class="font-x1 uppercase bold">Inkuru nshya buri munsi!!!</p>
-              <footer>
-                <ul class="nospace inline pushright">
-                  <li><a class="btn" href="{% url 'blog' %}">Soma Byinshi hano</a></li>
-                  <li><a class="btn inverse" href="#">Ibigezweho</a></li>
-                </ul>
-              </footer>
+<div class="bgded" style="background-image:url('/static/images/banner.svg');">
+  <div id="pageintro" class="hoc clear">
+    <!-- ################################################################################################ -->
+    <div class="flexslider basicslider">
+      <ul class="slides">
+        <li>
+          <article>
+            <h3 class="heading">Inkuru zitandukanye</h3>
+            <p>Inkuru zigufasha kubaho ubuzima bwuzuye kandi wishimiye</p>
+            <p class="font-x1 uppercase bold">Inkuru nshya buri munsi!!!</p>
+            <footer>
+              <ul class="nospace inline pushright">
+                <li><a class="btn" href="{% url 'blog' %}">Soma Byinshi hano</a></li>
+                <li><a class="btn inverse" href="{% url 'blog'%}">Ibigezweho</a></li>
+              </ul>
+            </footer>
+          </article>
+        </li>
+        <li>
+          <article>
+            <h3 class="heading">Video</h3>
+            <p>Kurikira video zacu kuri Youtube aho ubona inkuru zirenga 100 zikubereye.</p>
+            <p class="font-x1 uppercase bold">Ni Isaniro TV</p>
+            <footer>
+              <ul class="nospace inline pushright">
+                <li><a class="btn" target="_blank"
+                    href="https://www.youtube.com/channel/UCDo3ISUi1Qve0VHwReHcgNA">Dusure</a></li>
+                <li><a class="btn inverse" href="https://www.youtube.com/channel/UCDo3ISUi1Qve0VHwReHcgNA"
+                    target="_blank">Subscribe</a></li>
+              </ul>
+            </footer>
+          </article>
+        </li>
+        <li>
+          <article>
+            <h3 class="heading">Ukunda gusoma</h3>
+            <p>Si inkuru gusa, tugufitiye nibitabo byagufasha mubuzima bwawe bwa buri munsi.</p>
+            <p class="font-x1 uppercase bold">Nibindi biracyaza</p>
+            <footer>
+              <ul class="nospace inline pushright">
+                <li><a class="btn coming-soon" href="#">Soma ibitabo</a></li>
+                <li><a class="btn inverse coming-soon" href="#">Igitabo gikunzwe</a></li>
+              </ul>
+            </footer>
+          </article>
+        </li>
+      </ul>
+    </div>
+    <!-- ################################################################################################ -->
+  </div>
+</div>
+
+
+<div class="wrapper row3">
+  <main class="hoc container clear center">
+    <!-- main body -->
+    <!-- ################################################################################################ -->
+    <div class="sectiontitle center">
+      <h6 class="heading">Ibikorwa byacu bya vuba</h6>
+      <p>Twagize uruhare mw'iterambere rya benshi binyuze mubikorwa byacu.</p>
+    </div>
+    <div class="clear">
+      <div class="two_third first">
+        <ul class="nospace group">
+          <li class="one_third first">
+            <article><a href="#"><i class="icon btmspace-30 fa fa-joomla"></i></a>
+              <h6 class="heading font-x1">Inkuru</h6>
+              <p>Inkuru nshya ni buri munsi&hellip;</p>
             </article>
           </li>
-          <li>
-            <article>
-              <h3 class="heading">Utabasha gusoma</h3>
-              <p>Kurikira video zacu kuri Youtube aho ubona inkuru zirenga 100 zikubereye.</p>
-              <p class="font-x1 uppercase bold">Ni Isaniro TV</p>
-              <footer>
-                <ul class="nospace inline pushright">
-                  <li><a class="btn" target="_blank"
-                      href="https://www.youtube.com/channel/UCDo3ISUi1Qve0VHwReHcgNA">Dusure</a></li>
-                  <li><a class="btn inverse" href="https://www.youtube.com/channel/UCDo3ISUi1Qve0VHwReHcgNA"
-                      target="_blank">Subscribe</a></li>
-                </ul>
-              </footer>
+          <li class="one_third">
+            <article><a href="#"><i class="icon btmspace-30 fa fa-braille"></i></a>
+              <h6 class="heading font-x1">Video</h6>
+              <p>Kuri YouTube dusohora video gatatu mucyumweru&hellip;</p>
             </article>
           </li>
-          <li>
-            <article>
-              <h3 class="heading">Ukunda gusoma</h3>
-              <p>Si inkuru gusa, tugufitiye nibitabo byagufasha mubuzima bwawe bwa buri munsi.</p>
-              <p class="font-x1 uppercase bold">Nibindi biracyaza</p>
-              <footer>
-                <ul class="nospace inline pushright">
-                  <li><a class="btn coming-soon" href="#">Soma ibitabo</a></li>
-                  <li><a class="btn inverse coming-soon" href="#">Igitabo gikunzwe</a></li>
-                </ul>
-              </footer>
+          <li class="one_third">
+            <article><a href="#"><i class="icon btmspace-30 fa fa-modx"></i></a>
+              <h6 class="heading font-x1">Ibitabo</h6>
+              <p>Twandika ibitabo byiza kandi kugiciro gito&hellip;</p>
             </article>
           </li>
         </ul>
       </div>
-      <!-- ################################################################################################ -->
     </div>
+    <!-- ################################################################################################ -->
+    <!-- / main body -->
+    <div class="clear"></div>
+  </main>
+</div>
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<div class="wrapper bgded overlay" style="background-image:url('/static/images/demo/backgrounds/03.svg');">
+  <div id="testimonial" class="hoc container clear">
+    <!-- ################################################################################################ -->
+    <blockquote>Gusoma inkuru zisangwa kurubuga Isaniro.com byamfashije guhindura uko niyumvaga
+      kubuzima bwa buri munsi. Zaranyubatse ndetse na video zabo nzisangiza abandi.
+    </blockquote>
+    <figure><img class="circle" src="https://i.pravatar.cc/60" alt="">
+      <figcaption><strong>H. Fabrice</strong><br>
+        <em>CEO, Feyton Inc</em>
+      </figcaption>
+    </figure>
+    <!-- ################################################################################################ -->
   </div>
+</div>
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<!-- ################################################################################################ -->
+<div class="wrapper row3">
+  <section class="hoc container clear">
+    <!-- ################################################################################################ -->
+    <h6 class="heading">Inkuru ziheruka</h6>
+    <hr>
 
+    <div class="group latest">
+      {% for post in posts%}
+      <article class="one_third">
+        <figure><a href="{{post.get_absolute_url}}">
 
-  <div class="wrapper row3">
-    <main class="hoc container clear">
-      <!-- main body -->
-      <!-- ################################################################################################ -->
-      <div class="sectiontitle center">
-        <h6 class="heading">Ibikorwa byacu bya vuba</h6>
-        <p>Twagize uruhare mw'iterambere rya benshi binyuze mubikorwa byacu.</p>
-      </div>
-      <div class="clear">
-        <div class="two_third first">
-          <ul class="nospace group">
-            <li class="one_third first">
-              <article><a href="#"><i class="icon btmspace-30 fa fa-joomla"></i></a>
-                <h6 class="heading font-x1">Inkuru</h6>
-                <p>Inkuru nshya ni buri munsi&hellip;</p>
-              </article>
-            </li>
-            <li class="one_third">
-              <article><a href="#"><i class="icon btmspace-30 fa fa-braille"></i></a>
-                <h6 class="heading font-x1">Video</h6>
-                <p>Kuri YouTube dusohora video gatatu mucyumweru&hellip;</p>
-              </article>
-            </li>
-            <li class="one_third">
-              <article><a href="#"><i class="icon btmspace-30 fa fa-modx"></i></a>
-                <h6 class="heading font-x1">Ibitabo</h6>
-                <p>Twandika ibitabo byiza kandi kugiciro gito&hellip;</p>
-              </article>
-            </li>
+            {% if post.thumbnail%}
+            <img src="{{post.thumbnail.url}}" alt="" class="thumbnail">
+            {% endif %}</a>
+          <figcaption>
+            <time datetime="2045-04-06T08:15+00:00"><strong>{{post.published_date|date:"d"}}</strong>
+              <em>{{post.published_date|date:"m"}}</em></time>
+          </figcaption>
+        </figure>
+        <div class="txtwrap">
+          <h4 class="heading">{{post.title|truncatechars:20}}</h4>
+          <ul class="nospace meta">
+            <li>by <a href="#">{{post.author.first_name}}</a></li>
+            <li>in <a href="#">{{post.category.title}}</a></li>
           </ul>
+          <p>{{post.content|truncatechars:50}}&hellip;</p>
+          <footer><a href="{{post.get_absolute_url}}">Soma hano &raquo;</a></footer>
         </div>
-      </div>
-      <!-- ################################################################################################ -->
-      <!-- / main body -->
-      <div class="clear"></div>
-    </main>
-  </div>
-  <!-- ################################################################################################ -->
-  <!-- ################################################################################################ -->
-  <!-- ################################################################################################ -->
-  <div class="wrapper bgded overlay" style="background-image:url('/static/images/demo/backgrounds/03.svg');">
-    <div id="testimonial" class="hoc container clear">
-      <!-- ################################################################################################ -->
-      <blockquote>Gusoma inkuru zisangwa kurubuga Isaniro.com byamfashije guhindura uko niyumvaga
-        kubuzima bwa buri munsi. Zaranyubatse ndetse na video zabo nzisangiza abandi.
-      </blockquote>
-      <figure><img class="circle" src="https://i.pravatar.cc/60" alt="">
-        <figcaption><strong>H. Fabrice</strong><br>
-          <em>CEO, Feyton Inc</em>
-        </figcaption>
-      </figure>
-      <!-- ################################################################################################ -->
+      </article>
+      {% endfor%}
     </div>
-  </div>
-  <!-- ################################################################################################ -->
-  <!-- ################################################################################################ -->
-  <!-- ################################################################################################ -->
-  <div class="wrapper row3">
-    <section class="hoc container clear">
-      <!-- ################################################################################################ -->
-      <h6 class="heading">Inkuru ziheruka</h6>
-      <hr>
-
-      <div class="group latest">
-        {% for post in posts%}
-        <article class="one_third">
-          <figure><a href="{{post.get_absolute_url}}">
-
-              {% if post.thumbnail%}
-              <img src="{{post.thumbnail.url}}" alt="" width="60px" height="60px">
-              {% endif %}</a>
-            <figcaption>
-              <time datetime="2045-04-06T08:15+00:00"><strong>{{post.published_date|date:"d"}}</strong>
-                <em>{{post.published_date|date:"m"}}</em></time>
-            </figcaption>
-          </figure>
-          <div class="txtwrap">
-            <h4 class="heading">{{post.title|truncatechars:20}}</h4>
-            <ul class="nospace meta">
-              <li>by <a href="#">{{post.author.first_name}}</a></li>
-              <li>in <a href="#">Category</a></li>
-            </ul>
-            <p>{{post.content|truncatechars:50}}&hellip;</p>
-            <footer><a href="{{post.get_absolute_url}}">Soma hano &raquo;</a></footer>
-          </div>
-        </article>
-        {% endfor%}
-      </div>
-      <!-- ################################################################################################ -->
-    </section>
-  </div>
-  {% endblock content %}
-  <!-- ################################################################################################ -->
-  <!-- ################################################################################################ -->
-  <!-- ################################################################################################ -->
-
-</body>
-
-</html>
+    <!-- ################################################################################################ -->
+  </section>
+</div>
+{% endblock content %}

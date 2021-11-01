@@ -1,6 +1,12 @@
 {% extends 'layout/base.html' %}
 {% load static %}
 {% load humanize%}
+{% load social_share %}
+
+{% block title %}
+Isaniro| {{post.title}}
+
+{% endblock title %}
 
 {% block content %}
 <div>
@@ -10,10 +16,11 @@
         <h3 class="pb-3 mb-4 font-italic border-bottom">
           {{post.category}}
         </h3>
+        <img src="{{post.thumbnail.url}}" alt="">
 
         <div class="blog-post">
           <h2 class="blog-post-title">{{post.title|title}}</h2>
-          <p class="blog-post-meta">January 1, 2014 by <a href="#">{{post.author.first_name}}</a></p>
+          <p class="blog-post-meta">{{post.published_date}} by <a href="#">{{post.author.first_name}}</a></p>
 
           <!-- Post Content Start -->
 
@@ -23,49 +30,47 @@
         <br>
         <hr>
         <!-- Recommended posts -->
-        <div class="blog-post">
-          <h2 class="blog-post-title">Another blog post</h2>
-          <p class="blog-post-meta">December 23, 2013 by <a href="#">Jacob</a></p>
 
-          <p>Cum sociis natoque penatibus et magnis <a href="#">dis parturient montes</a>, nascetur ridiculus mus.
-            Aenean
-            eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at
-            lobortis. Cras mattis consectetur purus sit amet fermentum.</p>
+        <h5>Izindi nkuru wasoma</h5>
+        <br>
+        <div class="blog-post">
+          {% for post in posts %}
+
+          {% endfor %}
+          <h2 class="blog-post-title"><a href="{{post.get_absolute_url}}">{{post.title}}</a></h2>
+          <p class="blog-post-meta">{{post.published_date}} by <a href="#">{{post.author.first_name}}</a></p>
+
+          <p>{{post.summary}}</p>
 
         </div><!-- /.blog-post -->
 
 
 
-        <nav class="blog-pagination">
-          <a class="btn btn-outline-primary" href="#">Older</a>
-          <a class="btn btn-outline-secondary disabled" href="#">Newer</a>
-        </nav>
 
       </div><!-- /.blog-main -->
 
       <aside class="col-md-4 blog-sidebar">
         <div class="p-3 mb-3 bg-light rounded">
           <h4 class="font-italic">Umwanditsi</h4>
-          <p class="mb-0">Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit
-            amet
-            fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
+          <p class="mb-0">{{post.author.first_name}}</p>
         </div>
 
         <div class="p-3">
-          <h4 class="font-italic">Categories</h4>
+          <h4 class="font-italic">Ibyiciro</h4>
           <ol class="list-unstyled mb-0">
-            <li><a href="#">Ubuzima</a></li>
-            <li><a href="#">Ubukungu</a></li>
-            <li><a href="#">January 2014</a></li>
+            {% for cat in categories %}
+
+            <li class="text-secondary bold"><a href="{{cat.get_absolute_url}}">{{cat.title|title}}</a></li>
+            {% endfor %}
           </ol>
         </div>
 
         <div class="p-3">
           <h4 class="font-italic">Share this story</h4>
           <ol class="list-unstyled">
-            <li><a href="#">Twitter</a></li>
-            <li><a href="#">WhatsApp</a></li>
-            <li><a href="#">Facebook</a></li>
+            <li>{% post_to_facebook object_or_url "Sangiza kuri Facebook"%}</li>
+            <li>{% post_to_whatsapp object_or_url "Share via WhatsApp" %}</li>
+
           </ol>
         </div>
       </aside><!-- /.blog-sidebar -->
