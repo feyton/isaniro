@@ -16,7 +16,7 @@ class BlogListView(View):
             'tags': Tag.objects.all,
             'categories': Category.objects.all(),
             'tags': Tag.objects.all(),
-            'featured': Post.objects.filter(published=True)[0]
+            'featured': Post.objects.filter(published=True).order_by("-published_date")[0]
         }
 
         return render(self.request, 'pages/list.html', context)

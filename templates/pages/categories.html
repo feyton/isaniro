@@ -50,7 +50,7 @@
                                 <time datetime="2045-04-06T08:15+00:00">{{post.published_date}}</time>
                             </header>
                             <div class="comcont">
-                                <p>{{post.content|truncatechars:50}}</p>
+                                <p>{{post.summary|safe|truncatechars:50}}</p>
                             </div>
                         </article>
                     </li>
