@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'hitcount'
 ]
 
 MIDDLEWARE = [
@@ -138,3 +139,7 @@ MESSAGE_TAGS = {
 }
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+# HITCOUNT_EXCLUDE_USER_GROUP = ( 'Editor', )
+HITCOUNT_HITS_PER_IP_LIMIT = 0
+HITCOUNT_KEEP_HIT_ACTIVE = {'minutes': 1}

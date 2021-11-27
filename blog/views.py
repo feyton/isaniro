@@ -19,7 +19,7 @@ class BlogListView(View):
             'featured': Post.objects.filter(published=True).order_by("-published_date")[0]
         }
 
-        return render(self.request, 'pages/list.html', context)
+        return render(self.request, 'blog.html', context)
 
 
 list_view = BlogListView.as_view()
@@ -48,7 +48,7 @@ def post_view(request, pk, title):
             messages.success(request, 'Thank you for the comment')
             return render(request, 'blog/detail.html', context)
         messages.error(request, 'Error in form')
-        return render(request, 'blog/detail.html', context)
+        return render(request, 'detail.html', context)
 
     context = {
         'form': CommentForm(),
@@ -58,11 +58,15 @@ def post_view(request, pk, title):
         'posts': posts
     }
 
-    return render(request, 'pages/blog_details.html', context)
+    return render(request, 'detail.html', context)
+
+
+def add_comment(request, data):
+    pass
 
 
 class DetailView(DetailView):
-    template_name = 'pages/blog_details.html'
+    template_name = 'details.html'
     model = Post
     context_object_name = 'post'
 
@@ -115,17 +119,3 @@ def search(request, *args, **kwargs):
         term = SearchTerms(term=query)
         term.save()
     return render(request, 'pages/search.html', context)
-
-
-def register_hit(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    session = request.session
-
-    if post:
-        post.visits += 1
-        post.save()
-
-        data = {
-            'hits': post.visits
-        }
-        return JsonResponse(data)

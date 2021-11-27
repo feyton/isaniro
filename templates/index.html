@@ -1,174 +1,285 @@
 {% extends 'layout/base.html' %}
-{% load static%}
-
-
-{% block style %}
-<style>
-  .thumbnail {
-    height: 250px !important;
-    width: 200px !important;
-  }
-
-  .bold {
-    font-weight: bold;
-  }
-
-  .thumb {
-    width: 150px;
-    height: 100px;
-  }
-</style>
-
-{% endblock style %}
-
-
+{% load static %}
 {% block content %}
 
 
+<main>
 
+    <!------------------------ Site Title ---------------------->
 
-<div class="bgded" style="background-image:url('/static/images/banner.svg');">
-  <div id="pageintro" class="hoc clear">
-    <!-- ################################################################################################ -->
-    <div class="flexslider basicslider">
-      <ul class="slides">
-        <li>
-          <article>
-            <h3 class="heading">Inkuru zitandukanye</h3>
-            <p>Inkuru zigufasha kubaho ubuzima bwuzuye kandi wishimiye</p>
-            <p class="font-x1 uppercase bold">Inkuru nshya buri munsi!!!</p>
-            <footer>
-              <ul class="nospace inline pushright">
-                <li><a class="btn" href="{% url 'blog' %}">Soma Byinshi hano</a></li>
-                <li><a class="btn inverse" href="{% url 'blog'%}">Ibigezweho</a></li>
-              </ul>
-            </footer>
-          </article>
-        </li>
-        <li>
-          <article>
-            <h3 class="heading">Video</h3>
-            <p>Kurikira video zacu kuri Youtube aho ubona inkuru zirenga 100 zikubereye.</p>
-            <p class="font-x1 uppercase bold">Ni Isaniro TV</p>
-            <footer>
-              <ul class="nospace inline pushright">
-                <li><a class="btn" target="_blank"
-                    href="https://www.youtube.com/channel/UCDo3ISUi1Qve0VHwReHcgNA">Dusure</a></li>
-                <li><a class="btn inverse" href="https://www.youtube.com/channel/UCDo3ISUi1Qve0VHwReHcgNA"
-                    target="_blank">Subscribe</a></li>
-              </ul>
-            </footer>
-          </article>
-        </li>
-        <li>
-          <article>
-            <h3 class="heading">Ukunda gusoma</h3>
-            <p>Si inkuru gusa, tugufitiye nibitabo byagufasha mubuzima bwawe bwa buri munsi.</p>
-            <p class="font-x1 uppercase bold">Nibindi biracyaza</p>
-            <footer>
-              <ul class="nospace inline pushright">
-                <li><a class="btn coming-soon" href="#">Soma ibitabo</a></li>
-                <li><a class="btn inverse coming-soon" href="#">Igitabo gikunzwe</a></li>
-              </ul>
-            </footer>
-          </article>
-        </li>
-      </ul>
-    </div>
-    <!-- ################################################################################################ -->
-  </div>
-</div>
-
-
-<div class="wrapper row3">
-  <main class="hoc container clear center">
-    <!-- main body -->
-    <!-- ################################################################################################ -->
-    <div class="sectiontitle center">
-      <h6 class="heading">Ibikorwa byacu bya vuba</h6>
-      <p>Twagize uruhare mw'iterambere rya benshi binyuze mubikorwa byacu.</p>
-    </div>
-    <div class="clear">
-      <div class="two_third first">
-        <ul class="nospace group">
-          <li class="one_third first">
-            <article><a href="#"><i class="icon btmspace-30 fa fa-joomla"></i></a>
-              <h6 class="heading font-x1">Inkuru</h6>
-              <p>Inkuru nshya ni buri munsi&hellip;</p>
-            </article>
-          </li>
-          <li class="one_third">
-            <article><a href="#"><i class="icon btmspace-30 fa fa-braille"></i></a>
-              <h6 class="heading font-x1">Video</h6>
-              <p>Kuri YouTube dusohora video gatatu mucyumweru&hellip;</p>
-            </article>
-          </li>
-          <li class="one_third">
-            <article><a href="#"><i class="icon btmspace-30 fa fa-modx"></i></a>
-              <h6 class="heading font-x1">Ibitabo</h6>
-              <p>Twandika ibitabo byiza kandi kugiciro gito&hellip;</p>
-            </article>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <!-- ################################################################################################ -->
-    <!-- / main body -->
-    <div class="clear"></div>
-  </main>
-</div>
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<div class="wrapper bgded overlay" style="background-image:url('/static/images/demo/backgrounds/03.svg');">
-  <div id="testimonial" class="hoc container clear">
-    <!-- ################################################################################################ -->
-    <blockquote>Gusoma inkuru zisangwa kurubuga Isaniro.com byamfashije guhindura uko niyumvaga
-      kubuzima bwa buri munsi. Zaranyubatse ndetse na video zabo nzisangiza abandi.
-    </blockquote>
-    <figure><img class="circle" src="https://i.pravatar.cc/60" alt="">
-      <figcaption><strong>H. Fabrice</strong><br>
-        <em>CEO, Feyton Inc</em>
-      </figcaption>
-    </figure>
-    <!-- ################################################################################################ -->
-  </div>
-</div>
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<div class="wrapper row3">
-  <section class="hoc container clear">
-    <!-- ################################################################################################ -->
-    <h6 class="heading">Inkuru ziheruka</h6>
-    <hr>
-
-    <div class="group latest">
-      {% for post in posts%}
-      <article class="one_third">
-        <figure><a href="{{post.get_absolute_url}}">
-
-            {% if post.thumbnail%}
-            <img src="{{post.thumbnail.url}}" alt="" class="thumbnail">
-            {% endif %}</a>
-          <figcaption>
-            <time datetime="2045-04-06T08:15+00:00"><strong>{{post.published_date|date:"d"}}</strong>
-              <em>{{post.published_date|date:"m"}}</em></time>
-          </figcaption>
-        </figure>
-        <div class="txtwrap">
-          <h4 class="heading">{{post.title|truncatechars:20}}</h4>
-          <ul class="nospace meta">
-            <li>by <a href="#">{{post.author.first_name}}</a></li>
-            <li>in <a href="#">{{post.category.title}}</a></li>
-          </ul>
-          <p>{{post.summary|safe|truncatechars:50}}&hellip;</p>
-          <footer><a href="{{post.get_absolute_url}}">Soma hano &raquo;</a></footer>
+    <section class="site-title">
+        <div class="site-background" data-aos="fade-up" data-aos-delay="100">
+            <h3>Inkuru na Video</h3>
+            <h1>Zigufasha kubaho ubuzima bwiza</h1>
+            <button class="btn get-started">Tangirira Hano</button>
         </div>
-      </article>
-      {% endfor%}
-    </div>
-    <!-- ################################################################################################ -->
-  </section>
-</div>
+    </section>
+
+    <!------------x----------- Site Title ----------x----------->
+
+    <!-- --------------------- Blog Carousel ----------------- -->
+
+    <section>
+        <div class="blog" id="blog-posts">
+            <div class="container">
+                <div class="owl-carousel owl-theme blog-post">
+                    {% for post in posts %}
+
+
+                    <!-- Blog Post -->
+                    <div class="blog-content" data-aos="fade-right" data-aos-delay="200">
+                        <img src="{{post.thumbnail.url}}" alt="post-1" class="image-contain">
+                        <div class="blog-title">
+                            <h3>{{post.title}}</h3>
+                            <button class="btn btn-blog post-link" data-url="{{post.get_absolute_url}}">Read</button>
+                            <span>2 Views</span>
+                        </div>
+                    </div>
+
+                    <!-- End post -->
+                    {% endfor %}
+                    <div class="blog-content" data-aos="fade-in" data-aos-delay="200">
+                        <img src="/static/assets/Blog-post/post-3.jpg" alt="post-1">
+                        <div class="blog-title">
+                            <h3>London Fashion week's continued the evolution</h3>
+                            <a class="btn btn-blog" href="detail.html">Fashion</a>
+                            <span>2 minutes</span>
+                        </div>
+                    </div>
+                    <div class="blog-content" data-aos="fade-left" data-aos-delay="200">
+                        <img src="/static/assets/Blog-post/post-2.jpg" alt="post-1">
+                        <div class="blog-title">
+                            <h3>London Fashion week's continued the evolution</h3>
+                            <a class="btn btn-blog" href="detail.html">Fashion</a>
+                            <span>2 minutes</span>
+                        </div>
+                    </div>
+                    <div class="blog-content" data-aos="fade-right" data-aos-delay="200">
+                        <img src="/static/assets/Blog-post/post-5.png" alt="post-1">
+                        <div class="blog-title">
+                            <h3>London Fashion week's continued the evolution</h3>
+                            <a class="btn btn-blog" href="detail.html">Fashion</a>
+                            <span>2 minutes</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="owl-navigation">
+                    <span class="owl-nav-prev"><i class="fas fa-long-arrow-alt-left"></i></span>
+                    <span class="owl-nav-next"><i class="fas fa-long-arrow-alt-right"></i></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ----------x---------- Blog Carousel --------x-------- -->
+
+    <!-- ---------------------- Site Content -------------------------->
+
+    <section class="container">
+        <div class="site-content">
+            <div class="posts">
+                {% for post in posts %}
+                <div class="post-content" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="post-image">
+                        <div>
+                            <img src="./assets/Blog-post/blog1.png" class="img" alt="blog1">
+                        </div>
+                        <div class="post-info flex-row">
+                            <span><i class="fas fa-user text-gray"></i>&nbsp;&nbsp;Admin</span>
+                            <span><i class="fas fa-calendar-alt text-gray"></i>&nbsp;&nbsp;January 14, 2019</span>
+                            <span>2 Commets</span>
+                        </div>
+                    </div>
+                    <div class="post-title">
+                        <a href="#">{{post.title}}</a>
+                        <p>{{post.summary|safe}}
+                        </p>
+                        <button class="btn post-btn post-link" data-url="{{post.get_absolute_url}}">Read More &nbsp; <i
+                                class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+                <hr>
+                {% endfor %}
+
+                <div class="post-content" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="post-image">
+                        <div>
+                            <img src="./assets/Blog-post/blog2.png" class="img" alt="blog1">
+                        </div>
+                        <div class="post-info flex-row">
+                            <span><i class="fas fa-user text-gray"></i>&nbsp;&nbsp;Admin</span>
+                            <span><i class="fas fa-calendar-alt text-gray"></i>&nbsp;&nbsp;January 16, 2019</span>
+                            <span>7 Commets</span>
+                        </div>
+                    </div>
+                    <div class="post-title">
+                        <a href="#">Why should boys have all the fun? it's the women who are making india an
+                            alcohol-loving contry</a>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque voluptas deserunt beatae
+                            adipisci iusto totam placeat corrupti ipsum, tempora magnam incidunt aperiam tenetur a
+                            nobis, voluptate, numquam architecto fugit. Eligendi quidem ipsam ducimus minus magni
+                            illum similique veniam tempore unde?
+                        </p>
+                        <button class="btn post-btn">Read More &nbsp; <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+                <hr>
+                <div class="post-content" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="post-image">
+                        <div>
+                            <img src="./assets/Blog-post/blog3.png" class="img" alt="blog1">
+                        </div>
+                        <div class="post-info flex-row">
+                            <span><i class="fas fa-user text-gray"></i>&nbsp;&nbsp;Admin</span>
+                            <span><i class="fas fa-calendar-alt text-gray"></i>&nbsp;&nbsp;January 19, 2019</span>
+                            <span>5 Commets</span>
+                        </div>
+                    </div>
+                    <div class="post-title">
+                        <a href="#">New data recording system to better analyse road accidents</a>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque voluptas deserunt beatae
+                            adipisci iusto totam placeat corrupti ipsum, tempora magnam incidunt aperiam tenetur a
+                            nobis, voluptate, numquam architecto fugit. Eligendi quidem ipsam ducimus minus magni
+                            illum similique veniam tempore unde?
+                        </p>
+                        <button class="btn post-btn">Read More &nbsp; <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+                <hr>
+                <div class="post-content" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="post-image">
+                        <div>
+                            <img src="./assets/Blog-post/blog4.png" class="img" alt="blog1">
+                        </div>
+                        <div class="post-info flex-row">
+                            <span><i class="fas fa-user text-gray"></i>&nbsp;&nbsp;Admin</span>
+                            <span><i class="fas fa-calendar-alt text-gray"></i>&nbsp;&nbsp;January 21, 2019</span>
+                            <span>12 Commets</span>
+                        </div>
+                    </div>
+                    <div class="post-title">
+                        <a href="#">New data recording system to better analyse road accidents</a>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque voluptas deserunt beatae
+                            adipisci iusto totam placeat corrupti ipsum, tempora magnam incidunt aperiam tenetur a
+                            nobis, voluptate, numquam architecto fugit. Eligendi quidem ipsam ducimus minus magni
+                            illum similique veniam tempore unde?
+                        </p>
+                        <button class="btn post-btn">Read More &nbsp; <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+                <div class="pagination flex-row">
+                    <a href="blog.html" class="btn load-more">Load more</a>
+                </div>
+            </div>
+            <aside class="sidebar">
+                {% include "layout/cat.html" %}
+                <div class="popular-post">
+                    <h2>Popular Post</h2>
+                    <div class="post-content" data-aos="flip-up" data-aos-delay="200">
+                        <div class="post-image">
+                            <div>
+                                <img src="./assets/popular-post/m-blog-1.jpg" class="img" alt="blog1">
+                            </div>
+                            <div class="post-info flex-row">
+                                <span><i class="fas fa-calendar-alt text-gray"></i>&nbsp;&nbsp;January 14,
+                                    2019</span>
+                                <span>2 Reads</span>
+                            </div>
+                        </div>
+                        <div class="post-title">
+                            <a href="#">New data recording system to better analyse road accidents</a>
+                        </div>
+                    </div>
+                    <div class="post-content" data-aos="flip-up" data-aos-delay="300">
+                        <div class="post-image">
+                            <div>
+                                <img src="./assets/popular-post/m-blog-2.jpg" class="img" alt="blog1">
+                            </div>
+                            <div class="post-info flex-row">
+                                <span><i class="fas fa-calendar-alt text-gray"></i>&nbsp;&nbsp;January 14,
+                                    2019</span>
+                                <span>2 Commets</span>
+                            </div>
+                        </div>
+                        <div class="post-title">
+                            <a href="#">New data recording system to better analyse road accidents</a>
+                        </div>
+                    </div>
+                    <div class="post-content" data-aos="flip-up" data-aos-delay="400">
+                        <div class="post-image">
+                            <div>
+                                <img src="./assets/popular-post/m-blog-3.jpg" class="img" alt="blog1">
+                            </div>
+                            <div class="post-info flex-row">
+                                <span><i class="fas fa-calendar-alt text-gray"></i>&nbsp;&nbsp;January 14,
+                                    2019</span>
+                                <span>2 Commets</span>
+                            </div>
+                        </div>
+                        <div class="post-title">
+                            <a href="#">New data recording system to better analyse road accidents</a>
+                        </div>
+                    </div>
+                    <div class="post-content" data-aos="flip-up" data-aos-delay="500">
+                        <div class="post-image">
+                            <div>
+                                <img src="./assets/popular-post/m-blog-4.jpg" class="img" alt="blog1">
+                            </div>
+                            <div class="post-info flex-row">
+                                <span><i class="fas fa-calendar-alt text-gray"></i>&nbsp;&nbsp;January 14,
+                                    2019</span>
+                                <span>2 Commets</span>
+                            </div>
+                        </div>
+                        <div class="post-title">
+                            <a href="#">New data recording system to better analyse road accidents</a>
+                        </div>
+                    </div>
+                    <div class="post-content" data-aos="flip-up" data-aos-delay="600">
+                        <div class="post-image">
+                            <div>
+                                <img src="./assets/popular-post/m-blog-5.jpg" class="img" alt="blog1">
+                            </div>
+                            <div class="post-info flex-row">
+                                <span><i class="fas fa-calendar-alt text-gray"></i>&nbsp;&nbsp;January 14,
+                                    2019</span>
+                                <span>2 Commets</span>
+                            </div>
+                        </div>
+                        <div class="post-title">
+                            <a href="#">New data recording system to better analyse road accidents</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="newsletter" data-aos="fade-up" data-aos-delay="300">
+                    <h2>Newsletter</h2>
+                    <div class="form-element">
+                        <input type="text" class="input-element" placeholder="Email">
+                        <button class="btn form-btn">Subscribe</button>
+                    </div>
+                </div>
+                <div class="popular-tags">
+                    <h2>Popular Tags</h2>
+                    <div class="tags flex-row">
+                        <span class="tag" data-aos="flip-up" data-aos-delay="100">Software</span>
+                        <span class="tag" data-aos="flip-up" data-aos-delay="200">technology</span>
+                        <span class="tag" data-aos="flip-up" data-aos-delay="300">travel</span>
+                        <span class="tag" data-aos="flip-up" data-aos-delay="400">illustration</span>
+                        <span class="tag" data-aos="flip-up" data-aos-delay="500">design</span>
+                        <span class="tag" data-aos="flip-up" data-aos-delay="600">lifestyle</span>
+                        <span class="tag" data-aos="flip-up" data-aos-delay="700">love</span>
+                        <span class="tag" data-aos="flip-up" data-aos-delay="800">project</span>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </section>
+
+    <!-- -----------x---------- Site Content -------------x------------>
+
+</main>
+
+<!---------------x------------- Main Site Section ---------------x-------------->
+
 {% endblock content %}
+<!-- --------------------------- Footer ---------------------------------------- -->

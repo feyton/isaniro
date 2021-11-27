@@ -1,0 +1,273 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+{% load hitcount_tags %}
+
+{% block content %}
+
+
+<main>
+
+    <!-- ---------------------- Site Content -------------------------->
+
+    <section class="container">
+        <div class="site-content">
+            <div class="posts">
+                <div class="post-content" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="post-image">
+                        <div>
+                            <img src="/static/assets/Blog-post/blog1.png" class="img" alt="blog1">
+                        </div>
+                        <div class="post-info flex-row">
+                            <span><i class="fas fa-user text-gray"></i>&nbsp;&nbsp;{{post.author.name}}</span>
+                            <span><i class="fas fa-calendar-alt text-gray"></i>&nbsp;&nbsp;January 14, 2019</span>
+                            <span id="post-views" class="post-views">{% get_hit_count for post %} Views</span>
+                        </div>
+                    </div>
+                    <div class="post-title">
+                        <a href="#post">{{post.title}}</a>
+                        {{post.content|safe}}
+                        <div class="like-button center">
+                            <button class="btn like"><span class="like-count bold">3000</span>&nbsp;<i
+                                    class="far fa-thumbs-up fa-lg"></i><span>Like</span></button>
+                            <button class="btn dislike"><span class="dislike-count bold">20</span>&nbsp;<i
+                                    class="far fa-thumbs-down activated"></i><span>Dislike</span></button>
+                        </div>
+
+                    </div>
+                </div>
+                <hr>
+                <div class="author">
+                    <div class="image"><img src="" alt=""></div>
+                </div>
+
+                <div class="post-content" data-aos="zoom-in" data-aos-delay="200">
+
+                    <div class="comment section">
+                        <h2 class="">Comment</h2>
+                        <form action="#comment">
+                            <input type="text" placeholder="Name" name="" id="" required>
+                            <input type="email" name="email" id="" placeholder="E-mail">
+                            <textarea name="" id="" cols="30" rows="3" placeholder="Andika hano"></textarea>
+                            <button type="submit" class="btn btn-send">Ohereza</button>
+                        </form>
+                    </div>
+
+                </div>
+                <br>
+                <hr>
+                <div class="comment-list" id="comment">
+                    <div class="comment">
+                        <h3>Feyton</h3> <strong><span>14 Jan 2021</span></strong>
+                        <p class="comment-content">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                            Voluptate animi aperiam, minus
+                            quae nulla ab possimus maxime. Saepe autem eius, quod corrupti est incidunt ipsum dicta
+                            commodi iste consectetur? Repudiandae.</p>
+                    </div>
+                    <div class="comment">
+                        <h3>Feyton</h3> <strong><span>14 Jan 2021</span></strong>
+                        <p class="comment-content">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                            Voluptate animi aperiam, minus
+                            quae nulla ab possimus maxime. Saepe autem eius, quod corrupti est incidunt ipsum dicta
+                            commodi iste consectetur? Repudiandae.</p>
+                    </div>
+                    <div class="comment">
+                        <h3>Feyton</h3> <strong><span>14 Jan 2021</span></strong>
+                        <p class="comment-content">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                            Voluptate animi aperiam, minus
+                            quae nulla ab possimus maxime. Saepe autem eius, quod corrupti est incidunt ipsum dicta
+                            commodi iste consectetur? Repudiandae.</p>
+                    </div>
+                    <div class="comment">
+                        <h3>Feyton</h3> <strong><span>14 Jan 2021</span></strong>
+                        <p class="comment-content">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                            Voluptate animi aperiam, minus
+                            quae nulla ab possimus maxime. Saepe autem eius, quod corrupti est incidunt ipsum dicta
+                            commodi iste consectetur? Repudiandae.</p>
+                    </div>
+
+                </div>
+            </div>
+            <aside class="sidebar">
+                {% include "layout/cat.html" %}
+                <div class="popular-post">
+                    <h2>Popular Post</h2>
+                    <div class="post-content" data-aos="flip-up" data-aos-delay="200">
+                        <div class="post-image">
+                            <div>
+                                <img src="./assets/popular-post/m-blog-1.jpg" class="img" alt="blog1">
+                            </div>
+                            <div class="post-info flex-row">
+                                <span><i class="fas fa-calendar-alt text-gray"></i>&nbsp;&nbsp;January 14,
+                                    2019</span>
+                                <span>2 Commets</span>
+                            </div>
+                        </div>
+                        <div class="post-title">
+                            <a href="#">New data recording system to better analyse road accidents</a>
+                        </div>
+                    </div>
+                    <div class="post-content" data-aos="flip-up" data-aos-delay="300">
+                        <div class="post-image">
+                            <div>
+                                <img src="./assets/popular-post/m-blog-2.jpg" class="img" alt="blog1">
+                            </div>
+                            <div class="post-info flex-row">
+                                <span><i class="fas fa-calendar-alt text-gray"></i>&nbsp;&nbsp;January 14,
+                                    2019</span>
+                                <span>2 Commets</span>
+                            </div>
+                        </div>
+                        <div class="post-title">
+                            <a href="#">New data recording system to better analyse road accidents</a>
+                        </div>
+                    </div>
+                    <div class="post-content" data-aos="flip-up" data-aos-delay="400">
+                        <div class="post-image">
+                            <div>
+                                <img src="./assets/popular-post/m-blog-3.jpg" class="img" alt="blog1">
+                            </div>
+                            <div class="post-info flex-row">
+                                <span><i class="fas fa-calendar-alt text-gray"></i>&nbsp;&nbsp;January 14,
+                                    2019</span>
+                                <span>2 Commets</span>
+                            </div>
+                        </div>
+                        <div class="post-title">
+                            <a href="#">New data recording system to better analyse road accidents</a>
+                        </div>
+                    </div>
+                    <div class="post-content" data-aos="flip-up" data-aos-delay="500">
+                        <div class="post-image">
+                            <div>
+                                <img src="./assets/popular-post/m-blog-4.jpg" class="img" alt="blog1">
+                            </div>
+                            <div class="post-info flex-row">
+                                <span><i class="fas fa-calendar-alt text-gray"></i>&nbsp;&nbsp;January 14,
+                                    2019</span>
+                                <span>2 Commets</span>
+                            </div>
+                        </div>
+                        <div class="post-title">
+                            <a href="#">New data recording system to better analyse road accidents</a>
+                        </div>
+                    </div>
+                    <div class="post-content" data-aos="flip-up" data-aos-delay="600">
+                        <div class="post-image">
+                            <div>
+                                <img src="./assets/popular-post/m-blog-5.jpg" class="img" alt="blog1">
+                            </div>
+                            <div class="post-info flex-row">
+                                <span><i class="fas fa-calendar-alt text-gray"></i>&nbsp;&nbsp;January 14,
+                                    2019</span>
+                                <span>2 Commets</span>
+                            </div>
+                        </div>
+                        <div class="post-title">
+                            <a href="#">New data recording system to better analyse road accidents</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="newsletter" data-aos="fade-up" data-aos-delay="300">
+                    <h2>Newsletter</h2>
+                    <div class="form-element">
+                        <input type="text" class="input-element" placeholder="Email">
+                        <button class="btn form-btn">Subscribe</button>
+                    </div>
+                </div>
+                <div class="popular-tags">
+                    <h2>Popular Tags</h2>
+                    <div class="tags flex-row">
+                        <span class="tag" data-aos="flip-up" data-aos-delay="100">Software</span>
+                        <span class="tag" data-aos="flip-up" data-aos-delay="200">technology</span>
+                        <span class="tag" data-aos="flip-up" data-aos-delay="300">travel</span>
+                        <span class="tag" data-aos="flip-up" data-aos-delay="400">illustration</span>
+                        <span class="tag" data-aos="flip-up" data-aos-delay="500">design</span>
+                        <span class="tag" data-aos="flip-up" data-aos-delay="600">lifestyle</span>
+                        <span class="tag" data-aos="flip-up" data-aos-delay="700">love</span>
+                        <span class="tag" data-aos="flip-up" data-aos-delay="800">project</span>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </section>
+
+    <!-- -----------x---------- Site Content -------------x------------>
+
+</main>
+
+<!---------------x------------- Main Site Section ---------------x-------------->
+{% endblock content %}
+
+{% block script %}
+
+{% load hitcount_tags %}
+{% get_hit_count_js_variables for post as hitcount %}
+<script type="text/javascript">
+    (function ($) {
+
+        $.postCSRF = function (url, data, callback, type) {
+
+            function csrfSafeMethod(method) {
+                // these HTTP methods do not require CSRF protection
+                return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+            }
+
+            function getCookie(name) {
+                var cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    var cookies = document.cookie.split(';');
+                    for (var i = 0; i < cookies.length; i++) {
+                        var cookie = jQuery.trim(cookies[i]);
+                        // Does this cookie string begin with the name we want?
+                        if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+
+            var csrftoken = getCookie('csrftoken');
+
+            // shift arguments if data argument was omitted
+            if ($.isFunction(data)) {
+                type = type || callback;
+                callback = data;
+                data = undefined;
+            }
+
+            return $.ajax(jQuery.extend({
+                url: url,
+                type: "POST",
+                dataType: type,
+                data: data,
+                success: callback,
+                beforeSend: function (xhr, settings) {
+                    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                    }
+                }
+            }, jQuery.isPlainObject(url) && url));
+        };
+
+    }(jQuery));
+
+
+
+    jQuery(document).ready(function ($) {
+        // use the template tags in our JavaScript call
+        $.postCSRF("{{ hitcount.ajax_url }}", { hitcountPK: "{{ hitcount.pk }}" })
+            .done(function (data) {
+                $('.post-views').text(data.hit_counted).attr('id', 'hit-counted-value').appendTo('#post-views');
+                //alert(data.hit_counted);
+                //$('#post-views').text(data.hit_message);
+                console.log(data)
+            }).fail(function (data) {
+                console.log('POST failed');
+                console.log(data);
+            });
+    });
+</script>
+
+{% endblock script %}

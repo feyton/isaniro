@@ -1,0 +1,12 @@
+<div class="category">
+    <h2>Categories</h2>
+    <ul class="category-list">
+        {% for cat in categories %}
+        <li class="list-items" data-aos="fade-left" data-aos-delay="100">
+            <a href="{{cat.get_absolute_url}}" class="capitalize">{{cat.title}}</a>
+            <span>({{cat.posts.count}})</span>
+        </li>
+        {% endfor %}
+
+    </ul>
+</div>
