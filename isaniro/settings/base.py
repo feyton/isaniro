@@ -1,4 +1,5 @@
 import os
+import tempfile
 from pathlib import Path
 
 from django.contrib.messages import constants as messages
@@ -31,7 +32,9 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'hitcount'
+    'hitcount',
+    'rest_framework',
+    'imagefit',
 ]
 
 MIDDLEWARE = [
@@ -143,3 +146,15 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 # HITCOUNT_EXCLUDE_USER_GROUP = ( 'Editor', )
 HITCOUNT_HITS_PER_IP_LIMIT = 0
 HITCOUNT_KEEP_HIT_ACTIVE = {'minutes': 1}
+
+
+IMAGEFIT_PRESETS = {
+    'thumbnail': {'width': 64, 'height': 64, 'crop': True},
+    'image-wide': {'width': 750, 'height': 400},
+    'image-square': {'width': 220, 'height': 360},
+}
+
+# enable/disable server cache
+IMAGEFIT_CACHE_ENABLED = False
+# set the cache name specific to imagefit with the cache dict
+    

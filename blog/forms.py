@@ -4,12 +4,13 @@ from .models import Comment, Post
 
 
 class CommentForm(forms.ModelForm):
+    """Form definition for Comment."""
+
     class Meta:
+        """Meta definition for Commentform."""
+
         model = Comment
-        fields = ['name', 'email', 'body']
-        widgets = {
-            'body': forms.Textarea()
-        }
+        fields = ('name', "email", "body")
 
 
 class PostForm(forms.ModelForm):

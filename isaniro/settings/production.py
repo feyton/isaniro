@@ -19,7 +19,7 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = "/home/isancjhv/public_html/media/"
-
+IMAGEFIT_ROOT = os.path.join(BASE_DIR, 'public')
 SITE_ID = 1
 
 

@@ -1,0 +1,8 @@
+<div class="popular-tags">
+    <h2>Popular Tags</h2>
+    <div class="tags flex-row">
+        {% for tag in tags %}
+        <span class="tag" data-aos="flip-up" data-aos-delay="{{forloop.counter}}00">{{tag.title}}</span>
+        {% endfor %}
+    </div>
+</div>

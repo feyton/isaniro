@@ -3,10 +3,13 @@ from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import DetailView, View
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from .forms import CommentForm
-from .models import Category, Post, SearchTerms, Tag
-
+from .models import Category, Comment, Post, SearchTerms, Tag
+from .serializer import CommentSerializer
+from django.core import paginator
 
 class BlogListView(View):
     def get(self, *args, **kwargs):
@@ -30,15 +33,18 @@ def post_view(request, pk, title):
     categories = Category.objects.all()
     tags = Tag.objects.all()
     posts = Post.objects.filter(
-        published=True, category=post.category).exclude(pk=pk)
+        published=True).exclude(pk=pk)
+    comments = Comment.objects.filter(post=post, approved=True)
     if request.method == 'POST':
         form = CommentForm(request.POST)
         context = {
             'post': post,
             'categories': categories,
             'tags': tags,
-            'posts': posts
+            'posts': posts,
+            'comments': comments
         }
+        print(form)
         if form.is_valid():
             comment = form.save(commit=False)
             comment.post = post
@@ -46,7 +52,7 @@ def post_view(request, pk, title):
             n = {'new_comment': comment}
             context.update(n)
             messages.success(request, 'Thank you for the comment')
-            return render(request, 'blog/detail.html', context)
+            return render(request, 'detail.html', context)
         messages.error(request, 'Error in form')
         return render(request, 'detail.html', context)
 
@@ -59,6 +65,28 @@ def post_view(request, pk, title):
     }
 
     return render(request, 'detail.html', context)
+
+
+def load_comments(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    comments = Comment.objects.filter(post=post, approved=True)
+    serialized = CommentSerializer(comments, many=True)
+    return Response(serialized.data)
+
+
+class GetPostComments(APIView):
+
+    def get(self, request, pk, *args, **kwargs):
+        post = get_object_or_404(Post, pk=pk)
+        print(post.title)
+        comments = Comment.objects.filter(approved=True, post=post)
+        serialized = CommentSerializer(comments, many=True)
+        print("DOne")
+        print(serialized.data)
+        return Response(serialized.data)
+
+
+comment_view = GetPostComments.as_view()
 
 
 def add_comment(request, data):
@@ -93,7 +121,7 @@ def tag_view(request, pk, *args, **kwargs):
                'tag': tag,
                'tags': Tag.objects.all(),
                'categories': cats}
-    return render(request, 'blog/tag.html', context)
+    return render(request, 'pages/categories.html', context)
 
 
 def search(request, *args, **kwargs):

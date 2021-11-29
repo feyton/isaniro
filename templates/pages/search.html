@@ -1,0 +1,80 @@
+{% extends "layout/base.html" %}
+{% load static %}
+{% load humanize%}
+{% block content %}
+
+<main>
+
+    <!------------------------ Site Title ---------------------->
+
+    <!------------x----------- Site Title ----------x----------->
+
+    <!-- --------------------- Blog Carousel ----------------- -->
+
+
+    <!-- ----------x---------- Blog Carousel --------x-------- -->
+
+    <!-- ---------------------- Site Content -------------------------->
+
+    <section class="container">
+        <div class="site-content">
+            <div class="posts">
+                {% for post in posts %}
+
+
+                <div class="post-content" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="post-image">
+                        <div>
+                            <img src="{{post.thumbnail.url}}" class="img" alt="blog1">
+                        </div>
+                        <div class="post-info flex-row">
+                            <span><i class="fas fa-user text-gray"></i>&nbsp;&nbsp;Admin</span>
+                            <span><i class="fas fa-calendar-alt text-gray"></i>&nbsp;&nbsp;January 14, 2019</span>
+                            <span>2 Commets</span>
+                        </div>
+                    </div>
+                    <div class="post-title">
+                        <a href="{{post.get_absolute_url}}">{{post.title}}</a>
+                        <p>{{post.summary|safe}}
+                        </p>
+                        <button class="btn post-btn post-link" data-url="{{post.get_absolute_url}}">Soma &nbsp; <i
+                                class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+                <hr>
+                {% empty%}
+                <h2>Wihangane ntabwo twabonye ibyo washakishaga</h2>
+                {% endfor %}
+                
+            </div>
+            <aside class="sidebar">
+                {% include "layout/cat.html" %}
+
+                <div class="newsletter" data-aos="fade-up" data-aos-delay="300">
+                    <h2>Newsletter</h2>
+                    <div class="form-element">
+                        <input type="text" class="input-element" placeholder="Email">
+                        <button class="btn form-btn">Subscribe</button>
+                    </div>
+                </div>
+                <div class="popular-tags">
+                    <h2>Popular Tags</h2>
+                    <div class="tags flex-row">
+                        <span class="tag" data-aos="flip-up" data-aos-delay="100">Software</span>
+                        <span class="tag" data-aos="flip-up" data-aos-delay="200">technology</span>
+                        <span class="tag" data-aos="flip-up" data-aos-delay="300">travel</span>
+                        <span class="tag" data-aos="flip-up" data-aos-delay="400">illustration</span>
+                        <span class="tag" data-aos="flip-up" data-aos-delay="500">design</span>
+                        <span class="tag" data-aos="flip-up" data-aos-delay="600">lifestyle</span>
+                        <span class="tag" data-aos="flip-up" data-aos-delay="700">love</span>
+                        <span class="tag" data-aos="flip-up" data-aos-delay="800">project</span>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </section>
+
+    <!-- -----------x---------- Site Content -------------x------------>
+
+</main>
+{% endblock content %}

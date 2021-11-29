@@ -1,5 +1,6 @@
 from autoslug.fields import AutoSlugField
 from ckeditor_uploader.fields import RichTextUploadingField
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
@@ -7,7 +8,9 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.html import strip_tags
 from django.utils.translation import ugettext_lazy as _
+from PIL.Image import Image
 
+BASE_DIR = settings.BASE_DIR
 User = get_user_model()
 
 
@@ -53,13 +56,13 @@ class Author(models.Model):
 
 
 class Tag(models.Model):
-    name = models.CharField(max_length=10)
+    title = models.CharField(max_length=50)
 
     def __str__(self):
-        return self.name
+        return self.title
 
     def get_absolute_url(self):
-        return reverse('tag-view', kwargs={'pk': self.pk, 'name': self.name})
+        return reverse('tag-view', kwargs={'pk': self.pk, 'name': self.title})
 
 
 class Post(models.Model):
@@ -85,6 +88,8 @@ class Post(models.Model):
     # thumbnail_image = models.FilePathField(blank=True, null=True)
     thumbnail_image = models.ImageField(
         upload_to='blog/thumnails', blank=True, null=True, default='/blog/default_thumb.jpg')
+    image1 = models.ImageField(upload_to="image1/", null=True, blank=True)
+    image2 = models.ImageField(upload_to="image2/", null=True, blank=True)
 
     def __str__(self):
         return self.title
@@ -103,18 +108,37 @@ class Post(models.Model):
                 text = '%s ...' % text[:150]
             self.summary = text
         super().save(*args, **kwargs)
-        self.set_thumbnail()
-
-    def set_thumbnail(self):
-        if self.thumbnail and not self.thumbnail_image:
-            self.thumbnail_image = self.thumbnail
+        if self.thumbnail:
             from PIL import Image
+            baseheight = 400
+            img_path = self.thumbnail.path
+            img = Image.open(img_path)
+            hpercent = (baseheight / float(img.size[1]))
+            wsize = int((float(img.size[0]) * float(hpercent)))
+            img = img.resize((wsize, baseheight), Image.ANTIALIAS)
+            name = str(img_path).split("\\")[-1]
+            img.save(name, "png")
 
-            img = Image.open(self.thumbnail_image.path)
-            if img.height > 250 or img.width > 200:
-                output_size = (250, 200)
-                img.thumbnail(output_size)
-                img.save(self.thumbnail_image.path)
+    def get_image(self):
+        if self.thumbnail:
+            path = str(self.thumbnail.path)
+            print(path)
+            s1 = path.split("\\")[-1]
+            s2 = path.split("\\")[-2]
+            return "%s/%s" % (s2, s1)
+
+
+def test_post_image():
+    for post in Post.objects.all():
+        if post.thumbnail:
+            from PIL import Image
+            baseheight = 400
+            img = post.thumbnail.path
+            img = Image.open(img)
+            hpercent = (baseheight / float(img.size[1]))
+            wsize = int((float(img.size[0]) * float(hpercent)))
+            img = img.resize((wsize, baseheight), Image.ANTIALIAS)
+            img.save(img)
 
 
 class Comment(models.Model):
@@ -127,7 +151,9 @@ class Comment(models.Model):
     approved = models.BooleanField(default=False)
 
     class Meta:
-        ordering = ['-created_on']
+        ordering = ["approved", "-created_on"]
+        verbose_name = 'comment'
+        verbose_name_plural = 'comments'
 
     def __str__(self):
         return self.name
@@ -146,3 +172,14 @@ class SearchTerms(models.Model):
 
     def get_absolute_url(self):
         return "/blog/search/?q=%s" % self.term
+
+
+class UniqueUser(models.Model):
+    session_key = models.CharField(max_length=250)
+    ip = models.GenericIPAddressField()
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, blank=True, null=True)
+
+
+class Like(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)

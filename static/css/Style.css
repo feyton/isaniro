@@ -68,6 +68,22 @@ button.btn {
     cursor: pointer;
 }
 
+.btn.btn-primary {
+    background-color: #103055;
+    color: white;
+    font-weight: bolder;
+    transition: 0.3s ease-in-out all;
+}
+
+.btn.btn-primary:hover {
+    transform: scale(0.95);
+    background-color: #444;
+    color: white;
+    font-weight: bolder;
+    box-shadow: 1px 2px 2px solid green;
+    transition: 0.3s ease-in-out all;
+}
+
 span {
     font-family: var(--Abel);
 }
@@ -84,9 +100,11 @@ p {
     font-family: var(--Lexend);
     color: var(--text-light);
 }
+
 .capitalize {
     text-transform: capitalize;
 }
+
 /* ------x------- Global Classes -------x-------*/
 
 /* --------------- navbar ----------------- */
@@ -362,6 +380,7 @@ main .site-content .post-content>.post-image>div {
 main .site-content .post-content>.post-image .img {
     width: 100%;
     transition: all 1s ease;
+    object-fit: contain;
 }
 
 main .site-content .post-content>.post-image .img:hover {
@@ -510,6 +529,7 @@ main .post-content .post-title a {
 
 .comment form {
     width: 80%;
+
     /* float: left; */
 
 }
@@ -521,11 +541,12 @@ main .post-content .post-title a {
     border: 1px solid #444;
     box-shadow: #3f4954;
     border-radius: 10px;
-
+    font-family: var(--Livvic)
 }
 
 .comment form input:focus {
     outline: none;
+    box-shadow: 1px 1px 1px 1px solid #444;
 }
 
 .comment-list {

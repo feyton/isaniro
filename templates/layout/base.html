@@ -7,7 +7,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Isaniro| Ahabanza</title>
+    <title>Isaniro| {% block title %}
+
+        Ahabanza{% endblock title %}</title>
+    <link rel="icon" href="/static/images/icon.jpg.png">
 
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="/static/css/all.css">
@@ -22,6 +25,28 @@
 
     <!-- Custom Style   -->
     <link rel="stylesheet" href="/static/css/Style.css">
+
+    {% block header %}
+
+
+
+    <meta name="description" property="og:description"
+        content="Soma inkuru zigufasha buri munsi ndetse unirebere video zigezweho kurubuga rwacu.">
+    <meta name="author" content="Bellarme">
+    <!-- Facebook tags -->
+    <meta property="og:url" content="https://isaniro.com" />
+    <meta property="og:title" content="Isaniro" />
+    <meta property="og:image" content="https://isaniro.com/static/images/banner.png" />
+    <meta property="og:image:alt" content="isaniro banner image" />
+    <!-- End of Facebook tags -->
+
+    <!-- Twitter tags -->
+    <meta name="twitter:image" content="https://isaniro.com/static/images/banner.png" />
+    <meta property="twitter:image:alt" content="isaniro banner image" />
+    <meta name="twitter:card"
+        content="Soma inkuru zigufasha buri munsi ndetse unirebere video zigezweho kurubuga rwacu." />
+    <meta name="twitter:site" content="@feytonf" />
+    {% endblock header %}
 
 </head>
 
@@ -56,13 +81,17 @@
                     <li class="nav-link contact-us">
                         <a href="#">Contact Us</a>
                     </li>
+                    <li class="nav-link search" id="search" data-url="{% url 'search-result'%}"><a href="#">Shakisha</a>
+
+                    </li>
                 </ul>
             </div>
             <div class="social text-gray">
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <!-- <a href="#"><i class="fab fa-facebook-f"></i></a>
                 <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a> -->
+                <a href="https://www.youtube.com/channel/UCDo3ISUi1Qve0VHwReHcgNA" target="_blank"><i
+                        class="fab fa-youtube"></i></a>
             </div>
         </div>
     </nav>
@@ -80,38 +109,40 @@
     <footer class="footer">
         <div class="container">
             <div class="about-us" data-aos="fade-right" data-aos-delay="200">
-                <h2>About us</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium quia atque nemo ad modi officiis
-                    iure, autem nulla tenetur repellendus.</p>
+                <h2>Abo Turibo</h2>
+                <p>Tugufasha kubona amakuru agezweho ndetse ninama zikubaka.</p>
             </div>
             <div class="newsletter" data-aos="fade-right" data-aos-delay="200">
-                <h2>Newsletter</h2>
-                <p>Stay update with our latest</p>
+                <h2>Akanyamakuru</h2>
+                <p>Bona amakuru yacu mbere yabandi</p>
                 <div class="form-element">
                     <input type="text" placeholder="Email"><span><i class="fas fa-chevron-right"></i></span>
                 </div>
             </div>
             <div class="instagram" data-aos="fade-left" data-aos-delay="200">
-                <h2>Instagram</h2>
+                <h2>YouTube</h2>
                 <div class="flex-row">
-                    <img src="./assets/instagram/thumb-card3.png" alt="insta1">
-                    <img src="./assets/instagram/thumb-card4.png" alt="insta2">
-                    <img src="./assets/instagram/thumb-card5.png" alt="insta3">
+                    <img src="/static/assets/instagram/thumb-card3.png" alt="insta1" data-url="" class="youtube-link">
+                    <img src="/static/assets/instagram/thumb-card4.png" alt="insta2" data-url="" class="youtube-link">
+                    <img src="/static/assets/instagram/thumb-card5.png" alt="insta3" data-url="" class="youtube-link">
                 </div>
                 <div class="flex-row">
-                    <img src="./assets/instagram/thumb-card6.png" alt="insta4">
-                    <img src="./assets/instagram/thumb-card7.png" alt="insta5">
-                    <img src="./assets/instagram/thumb-card8.png" alt="insta6">
+                    <img src="/static/assets/instagram/thumb-card6.png" alt="insta4" data-url="" class="youtube-link">
+                    <img src="/static/assets/instagram/thumb-card7.png" alt="insta5" data-url="" class="youtube-link">
+                    <img src="/static/assets/instagram/thumb-card8.png" alt="insta6" data-url="" class="youtube-link">
                 </div>
             </div>
             <div class="follow" data-aos="fade-left" data-aos-delay="200">
-                <h2>Follow us</h2>
-                <p>Let us be Social</p>
+                <h2>Dukurikirane</h2>
+                <p>Tuganirire kumbuga zacu</p>
                 <div>
-                    <i class="fab fa-facebook-f"></i>
-                    <i class="fab fa-twitter"></i>
-                    <i class="fab fa-instagram"></i>
-                    <i class="fab fa-youtube"></i>
+                    <a href="facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+
+                    <!-- <i class="fab fa-twitter"></i>
+                    <i class="fab fa-instagram"></i> -->
+                    <a href="https://www.youtube.com/channel/UCDo3ISUi1Qve0VHwReHcgNA"><i
+                            class="fab fa-youtube"></i></a>
+
                 </div>
             </div>
         </div>
@@ -136,6 +167,7 @@
 
     <!-- ------------ AOS js Library  ------------------------- -->
     <script src="/static/js/aos.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Custom Javascript file -->
     <script src="/static/js/main.js"></script>
