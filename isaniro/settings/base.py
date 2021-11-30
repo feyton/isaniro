@@ -34,7 +34,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'hitcount',
     'rest_framework',
-    'imagefit',
+    # 'imagefit',
 ]
 
 MIDDLEWARE = [
