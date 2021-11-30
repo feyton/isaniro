@@ -2,7 +2,6 @@
 {% load static %}
 {% load hitcount_tags %}
 {% load humanize%}
-{% load imagefit %}
 {% block content %}
 
 
@@ -33,7 +32,7 @@
 
                     <!-- Blog Post -->
                     <div class="blog-content" data-aos="fade-right" data-aos-delay="200">
-                        <img src="{{post.get_image|media_resize:'image-square'}}" alt="post-1" class="image-contain">
+                        <img src="{{post.thumbnail.url}}" alt="post-1" class="image-contain">
                         <div class="blog-title">
                             <h3>{{post.title}}</h3>
                             <button class="btn btn-blog post-link" data-url="{{post.get_absolute_url}}">Read</button>
