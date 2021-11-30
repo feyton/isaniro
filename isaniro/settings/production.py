@@ -5,12 +5,19 @@ from .base import *
 ALLOWED_HOSTS = ["isaniro.com", 'www.isaniro.com', '127.0.0.1']
 
 SECRET_KEY = config("SECRET_KEY", cast=str)
-
+DEBUG= config("DEBUG", default=False)
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'isancjhv_blog',
+        'USER': 'isancjhv_blog_user',
+        'PASSWORD': config('DB_PASS'),
+        'HOST': '127.0.0.1',
+        'PORT': '',
+        'OPTIONS': {
+            'sql_mode': 'STRICT_TRANS_TABLES',
+        }
     }
 }
 
