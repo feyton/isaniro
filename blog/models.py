@@ -8,9 +8,10 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.html import strip_tags
 from django.utils.translation import ugettext_lazy as _
+from imagekit.models import ImageSpecField
+from imagekit.processors import Adjust, ResizeToFill
 from PIL.Image import Image
 
-BASE_DIR = settings.BASE_DIR
 User = get_user_model()
 
 
@@ -27,6 +28,10 @@ class Category(models.Model):
     title = models.CharField(max_length=255, blank=False)
     slug = AutoSlugField(populate_from='title',
                          unique=False, primary_key=False)
+
+    class Meta:
+        verbose_name = "category"
+        verbose_name_plural = "categories"
 
     def __str__(self):
         return self.title
@@ -84,12 +89,12 @@ class Post(models.Model):
         Tag, blank=True, related_name="posts")
     thumbnail = models.ImageField(
         upload_to='blog', blank=True, null=True, default='/blog/default.jpg')
-    visits = models.PositiveIntegerField(default=1)
-    # thumbnail_image = models.FilePathField(blank=True, null=True)
-    thumbnail_image = models.ImageField(
-        upload_to='blog/thumnails', blank=True, null=True, default='/blog/default_thumb.jpg')
-    image1 = models.ImageField(upload_to="image1/", null=True, blank=True)
-    image2 = models.ImageField(upload_to="image2/", null=True, blank=True)
+    image_wide = ImageSpecField([Adjust(contrast=1.2, sharpness=1.1),
+                                 ResizeToFill(400, 750)], image_field='thumbnail',
+                                format='JPEG', options={'quality': 90})
+    image_square = ImageSpecField([Adjust(contrast=1.2, sharpness=1.1),
+                                   ResizeToFill(220, 340)], image_field='thumbnail',
+                                  format='JPEG', options={'quality': 90})
 
     def __str__(self):
         return self.title
@@ -108,37 +113,6 @@ class Post(models.Model):
                 text = '%s ...' % text[:150]
             self.summary = text
         super().save(*args, **kwargs)
-        if self.thumbnail:
-            from PIL import Image
-            baseheight = 400
-            img_path = self.thumbnail.path
-            img = Image.open(img_path)
-            hpercent = (baseheight / float(img.size[1]))
-            wsize = int((float(img.size[0]) * float(hpercent)))
-            img = img.resize((wsize, baseheight), Image.ANTIALIAS)
-            name = str(img_path).split("\\")[-1]
-            img.save(name, "png")
-
-    def get_image(self):
-        if self.thumbnail:
-            path = str(self.thumbnail.path)
-            print(path)
-            s1 = path.split("\\")[-1]
-            s2 = path.split("\\")[-2]
-            return "%s/%s" % (s2, s1)
-
-
-def test_post_image():
-    for post in Post.objects.all():
-        if post.thumbnail:
-            from PIL import Image
-            baseheight = 400
-            img = post.thumbnail.path
-            img = Image.open(img)
-            hpercent = (baseheight / float(img.size[1]))
-            wsize = int((float(img.size[0]) * float(hpercent)))
-            img = img.resize((wsize, baseheight), Image.ANTIALIAS)
-            img.save(img)
 
 
 class Comment(models.Model):

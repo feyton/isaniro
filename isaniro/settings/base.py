@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'hitcount',
     'rest_framework',
     # 'imagefit',
+    'imagekit'
 ]
 
 MIDDLEWARE = [
