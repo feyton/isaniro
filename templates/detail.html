@@ -22,6 +22,19 @@
 <meta property="twitter:image:alt" content="{{post.title|truncatechars:20}}" />
 <meta name="twitter:card" content="{{post.summary|safe|truncatechars:150}}" />
 <meta name="twitter:site" content="@feytonf" />
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@400;500;600&family=Lato&display=swap');
+    
+    .rendered-content p {
+        font-family: 'Abel' !important;
+        font-size: 1.2rem;
+        color: black;
+    }
+    .rendered-content h3 {
+        font-family: 'Bai Jamjuree' !important;
+        font-weight: 500;
+    }
+</style>
 
 {% endblock header %}
 
@@ -49,7 +62,9 @@
                     </div>
                     <div class="post-title">
                         <a href="#post">{{post.title}}</a>
+                        <div class="rendered-content" style="font-family: 'Abel';">
                         {{post.content|safe}}
+                        </div>
                         <div class="like-button center">
                             <button class="btn like"><span class="like-count bold">1</span>&nbsp;<i
                                     class="far fa-thumbs-up fa-lg"></i><span>Like</span></button>
@@ -106,7 +121,7 @@
 
 
                 </div>
-                <button class="btn btn-primary comment" data-url="" id="load-comment_button">Load more</button>
+                <!--<button class="btn btn-primary comment" data-url="" id="load-comment_button">Load more</button>-->
             </div>
             <aside class="sidebar">
                 {% include "layout/cat.html" %}
