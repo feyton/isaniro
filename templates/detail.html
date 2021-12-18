@@ -23,16 +23,28 @@
 <meta name="twitter:card" content="{{post.summary|safe|truncatechars:150}}" />
 <meta name="twitter:site" content="@feytonf" />
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@400;500;600&family=Lato&display=swap');
-    
+    @import url('https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@400;500;600&family=Lato&display=swap');
+
     .rendered-content p {
         font-family: 'Abel' !important;
         font-size: 1.2rem;
         color: black;
     }
+
     .rendered-content h3 {
         font-family: 'Bai Jamjuree' !important;
         font-weight: 500;
+    }
+
+    .loader-div {
+        padding: 2rem;
+        margin: 1rem auto;
+        text-align: center;
+
+    }
+
+    .loader-div i {
+        font-size: 3rem;
     }
 </style>
 
@@ -63,13 +75,11 @@
                     <div class="post-title">
                         <a href="#post">{{post.title}}</a>
                         <div class="rendered-content" style="font-family: 'Abel';">
-                        {{post.content|safe}}
+                            {{post.content|safe}}
                         </div>
                         <div class="like-button center">
-                            <button class="btn like"><span class="like-count bold">1</span>&nbsp;<i
-                                    class="far fa-thumbs-up fa-lg"></i><span>Like</span></button>
-                            <!-- <button class="btn dislike"><span class="dislike-count bold">20</span>&nbsp;<i
-                                    class="far fa-thumbs-down activated"></i><span>Dislike</span></button> -->
+                            <button class="btn btn-like require-login" data-post="{{post.pk}}"><i
+                                    class="far fa-thumbs-up fa-lg"></i></button>
                         </div>
 
                     </div>
@@ -83,13 +93,17 @@
 
                     <div class="comment section">
                         <h2 class="">Ibitekerezo</h2>
-                        <form action="." method="POST">
+                        <form action="#https://google.com" method="POST" class="comment-form"
+                            data-link="{% url 'blog:add-comment' pk=post.pk %}">
                             {% csrf_token %}
-                            <input type="text" placeholder="Amazina" name="name" required>
-                            <input type="email" name="email" placeholder="E-mail" required>
+                            <input type="text" placeholder="Amazina" name="name" required minlength="5"
+                                title="Izina rigizwe ninyuguti byibura 5">
+                            <input type="email" name="email" placeholder="E-mail" required
+                                title="Andika email ikora neza">
                             <textarea name="body" id="" cols="30" rows="3" placeholder="Andika hano igitekerezo cyawe"
-                                required></textarea>
-                            <button type="submit" class="btn btn-primary" id="">Ohereza</button>
+                                required minlength="5" title="Ubutumwa burengeje inyuguti eshanu"></textarea>
+                            <input type="hidden" name="for-bot" hidden="true" value="none">
+                            <button class="btn btn-primary" id="">Ohereza</button>
 
                         </form>
                     </div>
@@ -97,26 +111,11 @@
                 </div>
                 <br>
                 <hr>
-                <div class="comment-list" id="comment-list" data-url="{% url 'comments-view' pk=post.pk %}">
-
-
-
-                    {% for comment in comments %}
-
-
-
-                    <div class="comment">
-                        <h3>By {{comment.name}}</h3> <strong><span>{{comment.created_on|date}}</span></strong>
-                        <p class="comment-content">{{comment.body}}</p>
-                        <hr>
+                <div class="comment-list" id="comment-list" data-url="{% url 'blog:comments-view' pk=post.pk %}">
+                    <div class="loader-div">
+                        <i class="fa fa-spinner fa-spin"></i>
+                        <h2>Comment loading ...</h2>
                     </div>
-                    {% empty%}
-                    <div class="comment">
-                        <h3>Ba uwa mbere mugutanga ibitekerezo</h3>
-                        <hr>
-                    </div>
-
-                    {% endfor %}
 
 
 
@@ -263,6 +262,99 @@
 </script>
 <script>
     $(document).ready(function () {
+        const loadComments = () => {
+            let commentDiv = document.getElementById("comment-list")
+            let url = commentDiv.getAttribute('data-url');
+            //console.log(url)
+            $.ajax({
+                url: url,
+                method: 'GET',
+                success: (data) => {
+                    console.log(data)
+                    if (data.length == 0) {
+
+                    } else {
+                        //console.log("Data length:", data.length);
+                        commentDiv.innerHTML = "";
+                        data.forEach(comment => {
+                            let date = new Date(comment.created_on)
+                            //console.log(date.toDateString())
+                            let commentElement = `
+                            <div class="comment">
+                                <h3>By ${comment.name}</h3> <strong><span>${date.toDateString()}</span></strong>
+                                <p class="comment-content">${comment.body}</p>
+                                <hr>
+                            </div>
+                            
+                            `;
+                            commentDiv.innerHTML += commentElement
+                        });
+
+
+                    }
+
+                },
+                error: (err) => {
+                    console.log(err)
+                    commentDiv.innerHTML = `
+                    <div class="comment">
+                        <h3>Ba uwa mbere mugutanga ibitekerezo</h3>
+                        <hr>
+                    </div>
+                    `
+                },
+                timeout: 6000
+            })
+
+        }
+        setTimeout(() => { loadComments() }, 2000)
+
+        const saveComment = () => {
+            let commentForm = document.querySelector(".comment-form");
+            let url = commentForm.getAttribute("data-link");
+            commentForm.addEventListener("submit", (e) => {
+                e.preventDefault();
+
+                let data = $(".comment-form").serializeArray();
+                let token = data[0].value;
+                let name = data[1].value;
+                let email = data[2].value;
+                let body = data[3].value;
+                let bot = data[4].value;
+                console.log(url)
+                if (!bot == 'none') {
+                    console.log("Probably a bot")
+                    alert("Please leave hidden field alone")
+                } else {
+
+
+                    let formdata = {
+                        csrfmiddlewaretoken: token,
+                        name: name,
+                        email: email,
+                        body: body
+                    }
+                    $.ajax({
+                        url: url,
+                        method: "POST",
+                        data: formdata,
+                        success: (data) => {
+                            if (data.created == "true") { loadComments() } else {
+                                console.log("Not created")
+                            }
+
+                        },
+                        error: (err) => {
+                            console.log(err)
+                            alert("Something happened on our end")
+                        }
+                    })
+                }
+
+            })
+        }
+        saveComment()
+
 
 
 

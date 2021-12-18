@@ -17,7 +17,7 @@
         <div class="blog" id="blog-posts">
             <div class="container">
                 <div class="owl-carousel owl-theme blog-post">
-                    {% for post in posts %}
+                    {% for post in recent_posts %}
 
 
                     <!-- Blog Post -->
@@ -57,7 +57,8 @@
                         </div>
                         <div class="post-info flex-row">
                             <span><i class="fas fa-user text-gray"></i>&nbsp;&nbsp;{{post.author.name}}</span>
-                            <span><i class="fas fa-calendar-alt text-gray"></i>&nbsp;&nbsp;{{post.published_date}}</span>
+                            <span><i
+                                    class="fas fa-calendar-alt text-gray"></i>&nbsp;&nbsp;{{post.published_date}}</span>
                             <span>{% get_hit_count for post %} Views</span>
                         </div>
                     </div>
@@ -71,6 +72,35 @@
                 </div>
                 <hr>
                 {% endfor %}
+
+
+                {% if posts.has_other_pages %}
+
+                <div class="pagination flex-row">
+
+                    {% if posts.has_previous %}
+                    <a href="?page={{posts.previous_page_number}}"><i class="fas fa-chevron-left"></i></a>
+                    {% endif %}
+                    {% for i in posts.paginator.page_range %}
+
+                    {% if i == posts.number %}
+                    <a href="#active page" class="pages active">{{i}}</a>
+                    {%else%}
+
+                    <a href="?page={{i}}" class="pages">{{i}}</a>
+                    {% endif %}
+
+
+                    {% endfor %}
+
+                    {% if posts.has_next %}
+                    <a href="?page={{posts.next_page_number}}"><i class="fas fa-chevron-right"></i></a>
+                    {% endif %}
+
+
+
+
+                </div>{% endif %}
 
             </div>
             <aside class="sidebar">

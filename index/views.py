@@ -4,7 +4,7 @@ from django.shortcuts import redirect, render
 
 # Create your views here.
 def home(request):
-    posts = Post.objects.filter(published=True).order_by("-published_date")
+    posts = Post.objects.filter(published=True).order_by("-published_date")[:5]
     cats = Category.objects.all()
     tags = Tag.objects.all()
     context = {
@@ -20,3 +20,8 @@ def add_subscriber(request):
         return redirect('home')
 
     return redirect('home')
+
+
+def service_view(request):
+    context = {}
+    return render(request, "pages/services.html", context)

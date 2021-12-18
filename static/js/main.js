@@ -14,6 +14,10 @@ const responsive = {
 };
 
 $(document).ready(function () {
+  $(function () {
+    setNavigationActive();
+  });
+
   $nav = $(".nav");
   $toggleCollapse = $(".toggle-collapse");
 
@@ -112,4 +116,19 @@ $(document).ready(function () {
   });
 
   //   end search
+
+  // Setting active classess
+
+  function setNavigationActive() {
+    var path = window.location.pathname;
+    path = decodeURIComponent(path);
+    $(".nav-items li a").each(function () {
+      var href = $(this).attr("href");
+      if (path.substring(0, href.length) === href && href.length > 1) {
+        $(this).addClass("active");
+      } else if (window.location.pathname == "/") {
+        $("#home").addClass("active");
+      }
+    });
+  }
 });

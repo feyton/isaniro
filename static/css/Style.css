@@ -303,8 +303,10 @@ main .blog-post .blog-content {
 }
 
 main .blog-post .blog-content img {
-    object-fit: contain;
-    max-width: 100%;
+    object-fit: cover;
+    width: 100%;
+    /* height: 100%; */
+    height: 200px;
 }
 
 main .blog-content .blog-title {
@@ -380,7 +382,8 @@ main .site-content .post-content>.post-image>div {
 main .site-content .post-content>.post-image .img {
     width: 100%;
     transition: all 1s ease;
-    object-fit: contain;
+    object-fit: cover;
+    height: 300px;
 }
 
 main .site-content .post-content>.post-image .img:hover {
@@ -413,11 +416,24 @@ main .post-content .post-title a {
     border-radius: 2rem;
     margin: 0 .3rem;
     font-family: var(--Lexend);
+    transition: .4s;
+}
+
+.site-content .pagination a:hover {
+    color: white;
+    background-color: rgb(27, 21, 21);
+    transition: .4s all;
 }
 
 .site-content .pagination .pages {
     background: var(--text-gray);
     color: var(--white);
+    transition: .4s all;
+}
+
+.site-content .pagination .pages.active {
+    background-color: grey;
+    color: white;
 }
 
 /* -------x-------- Site Content --------x-------*/
@@ -449,6 +465,9 @@ main .post-content .post-title a {
 
 .site-content .sidebar .popular-post h2 {
     padding-top: 8rem;
+    text-align: center;
+    border-bottom: 1px solid grey;
+    width: 100%;
 }
 
 .site-content .sidebar .popular-post .post-info {
@@ -463,11 +482,17 @@ main .post-content .post-title a {
     font-size: 1rem;
 }
 
-.site-content .sidebar .newsletter {
-    padding-top: 10rem;
+.site-content .sidebar .popular-post .post-image img {
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
 }
 
-.site-content .sidebar .newsletter .form-element {
+.site-content .sidebar .newsletter {
+    padding-top: 5rem;
+}
+
+.site-content .sidebar .newsletter .form-element, .newsletter h2 {
     padding: .5rem 2rem;
 }
 
@@ -515,11 +540,10 @@ main .post-content .post-title a {
 }
 
 .like-button button:last-child {
-    background-color: red;
-    color: white;
+    background-color: rgb(74, 190, 236);
+    color: rgb(17, 1, 1);
 }
 
-.like-button .activated {}
 
 .like-button .bold {
     font-weight: bolder;
@@ -612,11 +636,20 @@ footer.footer .newsletter .form-element span {
     cursor: pointer;
 }
 
+
 footer.footer .instagram div>img {
     display: inline-block;
     width: 25%;
     height: 50%;
     margin: .3rem .4rem;
+    object-fit: cover;
+    transition: .3s all;
+}
+
+footer.footer .instagram div>img:hover {
+    transform: scale(2);
+    transition: .3s all;
+    
 }
 
 footer.footer .follow div i {

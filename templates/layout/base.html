@@ -10,7 +10,7 @@
     <title>Isaniro| {% block title %}
 
         Ahabanza{% endblock title %}</title>
-    <link rel="icon" href="/static/images/icon.jpg.png">
+    <link rel="icon" href="/static/assets/icon.png">
 
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="/static/css/all.css">
@@ -47,10 +47,108 @@
         content="Soma inkuru zigufasha buri munsi ndetse unirebere video zigezweho kurubuga rwacu." />
     <meta name="twitter:site" content="@feytonf" />
     {% endblock header %}
+    {% block style %}
+
+    {% endblock style %}
+    <style>
+        body {
+            position: relative;
+
+        }
+
+        .noscroll {
+            position: fixed !important;
+        }
+
+        .btn-load {
+            padding: 1rem 3rem;
+            background-color: rgb(12, 56, 107);
+            color: white;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        .btn-load-more {
+            width: 100%;
+            justify-content: center;
+            text-align: center;
+            padding: 1rem;
+            font-family: var(--Lexend);
+        }
+
+
+
+        body .video-overlay {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(68, 68, 68, 0.596);
+            padding: 3rem;
+            z-index: 100;
+            display: block;
+            text-align: center;
+            display: none;
+        }
+
+        .player {
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            padding-bottom: 56.2%;
+            justify-content: center;
+            display: flex;
+        }
+
+        .player iframe {
+            position: relative;
+            margin: 1rem auto;
+
+
+        }
+
+        body .video-overlay .close-button {
+            position: fixed;
+            top: 0%;
+            right: 0%;
+            background-color: rgb(133, 7, 49);
+            color: white;
+            font-family: var(--Lexend);
+            margin: 1rem 2rem;
+            border-radius: 50%;
+            z-index: 1;
+            height: 50px;
+            width: 50px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 40px;
+        }
+
+
+
+
+        body .video-overlay .player iframe {
+            box-shadow: 3px 3px 8px 3px grey;
+            object-fit: contain;
+
+        }
+    </style>
 
 </head>
 
-<body>
+<body class="">
+    <div class="video-overlay">
+        <div class="close-button" id="close-overlay"><span>X</span></div>
+        <div class="player" id="youtube-player">
+
+            <iframe width="70%" height="70%" src="https://www.youtube.com/embed/loemsPMU_lM"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+
+        </div>
+
+    </div>
 
     <!-- ----------------------------  Navigation ---------------------------------------------- -->
 
@@ -66,14 +164,14 @@
             </div>
             <div>
                 <ul class="nav-items">
-                    <li class="nav-link">
-                        <a href="{% url 'home' %}" class="active">Ahabanza</a>
+                    <li class="nav-link home">
+                        <a href="{% url 'home' %}" class="" id="home">Ahabanza</a>
                     </li>
                     <li class="nav-link">
-                        <a href="{% url 'blog' %}">Blog</a>
+                        <a href="{% url 'blog:blog' %}">Blog</a>
                     </li>
                     <li class="nav-link">
-                        <a href="#">Services</a>
+                        <a href="{% url 'service-view'%}">Services</a>
                     </li>
                     <li class="nav-link">
                         <a href="#">Ibitabo</a>
@@ -81,7 +179,8 @@
                     <li class="nav-link contact-us">
                         <a href="#">Contact Us</a>
                     </li>
-                    <li class="nav-link search" id="search" data-url="{% url 'search-result'%}"><a href="#">Shakisha</a>
+                    <li class="nav-link search" id="search" data-url="{% url 'blog:search-result'%}"><a
+                            href="#">Shakisha</a>
 
                     </li>
                 </ul>
@@ -122,14 +221,20 @@
             <div class="instagram" data-aos="fade-left" data-aos-delay="200">
                 <h2>YouTube</h2>
                 <div class="flex-row">
-                    <img src="/static/assets/instagram/thumb-card3.png" alt="insta1" data-url="" class="youtube-link">
-                    <img src="/static/assets/instagram/thumb-card4.png" alt="insta2" data-url="" class="youtube-link">
-                    <img src="/static/assets/instagram/thumb-card5.png" alt="insta3" data-url="" class="youtube-link">
+                    <img src="https://img.youtube.com/vi/DNu_rw-hjXA/mqdefault.jpg" alt="insta1"
+                        data-url="https://www.youtube.com/embed/DNu_rw-hjXA" class="youtube-link">
+                    <img src="https://img.youtube.com/vi/loemsPMU_lM/mqdefault.jpg" alt="insta2"
+                        data-url="https://www.youtube.com/embed/loemsPMU_lM" class="youtube-link">
+                    <img src="https://img.youtube.com/vi/hBz4J1C62CA/mqdefault.jpg" alt="insta3"
+                        data-url="https://www.youtube.com/embed/hBz4J1C62CA" class="youtube-link">
                 </div>
                 <div class="flex-row">
-                    <img src="/static/assets/instagram/thumb-card6.png" alt="insta4" data-url="" class="youtube-link">
-                    <img src="/static/assets/instagram/thumb-card7.png" alt="insta5" data-url="" class="youtube-link">
-                    <img src="/static/assets/instagram/thumb-card8.png" alt="insta6" data-url="" class="youtube-link">
+                    <img src="https://img.youtube.com/vi/ncT4M40teQI/mqdefault.jpg" alt="insta4"
+                        data-url="https://www.youtube.com/embed/ncT4M40teQI" class="youtube-link">
+                    <img src="https://img.youtube.com/vi/vk--E4myRW8/mqdefault.jpg" alt="insta5"
+                        data-url="https://www.youtube.com/embed/vk--E4myRW8" class="youtube-link">
+                    <img src="https://img.youtube.com/vi/IRBRO0CRwzU/mqdefault.jpg" alt="insta6"
+                        data-url="https://www.youtube.com/embed/IRBRO0CRwzU" class="youtube-link">
                 </div>
             </div>
             <div class="follow" data-aos="fade-left" data-aos-delay="200">
@@ -177,6 +282,46 @@
                 e.preventDefault();
                 var url = $(this).data("url")
                 window.location.href = url
+            });
+
+            var tag = document.createElement('script');
+
+            tag.src = "https://www.youtube.com/iframe_api";
+
+            function onYouTubeIframeAPIReady() {
+                player = new YT.Player('player', {
+                    height: '390',
+                    width: '640',
+                    videoId: 'hBz4J1C62CA',
+                    playerVars: {
+                        'playsinline': 1
+                    },
+                    events: {
+                        'onReady': onPlayerReady,
+                        'onStateChange': onPlayerStateChange
+                    }
+                });
+            }
+
+            $(".youtube-link").on("click", (e) => {
+                let url = e.target.getAttribute("data-url");
+                console.log(url)
+                let videoTemplate = `
+                <iframe width="80%" height="80%" src="${url}"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+                
+                `;
+                $("#youtube-player").html(videoTemplate);
+                $(".video-overlay").show(200);
+                $("body").addClass("noscroll")
+            });
+            $("#close-overlay").click((e) => {
+                e.preventDefault();
+                $(".video-overlay").hide(200);
+                $("body").removeClass("noscroll");
+                $("#youtube-player").html("")
             })
         })
     </script>

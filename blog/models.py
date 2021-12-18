@@ -37,7 +37,7 @@ class Category(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('category-view', kwargs={'pk': self.pk, 'title': self.slug})
+        return reverse('blog:category-view', kwargs={'pk': self.pk, 'title': self.slug})
 
 
 class Author(models.Model):
@@ -67,7 +67,7 @@ class Tag(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('tag-view', kwargs={'pk': self.pk, 'name': self.title})
+        return reverse('blog:tag-view', kwargs={'pk': self.pk, 'name': self.title})
 
 
 class Post(models.Model):
@@ -88,7 +88,7 @@ class Post(models.Model):
     tags = models.ManyToManyField(
         Tag, blank=True, related_name="posts")
     thumbnail = models.ImageField(
-        upload_to='blog', blank=True, null=True, default='/blog/default.jpg')
+        upload_to='blog', blank=True, null=True, default='blog/default.jpg')
     image_wide = ImageSpecField([Adjust(contrast=1.2, sharpness=1.1),
                                  ResizeToFill(400, 750)], image_field='thumbnail',
                                 format='JPEG', options={'quality': 90})
@@ -100,7 +100,7 @@ class Post(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('blog-detail', kwargs={'pk': self.pk, 'title': self.slug})
+        return reverse('blog:blog-detail', kwargs={'pk': self.pk, 'title': self.slug})
 
     def save(self, *args, **kwargs):
         if self.published and not self.published_date:
@@ -118,7 +118,7 @@ class Post(models.Model):
 class Comment(models.Model):
     name = models.CharField(max_length=255, blank=False, null=False)
     email = models.EmailField(max_length=255, blank=False, null=False)
-    body = models.TextField(blank=False, null="False")
+    body = models.TextField(blank=False, null=False)
     post = models.ForeignKey(
         Post, on_delete=models.CASCADE, null=False, blank=False, related_name='comments')
     created_on = models.DateTimeField(auto_now_add=True)

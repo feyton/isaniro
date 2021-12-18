@@ -68,7 +68,7 @@
                             <span><i class="fas fa-user text-gray"></i>&nbsp;&nbsp;{{post.author.name}}</span>
                             <span><i
                                     class="fas fa-calendar-alt text-gray"></i>&nbsp;&nbsp;{{post.published_date}}</span>
-                            <span>{% get_hit_count for post %}</span>
+                            <span><i class="fas fa-eye text-gray"></i>&nbsp;{% get_hit_count for post %}</span>
                         </div>
                     </div>
                     <div class="post-title">
@@ -81,6 +81,9 @@
                 </div>
                 <hr>
                 {% endfor %}
+                <div class="btn-load-more"><a href="{% url 'blog:blog'%}" class="btn primary btn-load">Reba izindi
+                        nkuru</a></div>
+
 
             </div>
             <aside class="sidebar">
@@ -108,10 +111,11 @@
                 </div>
                 <div class="newsletter" data-aos="fade-up" data-aos-delay="300">
                     <h2>Newsletter</h2>
-                    <div class="form-element">
-                        <input type="text" class="input-element" placeholder="Email">
-                        <button class="btn form-btn disabled">Subscribe</button>
-                    </div>
+                    <form class="form-element subscriber-form" action="#none" method="post">
+                        {% csrf_token %}
+                        <input type="text" class="input-element" placeholder="Email" name="email">
+                        <button class="btn form-btn disabled" type="submit">Subscribe</button>
+                    </form>
                 </div>
                 <div class="popular-tags">
                     <h2>Popular Tags</h2>

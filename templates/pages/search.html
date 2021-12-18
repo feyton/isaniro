@@ -1,6 +1,44 @@
 {% extends "layout/base.html" %}
 {% load static %}
 {% load humanize%}
+
+{% block style %}
+<style>
+    .empty-div {
+        padding: 3rem 2rem;
+        text-align: center;
+        font-family: var(--Lexend);
+        margin: 3rem;
+        box-shadow: 2px 2px 2px 2px grey;
+    }
+
+    .button-group {
+        display: flex;
+        justify-content: center;
+        padding: 2rem;
+        width: fit-content;
+    }
+
+    .button-group .btn {
+        margin: 1rem 2rem;
+        padding: 1rem 2rem;
+        border-radius: 30px;
+    }
+
+    .btn-outline {
+        border: 2px solid black;
+        background-color: rgba(68, 68, 68, 0.247);
+        color: black;
+        transition: .3s all;
+    }
+
+    .btn-outline:hover {
+        background-color: rgba(243, 243, 243, 0.473);
+
+    }
+</style>
+{% endblock style %}
+
 {% block content %}
 
 <main>
@@ -43,33 +81,23 @@
                 </div>
                 <hr>
                 {% empty%}
-                <h2>Wihangane ntabwo twabonye ibyo washakishaga</h2>
+                <div class="empty-div">
+                    <h2>Wihangane ntabwo twabonye ibyo washakishaga</h2>
+                    <div class="button-group">
+                        <a href="{% url 'blog:blog' %}" class="btn btn-outline btn-blog">Subira kunkuru</a>
+                        <a href="#prevented" class="btn btn-primary btn-blog search"
+                            data-url="{% url 'search-result'%}">Ongera Ushakishe</a>
+                    </div>
+                </div>
+
                 {% endfor %}
-                
+
             </div>
             <aside class="sidebar">
                 {% include "layout/cat.html" %}
 
-                <div class="newsletter" data-aos="fade-up" data-aos-delay="300">
-                    <h2>Newsletter</h2>
-                    <div class="form-element">
-                        <input type="text" class="input-element" placeholder="Email">
-                        <button class="btn form-btn">Subscribe</button>
-                    </div>
-                </div>
-                <div class="popular-tags">
-                    <h2>Popular Tags</h2>
-                    <div class="tags flex-row">
-                        <span class="tag" data-aos="flip-up" data-aos-delay="100">Software</span>
-                        <span class="tag" data-aos="flip-up" data-aos-delay="200">technology</span>
-                        <span class="tag" data-aos="flip-up" data-aos-delay="300">travel</span>
-                        <span class="tag" data-aos="flip-up" data-aos-delay="400">illustration</span>
-                        <span class="tag" data-aos="flip-up" data-aos-delay="500">design</span>
-                        <span class="tag" data-aos="flip-up" data-aos-delay="600">lifestyle</span>
-                        <span class="tag" data-aos="flip-up" data-aos-delay="700">love</span>
-                        <span class="tag" data-aos="flip-up" data-aos-delay="800">project</span>
-                    </div>
-                </div>
+
+
             </aside>
         </div>
     </section>

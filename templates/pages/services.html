@@ -1,0 +1,125 @@
+{% extends "layout/base.html" %}
+{% block style %}
+<style>
+    .hero {
+        padding: 2rem;
+    }
+
+    .hero .services-list {
+        display: flex;
+        justify-content: center;
+        margin: 2rem 0rem;
+        padding: 1rem 2rem;
+
+    }
+
+    .hero .services-list .card {
+        max-width: 300px;
+        min-width: 200px;
+        margin: 0px 2rem;
+        box-shadow: 2px 2px 2px 2px grey;
+        border-radius: 10px;
+        overflow-x: hidden;
+        text-align: center;
+        transition: .5s all;
+        position: relative;
+
+    }
+
+    .hero .services-list .card:hover {
+        transition: .5s;
+        transform: scale(1.3);
+    }
+
+    .hero .services-list .card img {
+        max-height: 200px;
+        object-fit: cover;
+        border-radius: 10px 10px 0px 0px;
+    }
+
+    .hero .services-list .card-middle {
+        transform: scale(1.1);
+        margin: 2rem 2rem;
+        transition: .5s all;
+    }
+
+    .hero .services-list .card-middle:hover {
+        transform: scale(1.2);
+        transition: .5s all;
+    }
+
+    .hero .services-list .card-middle .title {
+        transform: scale(.7);
+        margin-bottom: 4rem;
+    }
+
+    .learn-more {
+        padding: 1rem;
+        position: absolute;
+        bottom: 0;
+        margin-top: 2rem;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+        width: 100%;
+    }
+
+    .learn-more button {
+        background-color: rgb(10, 126, 141);
+        color: white;
+        font-family: var(--Lexend);
+        padding: .5rem 2rem;
+        border-radius: 20px;
+        transition: .5s all;
+        border: none;
+        min-width: fit-content;
+    }
+
+    .learn-more button:hover {
+        box-shadow: 2px 2px 2px 2px blue;
+    }
+</style>
+
+{% endblock style %}
+{% block content %}
+
+
+<div class="hero">
+    <div class="services-list">
+        <div class="service card">
+            <div class="service-image">
+                <img src="/static/assets/Background-image-2.png" alt="">
+            </div>
+            <div class="title">
+                <h2>Serivise zubwubatsi</h2>
+            </div>
+            <div class="learn-more">
+                <button>Menya Byinshi</button>
+            </div>
+        </div>
+        <div class="service card card-middle">
+            <div class="service-image">
+                <img src="/static/assets/Background-image-2.png" alt="">
+            </div>
+            <div class="title">
+                <h2>Serivise zubwubatsi</h2>
+            </div>
+            <div class="learn-more">
+                <button>Menya Byinshi</button>
+            </div>
+        </div>
+        <div class="service card">
+            <div class="service-image">
+                <img src="/static/assets/Background-image-2.png" alt="">
+            </div>
+            <div class="title">
+                <h2>Serivise zubwubatsi</h2>
+            </div>
+            <div class="learn-more">
+                <button>Menya Byinshi</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

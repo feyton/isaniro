@@ -1,4 +1,6 @@
 from django.contrib import messages
+from django.core import paginator
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
@@ -9,17 +11,29 @@ from rest_framework.views import APIView
 from .forms import CommentForm
 from .models import Category, Comment, Post, SearchTerms, Tag
 from .serializer import CommentSerializer
-from django.core import paginator
+
 
 class BlogListView(View):
     def get(self, *args, **kwargs):
+        posts = Post.objects.filter(
+            published=True).order_by('-published_date')
+        paginator = Paginator(posts, 1)
+        page_var = "page"
+        page = self.request.GET.get(page_var, 1)
+        try:
+            paginated_data = paginator.page(page)
+        except PageNotAnInteger:
+            paginated_data = paginator.page(1)
+        except EmptyPage:
+            paginated_data = paginator.page(paginator.num_pages)
 
         context = {
-            'posts': Post.objects.filter(published=True).order_by('-published_date'),
+            'posts': paginated_data,
+            "recent_posts": posts[1:5],
             'tags': Tag.objects.all,
             'categories': Category.objects.all(),
             'tags': Tag.objects.all(),
-            'featured': Post.objects.filter(published=True).order_by("-published_date")[0]
+            'featured': posts[0]
         }
 
         return render(self.request, 'blog.html', context)
@@ -28,13 +42,12 @@ class BlogListView(View):
 list_view = BlogListView.as_view()
 
 
-def post_view(request, pk, title):
+def post_view(request, pk, *args, **kwargs):
     post = get_object_or_404(Post, pk=pk)
     categories = Category.objects.all()
     tags = Tag.objects.all()
     posts = Post.objects.filter(
-        published=True).exclude(pk=pk)
-    comments = Comment.objects.filter(post=post, approved=True)
+        published=True).exclude(pk=pk)[5:]
     if request.method == 'POST':
         form = CommentForm(request.POST)
         context = {
@@ -42,7 +55,6 @@ def post_view(request, pk, title):
             'categories': categories,
             'tags': tags,
             'posts': posts,
-            'comments': comments
         }
         print(form)
         if form.is_valid():
@@ -81,16 +93,39 @@ class GetPostComments(APIView):
         print(post.title)
         comments = Comment.objects.filter(approved=True, post=post)
         serialized = CommentSerializer(comments, many=True)
-        print("DOne")
-        print(serialized.data)
         return Response(serialized.data)
 
 
 comment_view = GetPostComments.as_view()
 
 
-def add_comment(request, data):
-    pass
+def add_comment(request, pk, *args, **kwargs):
+    if request.method == 'POST':
+        post = get_object_or_404(Post, pk=pk)
+        comment = Comment()
+        comment.name = request.POST.get("name")
+        comment.name = request.POST.get("email")
+        comment.name = request.POST.get("body")
+        comment.approved = True
+        comment.post = post
+        comment.save()
+        print(request.POST)
+        print("Comment created: ", comment)
+
+        # if form.is_valid():
+        #     comment = form.save(commit=False)
+        #     comment.post = post
+        #     comment.save()
+        #     n = {'new_comment': comment}
+        #     context.update(n)
+        #     messages.success(request, 'Thank you for the comment')
+        #     return render(request, 'detail.html', context)
+        # messages.error(request, 'Error in form')
+        data = {"created": "true"}
+        return JsonResponse(data)
+    else:
+        data = {"created": "false"}
+        return JsonResponse(data)
 
 
 class DetailView(DetailView):
@@ -107,8 +142,7 @@ def category_view(request, pk, *args, **kwargs):
         'category': cat,
         'categories': Category.objects.all(),
         'tags': Tag.objects.all(),
-        'category': cat,
-        'all_posts': Post.objects.filter(published=True).order_by('-published_date')
+
     }
     return render(request, 'pages/categories.html', context)
 

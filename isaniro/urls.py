@@ -13,10 +13,10 @@ sitemaps = {
 }
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('blog/', include("blog.urls")),
+    path('blog/', include(("blog.urls", 'blog'), namespace='blog')),
     path('user/', include("user.urls")),
     path("", include("index.urls")),
-    path('ckeditor', include('ckeditor_uploader.urls')),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
     path('accounts/', include('allauth.urls')),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
          name='django.contrib.sitemaps.views.sitemap'),
