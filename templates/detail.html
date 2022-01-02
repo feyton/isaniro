@@ -253,10 +253,10 @@
                 //$('.post-views').text(data.hit_counted).attr('id', 'hit-counted-value').appendTo('#post-views');
                 //alert(data.hit_counted);
                 //$('#post-views').text(data.hit_message);
-                console.log(data)
+                // console.log(data)
             }).fail(function (data) {
                 console.log('POST failed');
-                console.log(data);
+                // console.log(data);
             });
     });
 </script>
@@ -270,8 +270,14 @@
                 url: url,
                 method: 'GET',
                 success: (data) => {
-                    console.log(data)
+                    // console.log(data)
                     if (data.length == 0) {
+                        commentDiv.innerHTML = `
+                    <div class="comment">
+                        <h3>Ba uwa mbere mugutanga ibitekerezo</h3>
+                        <hr>
+                    </div>
+                    `
 
                     } else {
                         //console.log("Data length:", data.length);
@@ -321,7 +327,7 @@
                 let email = data[2].value;
                 let body = data[3].value;
                 let bot = data[4].value;
-                console.log(url)
+                // console.log(url)
                 if (!bot == 'none') {
                     console.log("Probably a bot")
                     alert("Please leave hidden field alone")

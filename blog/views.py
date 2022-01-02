@@ -17,7 +17,7 @@ class BlogListView(View):
     def get(self, *args, **kwargs):
         posts = Post.objects.filter(
             published=True).order_by('-published_date')
-        paginator = Paginator(posts, 1)
+        paginator = Paginator(posts, 7)
         page_var = "page"
         page = self.request.GET.get(page_var, 1)
         try:
@@ -29,8 +29,8 @@ class BlogListView(View):
 
         context = {
             'posts': paginated_data,
-            "recent_posts": posts[1:5],
-            'tags': Tag.objects.all,
+            "recent_posts": posts[:5],
+            'tags': Tag.objects.all(),
             'categories': Category.objects.all(),
             'tags': Tag.objects.all(),
             'featured': posts[0]
