@@ -70,6 +70,8 @@
                             <span><i
                                     class="fas fa-calendar-alt text-gray"></i>&nbsp;&nbsp;{{post.published_date}}</span>
                             <span id="post-views" class="post-views">{% get_hit_count for post %} Views</span>
+                            <span><i class="far fa-thumbs-up text-gray"></i>&nbsp;<b
+                                    class="post-likes">{{post.likes}}</b></span>
                         </div>
                     </div>
                     <div class="post-title">
@@ -78,7 +80,9 @@
                             {{post.content|safe}}
                         </div>
                         <div class="like-button center">
-                            <button class="btn btn-like require-login" data-post="{{post.pk}}"><i
+
+                            <button class="btn btn-like require-login" data-post="{{post.pk}}" id="post-like-button"
+                                data-url="{% url 'blog:add-post-like' pk=post.pk %}"><i
                                     class="far fa-thumbs-up fa-lg"></i></button>
                         </div>
 
@@ -97,12 +101,13 @@
                             data-link="{% url 'blog:add-comment' pk=post.pk %}">
                             {% csrf_token %}
                             <input type="text" placeholder="Amazina" name="name" required minlength="5"
-                                title="Izina rigizwe ninyuguti byibura 5">
+                                title="Izina rigizwe ninyuguti byibura 5" id="comment-name">
                             <input type="email" name="email" placeholder="E-mail" required
-                                title="Andika email ikora neza">
-                            <textarea name="body" id="" cols="30" rows="3" placeholder="Andika hano igitekerezo cyawe"
-                                required minlength="5" title="Ubutumwa burengeje inyuguti eshanu"></textarea>
-                            <input type="hidden" name="for-bot" hidden="true" value="none">
+                                title="Andika email ikora neza" id="comment-email">
+                            <textarea name="body" id="comment-body" cols="30" rows="3"
+                                placeholder="Andika hano igitekerezo cyawe" required minlength="5"
+                                title="Ubutumwa burengeje inyuguti eshanu"></textarea>
+                            <input type="hidden" id="comment-bot" name="for-bot" hidden="true" value="none">
                             <button class="btn btn-primary" id="">Ohereza</button>
 
                         </form>
@@ -133,6 +138,7 @@
 
                         </li>
                         <li class="list-items" data-aos="fade-left" data-aos-delay="100">
+                            <i class="fab fa-whatsapp"></i>
                             {% post_to_whatsapp object_or_url "Share via WhatsApp" %}
 
                         </li>
@@ -141,7 +147,7 @@
                     </ul>
                 </div>
                 <div class="popular-post">
-                    <h2>Inkuru zikunzwe</h2>
+                    <h2>Inkuru zisa niyi</h2>
                     {% for post in posts %}
                     <div class="post-content" data-aos="flip-up" data-aos-delay="200">
 
@@ -193,178 +199,6 @@
 
 {% load hitcount_tags %}
 {% get_hit_count_js_variables for post as hitcount %}
-<script type="text/javascript">
-    (function ($) {
-
-        $.postCSRF = function (url, data, callback, type) {
-
-            function csrfSafeMethod(method) {
-                // these HTTP methods do not require CSRF protection
-                return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-            }
-
-            function getCookie(name) {
-                var cookieValue = null;
-                if (document.cookie && document.cookie !== '') {
-                    var cookies = document.cookie.split(';');
-                    for (var i = 0; i < cookies.length; i++) {
-                        var cookie = jQuery.trim(cookies[i]);
-                        // Does this cookie string begin with the name we want?
-                        if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                            break;
-                        }
-                    }
-                }
-                return cookieValue;
-            }
-
-            var csrftoken = getCookie('csrftoken');
-
-            // shift arguments if data argument was omitted
-            if ($.isFunction(data)) {
-                type = type || callback;
-                callback = data;
-                data = undefined;
-            }
-
-            return $.ajax(jQuery.extend({
-                url: url,
-                type: "POST",
-                dataType: type,
-                data: data,
-                success: callback,
-                beforeSend: function (xhr, settings) {
-                    if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-                        xhr.setRequestHeader("X-CSRFToken", csrftoken);
-                    }
-                }
-            }, jQuery.isPlainObject(url) && url));
-        };
-
-    }(jQuery));
-
-
-
-    jQuery(document).ready(function ($) {
-        // use the template tags in our JavaScript call
-        $.postCSRF("{{ hitcount.ajax_url }}", { hitcountPK: "{{ hitcount.pk }}" })
-            .done(function (data) {
-                //$('.post-views').text(data.hit_counted).attr('id', 'hit-counted-value').appendTo('#post-views');
-                //alert(data.hit_counted);
-                //$('#post-views').text(data.hit_message);
-                // console.log(data)
-            }).fail(function (data) {
-                console.log('POST failed');
-                // console.log(data);
-            });
-    });
-</script>
-<script>
-    $(document).ready(function () {
-        const loadComments = () => {
-            let commentDiv = document.getElementById("comment-list")
-            let url = commentDiv.getAttribute('data-url');
-            //console.log(url)
-            $.ajax({
-                url: url,
-                method: 'GET',
-                success: (data) => {
-                    // console.log(data)
-                    if (data.length == 0) {
-                        commentDiv.innerHTML = `
-                    <div class="comment">
-                        <h3>Ba uwa mbere mugutanga ibitekerezo</h3>
-                        <hr>
-                    </div>
-                    `
-
-                    } else {
-                        //console.log("Data length:", data.length);
-                        commentDiv.innerHTML = "";
-                        data.forEach(comment => {
-                            let date = new Date(comment.created_on)
-                            //console.log(date.toDateString())
-                            let commentElement = `
-                            <div class="comment">
-                                <h3>By ${comment.name}</h3> <strong><span>${date.toDateString()}</span></strong>
-                                <p class="comment-content">${comment.body}</p>
-                                <hr>
-                            </div>
-                            
-                            `;
-                            commentDiv.innerHTML += commentElement
-                        });
-
-
-                    }
-
-                },
-                error: (err) => {
-                    console.log(err)
-                    commentDiv.innerHTML = `
-                    <div class="comment">
-                        <h3>Ba uwa mbere mugutanga ibitekerezo</h3>
-                        <hr>
-                    </div>
-                    `
-                },
-                timeout: 6000
-            })
-
-        }
-        setTimeout(() => { loadComments() }, 2000)
-
-        const saveComment = () => {
-            let commentForm = document.querySelector(".comment-form");
-            let url = commentForm.getAttribute("data-link");
-            commentForm.addEventListener("submit", (e) => {
-                e.preventDefault();
-
-                let data = $(".comment-form").serializeArray();
-                let token = data[0].value;
-                let name = data[1].value;
-                let email = data[2].value;
-                let body = data[3].value;
-                let bot = data[4].value;
-                // console.log(url)
-                if (!bot == 'none') {
-                    console.log("Probably a bot")
-                    alert("Please leave hidden field alone")
-                } else {
-
-
-                    let formdata = {
-                        csrfmiddlewaretoken: token,
-                        name: name,
-                        email: email,
-                        body: body
-                    }
-                    $.ajax({
-                        url: url,
-                        method: "POST",
-                        data: formdata,
-                        success: (data) => {
-                            if (data.created == "true") { loadComments() } else {
-                                console.log("Not created")
-                            }
-
-                        },
-                        error: (err) => {
-                            console.log(err)
-                            alert("Something happened on our end")
-                        }
-                    })
-                }
-
-            })
-        }
-        saveComment()
-
-
-
-
-    })
-</script>
+<script src="/static/js/detail.js" defer></script>
 
 {% endblock script %}

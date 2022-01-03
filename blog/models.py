@@ -95,7 +95,11 @@ class Post(models.Model):
     image_square = ImageSpecField([Adjust(contrast=1.2, sharpness=1.1),
                                    ResizeToFill(220, 340)], image_field='thumbnail',
                                   format='JPEG', options={'quality': 90})
+    likes = models.IntegerField(default=0)
 
+    class Meta:
+        verbose_name = "blog"
+        ordering = ['-created_on', '-published_date']
     def __str__(self):
         return self.title
 
@@ -153,7 +157,3 @@ class UniqueUser(models.Model):
     ip = models.GenericIPAddressField()
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, blank=True, null=True)
-
-
-class Like(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)

@@ -28,6 +28,88 @@ html, body {
 }
 
 
+body {
+    position: relative;
+
+}
+
+.noscroll {
+    position: fixed !important;
+}
+
+.btn-load {
+    padding: 1rem 3rem;
+    background-color: rgb(12, 56, 107);
+    color: white;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.btn-load-more {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    padding: 1rem;
+    font-family: var(--Lexend);
+}
+
+
+
+body .video-overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(68, 68, 68, 0.596);
+    padding: 3rem;
+    z-index: 100;
+    display: block;
+    text-align: center;
+    display: none;
+}
+
+.player {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    padding-bottom: 56.2%;
+    justify-content: center;
+    display: flex;
+}
+
+.player iframe {
+    position: relative;
+    margin: 1rem auto;
+
+
+}
+
+body .video-overlay .close-button {
+    position: fixed;
+    top: 0%;
+    right: 0%;
+    background-color: rgb(133, 7, 49);
+    color: white;
+    font-family: var(--Lexend);
+    margin: 1rem 2rem;
+    border-radius: 50%;
+    z-index: 1;
+    height: 50px;
+    width: 50px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 40px;
+}
+
+
+
+
+body .video-overlay .player iframe {
+    box-shadow: 3px 3px 8px 3px grey;
+    object-fit: contain;
+
+}
+
 /* ---------------- Global Classes ---------------*/
 
 a {
@@ -649,7 +731,7 @@ footer.footer .instagram div>img {
 footer.footer .instagram div>img:hover {
     transform: scale(2);
     transition: .3s all;
-    
+
 }
 
 footer.footer .follow div i {
@@ -679,6 +761,17 @@ footer.footer .move-up span {
 footer.footer .move-up span:hover {
     color: var(--white);
     cursor: pointer;
+}
+
+.comment-list .comment {
+    box-shadow: 2px 2px 2px 2px grey;
+    padding: 1rem;
+    margin: 1rem;
+}
+
+.comment-list {
+    max-height: 1000px;
+    overflow-y: auto;
 }
 
 /* ---------x------- Footer ----------x---------- */

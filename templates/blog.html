@@ -27,6 +27,8 @@
                             <h3>{{post.title}}</h3>
                             <button class="btn btn-blog post-link" data-url="{{post.get_absolute_url}}">Soma</button>
                             <span>{% get_hit_count for post %} Views</span>
+                            <span><i class="far fa-thumbs-up text-gray"></i>&nbsp;<b
+                                    class="post-likes">{{post.likes}}</b></span>
                         </div>
                     </div>
 
@@ -53,13 +55,15 @@
                 <div class="post-content" data-aos="zoom-in" data-aos-delay="200">
                     <div class="post-image">
                         <div>
-                            <img src="{{post.thumbnail.url}}" class="img" alt="blog1">
+                            <img data-src="{{post.thumbnail.url}}" class="img lazy" alt="blog1">
                         </div>
                         <div class="post-info flex-row">
                             <span><i class="fas fa-user text-gray"></i>&nbsp;&nbsp;{{post.author.name}}</span>
                             <span><i
                                     class="fas fa-calendar-alt text-gray"></i>&nbsp;&nbsp;{{post.published_date}}</span>
                             <span>{% get_hit_count for post %} Views</span>
+                            <span><i class="far fa-thumbs-up text-gray"></i>&nbsp;<b
+                                    class="post-likes">{{post.likes}}</b></span>
                         </div>
                     </div>
                     <div class="post-title">
@@ -111,7 +115,7 @@
                     <div class="post-content" data-aos="flip-up" data-aos-delay="200">
                         <div class="post-image">
                             <div>
-                                <img src="{{post.thumbnail.url}}" class="img" alt="blog1">
+                                <img data-src="{{post.thumbnail.url}}" class="img lazy" alt="blog1">
                             </div>
                             <div class="post-info flex-row">
                                 <span><i

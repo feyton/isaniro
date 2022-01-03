@@ -14,7 +14,13 @@ class CommentAdmin(admin.ModelAdmin):
         queryset.update(approved=True)
 
 
-admin.site.register(Post)
+@admin.register(Post)
+class PostAdmin(admin.ModelAdmin):
+    list_display = ('title', 'author', 'created_on', 'published')
+    list_filter = ('author', 'published')
+    search_fields = ('title', 'author', 'content')
+
+
 admin.site.register(Category)
 admin.site.register(Service)
 admin.site.register(Tag)

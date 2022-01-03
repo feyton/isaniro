@@ -10,4 +10,5 @@ urlpatterns = [
     path('search/', views.search, name='search-result'),
     path('view/<pk>/', views.comment_view, name="comments-view"),
     path('add-comment/<pk>/', views.add_comment, name="add-comment"),
+    path('add-like/<pk>/', views.record_post_like, name="add-post-like"),
 ]

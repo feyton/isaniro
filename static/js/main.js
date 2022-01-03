@@ -96,7 +96,7 @@ $(document).ready(function () {
         autocapitalize: "on",
       },
       showCancelButton: true,
-      confirmButtonText: "Shaka",
+      confirmButtonText: "Shakisha",
       showLoaderOnConfirm: true,
       preConfirm: (login) => {
         console.log(login);
@@ -105,13 +105,13 @@ $(document).ready(function () {
           var url = $("#search").data("url");
           return (window.location.href = `${url}?q=${login}`);
         } else {
+          Swal.showValidationMessage(`Andika ikintu ushakisha`);
         }
       },
-    }).catch((error) => {
-      Swal.showValidationMessage(`Andika ikintu ushakisha`);
     });
   }
-  $(".search").click(function () {
+  $(".search").click(function (e) {
+    e.preventDefault();
     searchTerm();
   });
 
