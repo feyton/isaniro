@@ -1,7 +1,8 @@
-from django.utils.translation import ugettext_lazy as _
 from autoslug.fields import AutoSlugField
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.urls.base import reverse
+from django.utils.translation import ugettext_lazy as _
 
 User = get_user_model()
 # Create your models here.
@@ -20,6 +21,12 @@ class Book(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse("book-view", kwargs={"pk": self.pk, 'slug': self.slug})
+
+    def get_sample_download_link(self):
+        return reverse("sample-download", kwargs={"pk": self.pk, 'slug': self.slug})
 
 
 class BookUser(models.Model):

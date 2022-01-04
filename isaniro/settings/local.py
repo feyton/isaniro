@@ -80,3 +80,12 @@ CKEDITOR_CONFIGS = {
 
 SITE_ID = 1
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = '198.54.114.236'
+# EMAIL_PORT = '465'
+# EMAIL_HOST_USER = 'books@isaniro.com'
+# EMAIL_HOST_PASSWORD = config('HOST_PASS', default="admin@2020")
+# EMAIL_USE_TLS = False
+# EMAIL_USE_SSL = True
+
+# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

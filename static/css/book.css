@@ -55,6 +55,9 @@ main .carousel {
     width: 100%;
     overflow-x: auto;
     padding: .3rem 2rem;
+    display: flex;
+    overflow: hidden;
+    flex-direction: row;
 }
 
 main .carousel .book-card {
@@ -164,7 +167,7 @@ main .book-list {
 .book-div {
     display: flex;
     flex-wrap: wrap;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: left;
     padding: 1rem 1rem 1rem 2rem;
 }
@@ -181,7 +184,7 @@ main .book-list {
 .book-div .card img {
     height: 100%;
     width: 100%;
-    object-fit: contain;
+    object-fit: cover;
     border-radius: 10px;
 }
 
@@ -303,6 +306,7 @@ main .book-list {
     text-align: justify;
     background-color: #fff;
     width: 100%;
+    overflow-y: auto;
 }
 
 .book-div .card .content .body p {

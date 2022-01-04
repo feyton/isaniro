@@ -4,6 +4,9 @@
 <link rel="stylesheet" href="/static/css/book.css" class="css">
 
 {% endblock style %}
+{% block title %}
+Ibitabo
+{% endblock title %}
 {% block content %}
 
 
@@ -15,22 +18,27 @@
             <button class="btn-book btn-book-explore">REBA IBITABO</button>
         </div>
         <div class="carousel">
+            {% for book in books %}
+
+
             <div class="book-card">
                 <div class="book-cover-hero">
-                    <img src="/static/assets/Abract01.png" alt="">
+                    <img src="{{book.cover.url}}" alt="">
                 </div>
                 <div class="book-info">
-                    <div class="h3 title">Impamba Y'Ubuzima</div>
+                    <div class="h3 title">{{book.title}}</div>
                 </div>
                 <div class="progress">
 
                 </div>
                 <div class="explore">
-                    <button class="btn-book btn-book-primary" onclick="window.location.href='#book-list'">READ</button>
+                    <button class="btn-book btn-book-primary" onclick="window.location.href='#book-list'">SOMA</button>
                 </div>
 
 
             </div>
+            {% endfor %}
+
         </div>
 
 
@@ -40,47 +48,112 @@
         <p></p>
 
         <div class="book-div">
+            {% for book in books %}
+
+
             <div class="card book">
                 <div class="actions">
                     <i class="fas fa-heart f-lg"></i>
                     <i class="fas fa-bookmark f-lg"></i>
                 </div>
                 <div class="cover">
-                    <img class="book-top" src="./WhatsApp Image 2022-01-04 at 6.42.36 PM.jpeg" alt="">
+                    <img class="book-top" src="{{book.cover.url}}" alt="">
 
 
                 </div>
                 <div class="preface">
                     <div class="content">
                         <div class="header">
-                            <h2>Impamba y'Ubuzima</h2>
+                            <h2>{{book.title}}</h2>
                             <div class="icon toggle-view">
                                 <i class="fas fa-chevron-down"></i>
                                 <span class="circle"></span>
                             </div>
                         </div>
-                        <div class="author">By <b>Bellarme Senga</b></div>
+                        <div class="author">By <b>{{book.author}}</b></div>
                         <div class="body">
                             <p>
-                                also known as The Diary of Anne Frank, is a book of the writings from the
-                                Dutch-language diary kept by Anne Frank while she was in hiding for two years
-                                with her family during the Nazi occupation of the Netherlands
+                                {{book.summary}}
                             </p>
-                            <p>
-                                Anne calls her diary "Kitty", so almost all of the letters are written to Kitty.
-                            </p>
+
                             <div class="button-group">
-                                <button class="btn-book btn-book-primary">BUY</button>
-                                <button class="btn-book btn-book-secondary">REQUEST SAMPLE</button>
+                                <button class="btn-book btn-book-primary comming-soon">GURA</button>
+                                <button class="btn-book btn-book-secondary request-sample"
+                                    data-url="{{book.get_sample_download_link}}">INCAMAKE</button>
                             </div>
                         </div>
 
                     </div>
                 </div>
             </div>
+            {% endfor %}
         </div>
 
     </div>
 </main>
 
 {% endblock content %}
+
+{% block script %}
+
+<script>
+    $(document).ready(() => {
+        $('.request-sample').click((e) => {
+            let url = e.target.getAttribute('data-url')
+            e.preventDefault()
+            Swal.fire({
+                title: 'Uzuza iyi form ubone incamake',
+                html:
+                    `<input type="text" id="swal-input1" class="swal2-input" placeholder='Amazina' required> 
+                    '<input type="email" id="swal-input2" class="swal2-input" placeholder='Email' required>`,
+                preConfirm: function () {
+                    return new Promise(function (resolve) {
+                        // Validate input
+                        if ($('#swal-input1').val() == '' || $('#swal-input2').val() == '' || !$('#swal-input2').val().match(/\S+@\S+\.\S+/)) {
+                            swal.showValidationMessage("Uzuza amakuru hose"); // Show error when validation fails.
+                            swal.enableButtons()// Enable the confirm button again.
+                        } else {
+                            swal.resetValidationMessage(); // Reset the validation message.
+                            resolve([
+                                $('#swal-input1').val(),
+                                $('#swal-input2').val()
+                            ]);
+                        }
+                    })
+                },
+                onOpen: function () {
+                    $('#swal-input1').focus()
+                }
+
+
+            }).then(function (result) {
+                // If validation fails, the value is undefined. Break out here.
+                if (typeof (result.value) == 'undefined') {
+                    return false;
+                }
+
+                let data = { "name": result.value[0], 'email': result.value[1] }
+                console.log(data)
+                $.ajax({
+                    url: url,
+                    data: data,
+                    success: (res) => {
+                        console.log(res)
+                        new swal({
+                            title: 'Incamake yoherejwe',
+                            html: `Kuri <b>${data.name}</b> incamake wasabye y'igitabo <br>
+                            <b>${res.title}</b> yoherejwe kuri Email yawe <b> ${data.email}</b>.<br>
+                                Murakoze
+                            `
+                        })
+                    },
+                    error: (err) => {
+                        console.log(err)
+                    }
+                })
+                new swal(data)
+            }).catch(swal.noop)
+        })
+    })
+</script>
+{% endblock script %}
