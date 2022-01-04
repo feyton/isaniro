@@ -21,6 +21,7 @@ urlpatterns = [
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
          name='django.contrib.sitemaps.views.sitemap'),
     url(r'hitcount/', include('hitcount.urls', namespace='hitcount')),
+    path('book/', include("books.urls"))
 
 ]
 

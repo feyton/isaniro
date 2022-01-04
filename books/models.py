@@ -1,3 +1,26 @@
+from django.utils.translation import ugettext_lazy as _
+from autoslug.fields import AutoSlugField
+from django.contrib.auth import get_user_model
 from django.db import models
 
+User = get_user_model()
 # Create your models here.
+
+
+class Book(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=255)
+    summary = models.TextField()
+    sample = models.FileField(upload_to='books/sample')
+    published = models.BooleanField(default=False)
+    downloads = models.IntegerField(default=0)
+    cover = models.ImageField(upload_to='books/covers')
+    slug = AutoSlugField(_('slug'), populate_from='title',
+                         unique=True, primary_key=False)
+
+    def __str__(self):
+        return self.title
+
+
+class BookUser(models.Model):
+    email = models.EmailField(unique=True)

@@ -5,7 +5,7 @@ from .base import *
 ALLOWED_HOSTS = ["isaniro.com", 'www.isaniro.com', '127.0.0.1']
 
 SECRET_KEY = config("SECRET_KEY", cast=str)
-DEBUG= True
+DEBUG = True
 
 DATABASES = {
     'default': {
@@ -32,3 +32,18 @@ SITE_ID = 1
 
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
+
+SECURE_SSL_REDIRECT = True
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+ADMINS = (('Feyton', 'info@igiti.co.rw'),)
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = '198.54.116.172'
+EMAIL_PORT = '465'
+EMAIL_HOST_USER = 'no-reply@feyton.co.rw'
+EMAIL_HOST_PASSWORD = config('HOST_PASS', default="admin@2020")
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
+
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

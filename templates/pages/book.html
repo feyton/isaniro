@@ -1,0 +1,86 @@
+{% extends "layout/base.html" %}
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="/static/css/book.css" class="css">
+
+{% endblock style %}
+{% block content %}
+
+
+<main>
+    <div class="hero">
+        <div class="text">
+            <h2>Ibitabo bifasha urubyiruko</h2>
+            <p>Twandika ibitabo bigufasha mu ngeri zitandukanye z'ubuzima.</p>
+            <button class="btn-book btn-book-explore">REBA IBITABO</button>
+        </div>
+        <div class="carousel">
+            <div class="book-card">
+                <div class="book-cover-hero">
+                    <img src="/static/assets/Abract01.png" alt="">
+                </div>
+                <div class="book-info">
+                    <div class="h3 title">Impamba Y'Ubuzima</div>
+                </div>
+                <div class="progress">
+
+                </div>
+                <div class="explore">
+                    <button class="btn-book btn-book-primary" onclick="window.location.href='#book-list'">READ</button>
+                </div>
+
+
+            </div>
+        </div>
+
+
+    </div>
+    <div class="book-list" id="book-list">
+        <h2>Ibitabo Biheruka</h2>
+        <p></p>
+
+        <div class="book-div">
+            <div class="card book">
+                <div class="actions">
+                    <i class="fas fa-heart f-lg"></i>
+                    <i class="fas fa-bookmark f-lg"></i>
+                </div>
+                <div class="cover">
+                    <img class="book-top" src="./WhatsApp Image 2022-01-04 at 6.42.36 PM.jpeg" alt="">
+
+
+                </div>
+                <div class="preface">
+                    <div class="content">
+                        <div class="header">
+                            <h2>Impamba y'Ubuzima</h2>
+                            <div class="icon toggle-view">
+                                <i class="fas fa-chevron-down"></i>
+                                <span class="circle"></span>
+                            </div>
+                        </div>
+                        <div class="author">By <b>Bellarme Senga</b></div>
+                        <div class="body">
+                            <p>
+                                also known as The Diary of Anne Frank, is a book of the writings from the
+                                Dutch-language diary kept by Anne Frank while she was in hiding for two years
+                                with her family during the Nazi occupation of the Netherlands
+                            </p>
+                            <p>
+                                Anne calls her diary "Kitty", so almost all of the letters are written to Kitty.
+                            </p>
+                            <div class="button-group">
+                                <button class="btn-book btn-book-primary">BUY</button>
+                                <button class="btn-book btn-book-secondary">REQUEST SAMPLE</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+{% endblock content %}

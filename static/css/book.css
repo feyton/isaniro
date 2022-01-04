@@ -1,0 +1,350 @@
+main .hero {
+    height: 90vh;
+    position: relative;
+    background-image: linear-gradient(to right, rgb(49, 45, 45), rgba(141, 140, 140, 0.884), rgba(82, 78, 78, 0.24)), url("/static/assets/Background-image.png");
+    background-size: cover;
+
+}
+
+main .hero .text {
+    text-align: left;
+    padding-left: 2rem;
+    padding-top: 5rem;
+    font-family: 'Lexend';
+    width: 60%;
+
+}
+
+main .hero .text h2 {
+    font-weight: bolder;
+    font-size: 3rem;
+    color: white;
+    padding: 1rem;
+
+}
+
+main .hero .text p {
+    padding: 1rem;
+    color: rgb(108, 159, 255);
+    font-weight: bolder;
+    font-size: 1.3rem;
+}
+
+main .hero .text button {
+    padding: .6rem 2rem;
+    border-radius: 10px;
+    border: none;
+    background-color: rgb(0, 60, 116);
+    color: white;
+    font-size: 1rem;
+    font-family: 'Lexend';
+    margin-left: 1rem;
+    margin-top: 2rem;
+    cursor: pointer;
+
+}
+
+main .hero .text button:hover {
+    transition: .3s;
+    background-color: rgb(14, 72, 126);
+}
+
+main .carousel {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    overflow-x: auto;
+    padding: .3rem 2rem;
+}
+
+main .carousel .book-card {
+    box-shadow: 2px 2px 2px 2px rgb(116, 115, 115);
+    border-radius: 20px;
+    width: 250px;
+    height: 150px;
+    position: relative;
+    background: rgb(255, 255, 255);
+    margin: 1rem;
+    z-index: 1;
+    overflow: hidden;
+}
+
+main .carousel .book-card .book-cover-hero {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 20px;
+    z-index: -1;
+}
+
+main .carousel .book-card .book-cover-hero img {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+
+main .carousel .book-card .book-info {
+    z-index: 1;
+    position: absolute;
+    bottom: 0px;
+    color: white;
+    height: 40%;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    font-weight: bold;
+    background-image: linear-gradient(to top, rgb(1, 42, 48), rgb(39, 38, 38), rgba(71, 69, 69, 0.692));
+    font-family: 'Lexend';
+    border-radius: 0px 0px 20px 20px;
+}
+
+main .carousel .book-card .progress {
+    position: absolute;
+    width: 98%;
+    height: 10px;
+    background-color: #fff;
+    bottom: 0px;
+    z-index: 2;
+    border-radius: 0px 0px 30px 30px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+main .carousel .book-card .explore {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    z-index: 4;
+    text-align: center;
+    justify-content: center;
+    background-color: rgba(139, 117, 117, 0.815);
+    border-radius: 20px;
+    transform: translateX(-300px);
+    transition: .2s;
+}
+
+main .carousel .book-card:hover>.explore {
+    transform: translateX(0px);
+    transition: .3s;
+}
+
+main .carousel .book-card .explore button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+main .book-list h2 {
+    font-family: 'Lexend';
+    font-weight: bolder;
+    font-size: 2rem;
+    text-align: center;
+
+}
+
+main .book-list {
+    padding: 2rem 1rem;
+}
+
+
+/* Individual Book */
+* {
+    border: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+
+.book-div {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: left;
+    padding: 1rem 1rem 1rem 2rem;
+}
+
+.book-div .card {
+    width: 300px;
+    height: 500px;
+    box-shadow: 2px 2px 2px 2px violet;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.book-div .card img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+    border-radius: 10px;
+}
+
+.book-div .card .cover {
+    padding: 2rem;
+    background-color: rgba(32, 86, 95, 0.877);
+    margin-top: 50px;
+    height: 60%;
+    z-index: 1;
+}
+
+.book-div .card .actions {
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    display: flex;
+    padding: 20px 20px;
+    justify-content: space-between;
+    z-index: 3;
+    background-color: rgba(31, 77, 85, 0.877);
+    border-radius: 20px 20px 0px 0px;
+    height: 50px;
+    color: bisque;
+
+}
+
+.book-div .card .actions i {
+    font-size: 1rem;
+    cursor: pointer;
+    transition: .3s;
+    transform: scale(1.3);
+}
+
+.book-div .card .actions i span {
+    color: white;
+    transform: scale(1);
+    font-size: .5rem;
+    margin-left: 20px;
+}
+
+
+
+.book-div .card .content {
+    padding: 10px;
+}
+
+.book-div .card .preface {
+    position: absolute;
+    top: 350px;
+    transition: .3s all;
+    z-index: 2;
+    background-color: #fff;
+    border-radius: 0px 0px 20px 20px;
+}
+
+.book-div .card .cover:hover+.preface {
+    transform: translateY(-250px);
+    /* overflow-y: auto; */
+}
+
+.preface:hover {
+    transform: translateY(-250px);
+    /* overflow-y: auto; */
+}
+
+.book-div .card .content .header {
+    display: flex;
+    justify-content: space-between;
+    vertical-align: middle;
+    padding-bottom: 1rem;
+}
+
+.book-div .card .content .header h2 {
+    font-size: 1.3rem;
+}
+
+.book-div .card .content .header .icon {
+    background-color: #344;
+    padding: 0px;
+    height: 30px;
+    width: 30px;
+    justify-content: center;
+    position: relative;
+    border-radius: 50%;
+    text-align: center;
+}
+
+.book-div .card .content .header .icon span {
+    animation: circleBurst infinite;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    height: 30px;
+    width: 30px;
+    background-color: rgb(56, 53, 53);
+    position: absolute;
+    border-radius: 50%;
+    left: 0;
+    top: 0;
+    z-index: 1;
+
+    /* animation-fill-mode: both; */
+
+}
+
+.book-div .card .content .header .icon i {
+    color: white;
+    margin-top: 20%;
+}
+
+.book-div .card .content .author {
+    font-family: 'Livvic';
+    padding: 1rem;
+}
+
+.book-div .card .content .body {
+    font-family: 'Lato';
+    /* font-weight: bold; */
+    padding: .2rem 1rem;
+    text-align: justify;
+    background-color: #fff;
+    width: 100%;
+}
+
+.book-div .card .content .body p {
+    margin-top: 10px;
+}
+
+.book-div .card .content .button-group {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem .1rem;
+}
+
+main .btn-book {
+    border: none;
+    padding: .5rem 1rem;
+    border-radius: 10px;
+    background-color: rgb(26, 63, 63);
+    color: rgb(255, 255, 255);
+    font-family: 'Lexend';
+    font-weight: bolder;
+    transition: .3s;
+    cursor: pointer;
+}
+
+main .btn-book.btn-book-primary {
+    background-color: rgb(20, 52, 110);
+}
+
+main .btn-book:hover {
+    transition: .3s;
+    transform: scale(.98);
+}
+
+
+@keyframes circleBurst {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(2);
+    }
+}

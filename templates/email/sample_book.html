@@ -1,0 +1,54 @@
+{% extends 'email/base.html' %}
+{% load static %}
+{% block subject %}Hi{% endblock %}
+
+{% block plain %}{% endblock %}
+
+{% block html %}
+<html>
+
+<head>
+</head>
+
+<body style="font-family: sans-serif; background: #f5f5f5;">
+    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+        <tr>
+            <td width="100%" align="center">
+                <table cellspacing="0" cellpadding="0" border="0" width="480">
+                    <tr>
+                        <td style="background-color: #dfdbdb; padding: 18px; height: 30px;"><b
+                                style="float: left; padding-top: 10px;">Incamake y'igitabo| {{book.title}} </b><img
+                                alt="manager" src="{{BASE_URL}}{% static 'img/favicon.png' %}" height="30px"
+                                style="float: right;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="background-color: white; padding:18px 18px; font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 21px; color: #444444"
+                            width="480">
+                            {% block html_main %}
+                            Kuri <strong>{{user.name}}</strong>,<br>
+                            <p>Wasabye incamake y'igitabo <b>{{book.title}}</b> tariki ya {% now 'Y M D' %} </p>
+                            <p>Kuri iyi email urasangahe incamake muburyo bwa PDF.</p>
+                            <p>Wemerewe gusoma iyi ncamake ariko ntiwemerewe kuyikwirakwiza utabisabiye uburenganzira.
+                            </p>
+                            <p>Ushaka ko undi muntu ayisoma, wamubwira agakoresha urubuga rwacu <a
+                                    href="https://isaniro.com">ISANIRO</a></p>
+                            {% endblock %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td
+                            style="font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 18px; color: #999999; padding: 12px 18px">
+                            <p>
+                                Wakiriye iyi email kubera wasabye incamake kuri Isaniro Corp
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>
+{% endblock %}
