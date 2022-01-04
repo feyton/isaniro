@@ -143,12 +143,18 @@ Ibitabo
                             title: 'Incamake yoherejwe',
                             html: `Kuri <b>${data.name}</b> incamake wasabye y'igitabo <br>
                             <b>${res.title}</b> yoherejwe kuri Email yawe <b> ${data.email}</b>.<br>
-                                Murakoze
+                                Murakoze. <br><b>Ibuka kureba muri Junk/Spam folder yawe mugihe utabonye email</b>
                             `
                         })
                     },
                     error: (err) => {
                         console.log(err)
+                        new swal({
+                            title: 'Incamake ntiyoherejwe',
+                            html: `Kuri <b>${data.name}</b> incamake wasabye y'igitabo <br>
+                            <b>Ntabwo yoherejwe. Mutwihanganire mwongere kugerageza mukanya</b>
+                            `
+                        })
                     }
                 })
                 new swal(data)
