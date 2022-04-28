@@ -7,10 +7,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.html import strip_tags
-from django.utils.translation import ugettext_lazy as _
-from imagekit.models import ImageSpecField
-from imagekit.processors import Adjust, ResizeToFill
-from PIL.Image import Image
+from django.utils.translation import gettext_lazy as _
 
 User = get_user_model()
 
@@ -89,17 +86,12 @@ class Post(models.Model):
         Tag, blank=True, related_name="posts")
     thumbnail = models.ImageField(
         upload_to='blog', blank=True, null=True, default='blog/default.jpg')
-    image_wide = ImageSpecField([Adjust(contrast=1.2, sharpness=1.1),
-                                 ResizeToFill(400, 750)], image_field='thumbnail',
-                                format='JPEG', options={'quality': 90})
-    image_square = ImageSpecField([Adjust(contrast=1.2, sharpness=1.1),
-                                   ResizeToFill(220, 340)], image_field='thumbnail',
-                                  format='JPEG', options={'quality': 90})
     likes = models.IntegerField(default=0)
 
     class Meta:
         verbose_name = "blog"
         ordering = ['-created_on', '-published_date']
+
     def __str__(self):
         return self.title
 

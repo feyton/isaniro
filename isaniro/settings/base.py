@@ -1,5 +1,4 @@
 import os
-import tempfile
 from pathlib import Path
 
 from django.contrib.messages import constants as messages
@@ -34,8 +33,6 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'hitcount',
     'rest_framework',
-    # 'imagefit',
-    'imagekit'
 ]
 
 MIDDLEWARE = [
