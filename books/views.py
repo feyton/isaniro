@@ -26,7 +26,7 @@ def send_sample(email, book, user, request):
     # mail.body = html
     mail.attach_file(book.sample.path)
     # mail.to([email])
-    mail.send(fail_silently=False)
+    mail.send(fail_silently=True)
 
 
 def handleSampleRequest(request, pk, *args, **kwargs):
