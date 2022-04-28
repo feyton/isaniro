@@ -1,8 +1,10 @@
 import os
 from pathlib import Path
-
+from decouple import config
 from django.contrib.messages import constants as messages
-
+import cloudinary
+import cloudinary.api
+import cloudinary.uploader
 BASE_DIR = BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 # Application definition
@@ -33,6 +35,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'hitcount',
     'rest_framework',
+    "cloudinary"
 ]
 
 MIDDLEWARE = [
@@ -145,13 +148,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 HITCOUNT_HITS_PER_IP_LIMIT = 0
 HITCOUNT_KEEP_HIT_ACTIVE = {'days': 3}
 
-
-# IMAGEFIT_PRESETS = {
-#     'thumbnail': {'width': 64, 'height': 64, 'crop': True},
-#     'image-wide': {'width': 750, 'height': 400},
-#     'image-square': {'width': 220, 'height': 360},
-# }
-
-# enable/disable server cache
-# IMAGEFIT_CACHE_ENABLED = False
-# set the cache name specific to imagefit with the cache dict
+cloudinary.config(cloud_name=config("cloud_name"), api_key=config(
+    "api_key"), api_secret=config("api_secret"))
