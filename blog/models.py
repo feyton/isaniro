@@ -1,3 +1,4 @@
+from cloudinary.models import CloudinaryField
 from autoslug.fields import AutoSlugField
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.conf import settings
@@ -41,8 +42,7 @@ class Author(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=50, blank=True, null=True)
     bio = models.TextField(blank=True, null=True)
-    profile_picture = models.ImageField(
-        upload_to='blog/authors', blank=True, null=True)
+    profile_picture = CloudinaryField('image', blank=True, null=True)
     facebook_page = models.CharField(max_length=30, blank=True, null=True)
 
     def __str__(self):
@@ -84,9 +84,16 @@ class Post(models.Model):
         auto_now_add=False, blank=True, null=True)
     tags = models.ManyToManyField(
         Tag, blank=True, related_name="posts")
-    thumbnail = models.ImageField(
-        upload_to='blog', blank=True, null=True, default='blog/default.jpg')
+    thumbnail = CloudinaryField('image', blank=False, null=True)
     likes = models.IntegerField(default=0)
+
+    @property
+    def imgURL(self):
+        try:
+            url = self.thumbnail.url
+        except:
+            url = ""
+        return url
 
     class Meta:
         verbose_name = "blog"

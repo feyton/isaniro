@@ -1,11 +1,18 @@
+
 import os
 from pathlib import Path
+import cloudinary
+import cloudinary.api
+import cloudinary.uploader
+from decouple import config
 
 from django.contrib.messages import constants as messages
 
-BASE_DIR = BASE_DIR = Path(__file__).resolve().parent.parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 # Application definition
+
+MODE = config("MODE", cast=str, default="dev")
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -18,6 +25,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'django.contrib.sitemaps',
     'django.contrib.redirects',
+    "django_browser_reload",
     'blog',
     'services',
     'books',
@@ -33,6 +41,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'hitcount',
     'rest_framework',
+    'cloudinary',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
@@ -115,7 +125,7 @@ AUTHENTICATION_BACKENDS = (
 SIGNUP_FORM_CLASS = 'user.forms.CreateUserForm'
 ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_EMAIL_VERIFICATION = 'optional'
 ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5
 ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 300
 ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = True
@@ -145,13 +155,23 @@ DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 HITCOUNT_HITS_PER_IP_LIMIT = 0
 HITCOUNT_KEEP_HIT_ACTIVE = {'days': 3}
 
+cloudinary.config(cloud_name=config("cloud_name"), api_key=config(
+    "api_key"), api_secret=config("api_secret"))
 
-# IMAGEFIT_PRESETS = {
-#     'thumbnail': {'width': 64, 'height': 64, 'crop': True},
-#     'image-wide': {'width': 750, 'height': 400},
-#     'image-square': {'width': 220, 'height': 360},
-# }
+FLUTTER_SECRET = config("FLUTTER_SECRET")
+CSRF_TRUSTED_ORIGINS = ["https://isaniro.herokuapp.com",
+                        'https://isaniro.com', 'http://isaniro.com']
 
-# enable/disable server cache
-# IMAGEFIT_CACHE_ENABLED = False
-# set the cache name specific to imagefit with the cache dict
+BOOK_SIGNATURE = config("BOOK_SIGNATURE", default="dev")
+
+if MODE == "production":
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    DEBUG = False
+    APPEND_SLASH = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    ADMINS = (('Fabrice', "tumbafabruce@gmail.com"))
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    DEBUG = True
+

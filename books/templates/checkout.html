@@ -1,0 +1,220 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+{% load humanize %}
+{% load widget_tweaks %}
+{% load cart_template_tag %}
+
+{% block style %}
+<style>
+    .form-control {
+        padding: .3rem 1rem;
+        border-radius: 5px;
+        margin: 4px;
+    }
+
+    .form-select {
+        padding: .3rem 1rem;
+        border-radius: 5px;
+        margin: 4px;
+    }
+
+    /* SPINNER */
+    .lds-ring {
+        position: relative;
+        padding: 5px 0px 20px 5px;
+        align-items: center;
+        height: fit-content;
+        background-color: rgba(0, 153, 255, 0.507);
+        width: fit-content;
+        border-radius: 20px;
+        color: white;
+    }
+
+    .lds-ring div {
+        box-sizing: border-box;
+        display: block;
+        position: absolute;
+        width: 35px;
+        height: 35px;
+        margin: 1px;
+        border: 8px solid rgb(22, 84, 119);
+        border-radius: 50%;
+        animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+        border-color: rgb(23, 59, 68) transparent transparent transparent;
+    }
+
+    .lds-ring div:nth-child(1) {
+        animation-delay: -0.45s;
+    }
+
+    .lds-ring div:nth-child(2) {
+        animation-delay: -0.3s;
+    }
+
+    .lds-ring div:nth-child(3) {
+        animation-delay: -0.15s;
+    }
+
+    @keyframes lds-ring {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    .ld-text {
+        margin: auto 50px;
+        color: white;
+    }
+
+    .btn-checkout {
+        width: fit-content;
+        font-weight: bolder;
+        font-family: "Lexend";
+    }
+</style>
+{% endblock style %}
+
+{% block content %}
+
+
+
+<div class="container my-3 mx-2 shadow-lg border">
+    <h3 class="font-lexend font-bold text-center">Checkout</h3>
+    <hr>
+    <div class="row">
+        <div class="col-md-7">
+            <h3 class="font-lexend text-center font-bold">Billing Address</h3>
+            <form action="" class="w-100 mx-2 shadow-lg px-2 py-2 font-lexend">
+                <div class="row">
+                    <div class="form-group col py-1">
+                        <label class="required" for="">Adress</label>
+                        {% render_field form.address placeholder="Kigali, Rwanda" class="form-control" %}
+
+                    </div>
+                    <div class="form-group col py-1">
+                        <label class="required" for="">Telephone</label>
+                        {% render_field form.telephone pattern="^[0-9]{10}$" placeholder="0780000090" class="form-control font-lexend" %}
+
+                    </div>
+                </div>
+                <div class="row py-2">
+                    <div class="form-group col py-1">
+                        <label for="">Province:</label>
+                        {% render_field form.province class='form-select'%}
+                    </div>
+                    <div class="form-group col py-1">
+                        <label for="">District</label>
+                        {% render_field form.district class='form-select'%}
+                    </div>
+                    <div class="form-group col py-1">
+                        <label for="">Vicinity</label>
+                        {% render_field form.vicinity class="form-select"%}
+                    </div>
+                </div>
+                <div class="row font-lexend my-2 px-3">
+                    <p class="font-bold text-secondary font-lexend">This address will be used as a billing address too.
+                    </p>
+                </div>
+                <div class="w-100 payment-option">
+                    <h3 class="font-bold font-lexend text-center">Payment options</h3>
+                    <hr>
+                    <p class="font-lexend px-2 font-bold">All payments are handled by <a
+                            href="https://flutterwave.com/rw/" target="_blank" rel="noopener noreferrer"
+                            class="font-lexend text-secondary">Flutterwave</a></p>
+                    <div class="form-check mx-2">
+                        <input id="mobile" value="mobile" name="paymentOption" type="radio" class="form-check-input"
+                            checked required>
+                        <label class="form-check-label font-bold" for="credit">Mobile Money</label>
+                    </div>
+                    <div class="checkout-btn-container">
+                        <button class="btn btn-danger w-fit btn-checkout checkout-form-submit">Proceed to
+                            Payment</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-5 order-md-last">
+            <div class="d-flex justify-content-between px-2 py-2">
+                <h4 class="font-bold">Your cart</h4>
+                <span
+                    class="badge bg-primary rounded-pill align-items-center d-flex font-bold">{{request|cart_item_count}}</span>
+            </div>
+            <hr>
+            <ul class="list-group mb-3">
+                {% for item in items %}
+                <li class="list-group-item d-flex rounded-sm justify-content-between lh-sm">
+                    <div>
+                        <h6 class="my-0 font-lexend">{{item.product.name}}</h6>
+                        <small class="font-lexend text-muted"><b class="font-lexend text-muted">{{item.quantity}}
+                                {{item.product.measure}} on
+                                cart</b></small>
+                    </div>
+                    <span class="text-muted font-lexend font-bold">{{item.get_total|intcomma}} Rwf</span>
+                </li>
+                {% empty%}
+                <h4>Add items to your cart before checkout</h4>
+                {% endfor %}
+                <li class="list-group-item d-flex justify-content-between bg-light">
+                    <span class="font-lexend font-bold">Total (Rwf)</span>
+                    <strong class="font-lexend font-bold">{{cart_total|intcomma}} Rwf</strong>
+                </li>
+            </ul>
+            <div class="checkout-btn-container">
+                <button id="cart-submit-btn" class="btn btn-danger w-fit btn-checkout">Proceed to Payment</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+{% endblock content %}
+
+
+{% block script %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"
+    integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    $(document).ready(() => {
+        $("#cart-submit-btn").on("click", (e) => {
+            $(".checkout-form-submit").click()
+        })
+        $("form").on("submit", async (e) => {
+            e.preventDefault()
+            const data = new FormData(e.target)
+            try {
+                $(".checkout-btn-container").html(` 
+                <div class="response lds-ring btn btn-primary align-items-center font-bold text-white">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <span class="ld-text">Sending...</span>
+                </div>`)
+                const res = await axios.post("", data, {
+                    headers: {
+                        "X-CSRFToken": csrftoken
+                    }
+                })
+                $(".checkout-btn-container").html(`
+                <a  href="${res.data.link}" class="btn btn-success w-fit font-bold font-lexend">Redirecting to Flutterwave...</button>
+                `)
+                setTimeout(() => {
+                    window.location = res.data.link
+                }, 2000)
+            } catch {
+                $(".checkout-btn-container").html(`
+                <button class="btn btn-danger w-fit btn-checkout">Error: Retry payment</button>
+                `)
+            }
+
+        })
+    })
+</script>
+{% endblock script %}
