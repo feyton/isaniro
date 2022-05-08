@@ -1,0 +1,66 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+{% load humanize %}
+
+
+{% block style %}
+<style>
+    .info-group {
+        width: fit-content;
+        padding: 1rem 2rem;
+        font-family: "Lexend";
+        box-shadow: 0px 0px 4px 4px grey;
+    }
+</style>
+{% endblock style %}
+
+
+{% block content %}
+<div class="container py-4 px-4">
+    <h1 class="text-center font-lexend font-bold">Payment Status</h1>
+    <hr>
+
+    {% if order %}
+    <ul>
+        <h6>Dear esteemed customer, your order has been received</h3>
+            <h6 class="font-lexend">Details are as below</h6>
+
+            <ul class="row list-group info-group">
+                <li class="font-lexend">Customer: <span class="font-bold">{{order.customer.user.get_full_name}}</span>
+                </li>
+                <li class=" font-lexend">Transaction Id: {{order.order_id}}</li>
+                <li class=" font-lexend">Payment method: Mobile Money</li>
+            </ul>
+            <h4 class="text-center font-lexend font-bold">Ordered products</h4>
+            <hr>
+            <ul class="list-group w-100">
+                {% for item in items %}
+                <li class="list-group-item d-flex rounded-sm justify-content-between w-100">
+                    <h6 class="">{{item.product.title}}</h6>
+                    <h6 class=" font-lexend font-bold text-muted"><b>{{item.get_total|intcomma}} Rwf</b></h6>
+                </li>
+                {% endfor %}
+            </ul>
+
+            Your order value is: <button class="btn btn-secondary font-lexend">{{total|intcomma }} Rwf</button>
+            <hr>
+            <h6>Please use this <b>Transaction ID</b> whenever you are inquiring order. Or check your page for previous
+                orders</h6>
+            <button class="btn btn-primary font-lexend font-bold">{{order.order_id}}</button>
+
+            <div>
+                You will receive emails from the seller confirming
+                the status of your order and the shipping details
+            </div>
+
+            <div>Thank you for shopping with us</div>
+    </ul>
+    {% else %}
+    <div class="container">
+        <h3>Seems like you just landed here</h3>
+        <a href="/">Back home</a>
+    </div>
+    {% endif %}
+
+</div>
+{% endblock content %}

@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Raleway:wght@400;700&display=swap');
+
+:root {
+    --primary-font: "Raleway";
+    --secondary-font: "Open Sans";
+    --primary-color: #154c79;
+    --secondary-color: #1c100b;
+}
+
+.bg-primary {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+}
+
+* {
+    font-family: "Lexend";
+}
+
+ul {
+    list-style-type: none;
+    text-decoration: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+.brand {
+    position: absolute;
+    left: 2rem;
+    font-weight: bolder;
+    text-transform: uppercase;
+}
+
+.login-div {
+    margin: 2rem auto;
+    max-width: 400px;
+    padding: 2rem 1rem;
+    background-color: #fff;
+    box-shadow: 3px 3px 3px 4px var(--primary-color);
+    border-radius: 10px;
+
+}
+
+body {
+    min-height: 100vh;
+    min-width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+body p {
+    font-family: var(--secondary-font);
+}
+
+.login-div h1 {
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.login-div input {
+    border-radius: 5px;
+    padding: .2rem .5rem;
+    outline: none;
+}
+
+.login-div form p {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.login-div form .form-button-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.login-div form .form-button-group button[type="submit"], button[type="submit"] {
+    background-color: rgb(26, 81, 126);
+    color: white;
+    padding: .3rem 1rem;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    float: right;
+}
+
+.login-div ul li {
+    font-size: 14px;
+    font-family: var(--secondary-font);
+    color: red;
+    font-weight: bold;
+    width: 70%;
+    float: right;
+}

@@ -12,6 +12,7 @@ sitemaps = {
 }
 urlpatterns = [
     path('admin/', admin.site.urls),
+        path("__reload__/", include("django_browser_reload.urls")),
     path('blog/', include(("blog.urls", 'blog'), namespace='blog')),
     path('user/', include("user.urls")),
     path("", include("index.urls")),

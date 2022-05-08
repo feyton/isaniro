@@ -1,0 +1,142 @@
+{% extends 'layout/base.html' %}
+{% load humanize %}
+{% load static %}
+
+{% block style %}
+<style>
+    .img-div {
+        height: 100px;
+        width: 200px;
+    }
+
+    .img-div img {
+        height: 100%;
+        width: 100%;
+        object-fit: scale-down;
+    }
+
+    .controls button {
+        width: fit-content;
+        margin: 0px 5px;
+        border: none;
+        outline: none;
+        transition: .3s all;
+        font-family: "Lexend";
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+
+
+    .checkout-div {
+        width: fit-content;
+        margin: initial auto;
+    }
+
+    .checkout-div a {
+        background-color: #fff;
+        width: fit-content;
+    }
+
+    .btn {
+        background-color: rgb(16, 41, 73) !important;
+        color: white;
+        padding: 1rem 2rem;
+        border-radius: 5px;
+    }
+
+    .btn-danger {
+        background-color: red;
+
+    }
+
+    .font-lexend {
+        font-family: 'Lexend';
+    }
+
+    .py-4 {
+        padding: 0rem 2rem;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+</style>
+{% endblock style %}
+
+{% block content %}
+<div class="py-4">
+    <div class="w-100 row">
+        <div class="">
+            <h3 class="font-lexend text-center font-bold mt-3 pt-3">Shorping Cart</h3>
+        </div>
+        <hr>
+
+
+        <ul class="row shadow-lg px-3 py-2">
+            {% for item in items %}
+            <li class="row align-content-center justify-content-center text-center py-2">
+                <div class="img-div col-md-2">
+                    <img src="{{item.product.imgURL}}" class="w-100 h-100" alt="{{item.product.name}}" />
+                </div>
+                <div class="col-md-3 font-lexend align-items-center d-flex justify-content-center font-bold">
+                    <a href="{{item.product.get_absolute_url}}">{{item.product.title}} <b>
+                            {% if item.product.discounted%}
+                            {{item.product.discounted_price}}
+                            {%endif%}</b></a>
+                </div>
+                <div class="col-md-4">
+                    <div class="row controls ">
+                    </div>
+
+                </div>
+                <div
+                    class="col-md-2 h-100 d-flex justify-content-center underline text-center align-items-center font-lexend font-bold">
+                    {{item.get_total|intcomma}} Rwf
+                </div>
+
+            </li>
+            <hr>
+            {% empty%}
+            <li class="row align-content-center justify-content-center text-center py-2">
+
+                <div class="col-md-12">
+                    <h3 class="font-lexend">Your cart is empty...</h3>
+                    <a href="/" class="btn btn-primary font-bold font-lexend bg-secondary">Continue Shopping</a>
+
+                </div>
+
+
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <br>
+
+    {% if items|length > 0 %}
+
+    <div class="w-100 row py-4">
+        <div class="row shadow-lg px-3 py-2 justify-content-center d-flex bg-light my-2 font-lexend w-100">
+            <h3 class="font-lexend font-bold text-center">Order summary</h3>
+            <hr>
+            <div class="row w-fit checkout-div">
+                <h5 class="font-lexend"><span>Total items: <b class="font-lexend font-bold">{{cart_quantity}}</b></span>
+                </h5>
+                <h5 class="font-lexend">
+                    Subtotal:
+                    <b class="font-lexend font-bold">{{cart_total|intcomma}}</b> Rwf
+                </h5>
+                <a href="{% url 'checkout-view'%}" id="checkout-button" class="btn btn-danger font-lexend bg-danger">
+                    Proceed to checkout
+                </a>
+            </div>
+        </div>
+
+    </div>
+    <br>
+    <br>
+    {% endif %}
+</div>
+
+{% endblock content %}

@@ -10,21 +10,21 @@
     <title>Isaniro| {% block title %}
 
         Ahabanza{% endblock title %}</title>
-    <link rel="icon" href="/static/assets/icon.png">
+    <link rel="icon" href="{% static 'assets/icon.png' %}">
 
     <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="/static/css/all.css">
+    <link rel="stylesheet" href="{% static 'css/all.css' %}">
 
 
     <!-- --------- Owl-Carousel ------------------->
-    <link rel="stylesheet" href="/static/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="/static/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
 
     <!-- ------------ AOS Library ------------------------- -->
-    <link rel="stylesheet" href="/static/css/aos.css">
+    <link rel="stylesheet" href="{% static 'css/aos.css' %}">
 
     <!-- Custom Style   -->
-    <link rel="stylesheet" href="/static/css/Style.css">
+    <link rel="stylesheet" href="{% static 'css/Style.css' %}">
 
     {% block header %}
 
@@ -98,7 +98,7 @@
 
                     </li>
 
-                    {% if request.user.is_authenticated %}
+                    {% if request.user.is_staff %}
                     <li class="nav-link"><a href="{% url 'admin:index' %}">Dashboard</a>
 
                     </li>
@@ -189,15 +189,15 @@
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
     <!-- --------- Owl-Carousel js ------------------->
-    <script src="/static/js/owl.carousel.min.js" defer></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}" defer></script>
 
     <!-- ------------ AOS js Library  ------------------------- -->
-    <script src="/static/js/aos.js" defer></script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+    <script src="{% static 'js/aos.js' %}" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.5.0/dist/lazyload.min.js"></script>
 
     <!-- Custom Javascript file -->
-    <script src="/static/js/main.js" defer></script>
+    <script src="{% static 'js/main.js' %}" defer></script>
     <script defer>
         $(document).ready(function (e) {
             new LazyLoad({
@@ -250,6 +250,31 @@
                 $("#youtube-player").html("")
             })
         })
+    </script>
+    <script>
+        var user = "{{request.user}}"
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+
+        }
+        const csrftoken = getCookie('csrftoken');
+        var cart = JSON.parse(getCookie("cart"));
+        if (cart == undefined) {
+            cart = {};
+            document.cookie = "cart=" + JSON.stringify(cart) + ";domain=;path=/";
+        }
     </script>
     {% block script %}
 

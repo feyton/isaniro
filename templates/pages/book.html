@@ -43,53 +43,35 @@ Ibitabo
 
 
     </div>
-    <div class="book-list" id="book-list">
-        <h2>Ibitabo Biheruka</h2>
-        <p></p>
-
-        <div class="book-div">
-            {% for book in books %}
-
-
-            <div class="card book">
-                <div class="actions">
-                    <i class="fas fa-heart f-lg"></i>
-                    <i class="fas fa-bookmark f-lg"></i>
-                </div>
-                <div class="cover">
-                    <img class="book-top" src="{{book.cover.url}}" alt="">
+    <section>
+        <div class="blog" id="blog-posts">
+            <div class="container">
+                <div class="owl-carousel owl-theme blog-post">
+                    {% for book in books %}
 
 
-                </div>
-                <div class="preface">
-                    <div class="content">
-                        <div class="header">
-                            <h2>{{book.title}}</h2>
-                            <div class="icon toggle-view">
-                                <i class="fas fa-chevron-down"></i>
-                                <span class="circle"></span>
-                            </div>
+                    <!-- Blog Post -->
+                    <div class="blog-content" data-aos="fade-right" data-aos-delay="200">
+                        <img src="{{book.cover.url}}" alt="post-1" class="image-contain">
+                        <div class="blog-title">
+                            <h3><a href="{{post.get_absoulte_url}}">{{book.title}}</a></h3>
+                            <br>
+                            <br>
+                            <a class="btn btn-blog " href="{{book.get_cart_url}}">BUY NOW</a>
+                            <span>{{book.order}}</span>
                         </div>
-                        <div class="author">By <b>{{book.author.first_name}}</b></div>
-                        <div class="body">
-                            <p>
-                                {{book.summary}}
-                            </p>
-
-                            <div class="button-group">
-                                <button class="btn-book btn-book-primary comming-soon">GURA</button>
-                                <button class="btn-book btn-book-secondary request-sample"
-                                    data-url="{{book.get_sample_download_link}}">INCAMAKE</button>
-                            </div>
-                        </div>
-
                     </div>
+
+                    <!-- End post -->
+                    {% endfor %}
+                </div>
+                <div class="owl-navigation">
+                    <span class="owl-nav-prev"><i class="fas fa-long-arrow-alt-left"></i></span>
+                    <span class="owl-nav-next"><i class="fas fa-long-arrow-alt-right"></i></span>
                 </div>
             </div>
-            {% endfor %}
         </div>
-
-    </div>
+    </section>
 </main>
 
 {% endblock content %}
