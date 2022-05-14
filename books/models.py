@@ -217,16 +217,17 @@ class Payment(models.Model):
     order = models.OneToOneField(Order, on_delete=models.SET_NULL, null=True)
     token = models.CharField(max_length=255)
     payment_method = models.CharField(max_length=50, default="mobilemoney")
-    status = models.CharField(max_length=20)
-    payment_id = models.CharField(max_length=100, unique=True)
-    currency = models.CharField(max_length=4, default="RWF")
+    status = models.CharField(max_length=255)
+    payment_id = models.CharField(max_length=255, unique=True)
+    currency = models.CharField(max_length=50, default="RWF")
     amount = models.PositiveIntegerField()
     amount_settled = models.PositiveIntegerField()
 
 
 class PayedBook(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    payment = models.ForeignKey(Payment, on_delete=models.SET_NULL, null=True)
+    payment = models.ForeignKey(
+        Payment, on_delete=models.SET_NULL, null=True, blank=False)
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     token = models.TextField()
 
@@ -234,21 +235,9 @@ class PayedBook(models.Model):
     def download_link(self, *args, **kwargs):
         return reverse('book-download', kwargs={'token': self.token})
 
-    def save(self, *args, **kwargs):
-        if not self.token:
-            data = {
-                'book': self.book.id,
-                'payment': self.payment.id,
-                'customer': self.customer.id,
-                'payment_id': self.payment.payment_id
-            }
-            self.token = sign_book_token(data)
-        return super().save(*args, **kwargs)
-
 
 def provision_book_receiver(sender, instance, created, *args, **kwargs):
     if created:
-        print("Created")
         link = "%s%s" % (Site.objects.get_current().domain,
                          instance.download_link)
         data = {'payment': instance, 'link': link}

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Address, Book, Order, OrderItem, Payment
+from .models import Address, Book, Order, OrderItem, PayedBook, Payment
 
 
 @admin.register(Book)
@@ -14,3 +14,4 @@ admin.site.register(Order)
 admin.site.register(Address)
 admin.site.register(OrderItem)
 admin.site.register(Payment)
+admin.site.register(PayedBook)

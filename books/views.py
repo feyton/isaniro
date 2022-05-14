@@ -9,7 +9,7 @@ from django.utils.html import strip_tags
 from books.forms import AddressForm
 
 from books.models import Address, Book, Customer, Order, OrderItem, PayedBook, Payment
-from books.utils import handle_payment, notify_email, verifyTransaction
+from books.utils import handle_payment, notify_email, sign_book_token, verifyTransaction
 
 # Create your views here.
 
@@ -186,6 +186,7 @@ def payment_check(request):
                 payment.status = info['data']['status']
                 payment = payment.save()
                 print("Payment info generated")
+            print(payment)
             items = order.orderitem_set.all()
             cart_total = order.get_cart_total
             cart_quantity = order.get_cart_items
@@ -196,10 +197,20 @@ def payment_check(request):
                 item.ordered = True
                 item.save()
                 item.record_order()
-                paidbook, created = PayedBook.objects.get_or_create(
-                    customer=order.customer, payment=payment, book=item.product)
-                if created:
-                    print("A new one has been created")
+                data = {
+                    'book': item.product.id,
+                    'payment': payment.id,
+                    'customer': order.customer.id,
+                    'payment_id': tx_id
+                }
+
+                try:
+                    PayedBook.objects.get(
+                        customer=order.customer, payment=payment, book=item.product)
+                except:
+                    token = sign_book_token(data)
+                    PayedBook.objects.create(
+                        customer=order.customer, payment=payment, book=item.product, token=token)
             order.save()
             context = {
                 "order": order or None,

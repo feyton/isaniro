@@ -1,7 +1,6 @@
 
+import django_heroku
 import dj_database_url
-from ctypes import cast
-from email.policy import default
 import os
 from pathlib import Path
 import cloudinary
@@ -11,7 +10,7 @@ from decouple import config
 
 from django.contrib.messages import constants as messages
 
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 MODE = config("MODE", cast=str, default="dev")
 SECRET_KEY = config("SECRET_KEY", cast=str)
@@ -58,6 +57,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
+    "django_browser_reload.middleware.BrowserReloadMiddleware"
+
 ]
 
 ROOT_URLCONF = 'isaniro.urls'
@@ -95,9 +96,14 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL = 'user.User'
 
-STATIC_URL = '/static/'
+
+STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR/"assets"
+STATICFILES_DIRS = [BASE_DIR/"static"]
+
+MEDIA_URL = "media/"
+MEDIA_ROOT = BASE_DIR/"media"
 
 CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
 
@@ -124,7 +130,7 @@ AUTHENTICATION_BACKENDS = (
     # `allauth` specific authentication methods, such as login by e-mail
     'allauth.account.auth_backends.AuthenticationBackend',
 )
-
+AUTH_USER_MODEL = 'user.User'
 # All Auth SETTINGS
 SIGNUP_FORM_CLASS = 'user.forms.CreateUserForm'
 ACCOUNT_AUTHENTICATION_METHOD = "email"
@@ -163,41 +169,41 @@ cloudinary.config(cloud_name=config("cloud_name"), api_key=config(
     "api_key"), api_secret=config("api_secret"))
 
 FLUTTER_SECRET = config("FLUTTER_SECRET")
-CSRF_TRUSTED_ORIGINS = ["https://isaniro.herokuapp.com",
-                        'https://isaniro.com', 'https://isaniro.com']
-
 BOOK_SIGNATURE = config("BOOK_SIGNATURE", default="dev")
 SITE_ID = 1
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = config("EMAIL_USER")
+EMAIL_HOST_PASSWORD = config('EMAIL_PASS')
 if MODE == "production":
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-    EMAIL_HOST = '198.54.114.236'
-    EMAIL_PORT = '465'
-    EMAIL_HOST_USER = 'books@isaniro.com'
-    EMAIL_HOST_PASSWORD = config('HOST_PASS')
-    EMAIL_USE_TLS = False
-    EMAIL_USE_SSL = True
-    DEBUG = False
+    EMAIL_USE_TLS = True
     APPEND_SLASH = True
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
-    ADMINS = (('Fabrice', "tumbafabruce@gmail.com"))
+    ADMINS = (('Fabrice', "tumbafabruce@gmail.com"),
+              ("Spencer", "info@isaniro.com"))
+
     DATABASES = {
         'default': {
 
         }
     }
     DATABASES["default"] = dj_database_url.parse(config("DATABASE_URL"))
-    DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
 
 else:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-    DEBUG = True
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
-import django_heroku
+
+CSRF_TRUSTED_ORIGINS = ["https://*.herokuapp.com",
+                        'https://isaniro.com', 'https://isaniro.com', "http://*.herokuapp.com"]
+
 django_heroku.settings(locals())
