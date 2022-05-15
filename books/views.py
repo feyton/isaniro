@@ -88,7 +88,7 @@ def addToCart(request, pk):
     if book:
         customer, created = Customer.objects.get_or_create(user=request.user)
         order, created = Order.objects.get_or_create(
-            customer=customer, ordered=False)
+            customer=customer, completed=False)
         orderItem, created = OrderItem.objects.get_or_create(
             order=order, product=book)
         if action == 'remove':

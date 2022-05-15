@@ -1,7 +1,113 @@
 {% extends "layout/base.html" %}
 {% load static %}
+{% load humanize %}
 {% block style %}
-<link rel="stylesheet" href="/static/css/book.css" class="css">
+<link rel="stylesheet" href="{% static 'css/book.css' %}" class="css">
+<style>
+    .px-4 {
+        padding: inherit 4rem !important;
+    }
+
+    .w-300 {
+        max-width: 300px;
+    }
+
+    .h-400 {
+        max-height: 400px;
+    }
+
+    .contain {
+        object-fit: contain;
+    }
+
+    .w-full {
+        width: 100%;
+    }
+
+    .h-full {
+        height: 100%;
+    }
+
+    .row {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .card .row {
+        padding: 2rem 4rem;
+    }
+
+    .col-md-6 {
+        width: 50%;
+    }
+
+    .flex-col {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .justify-center {
+        justify-content: center;
+    }
+
+    .btn {
+        padding: .5rem 1rem;
+        border-radius: 5px;
+        box-shadow: 0px 0px 2px 3px rgba(128, 128, 128, 0.226);
+        transition: .3s;
+    }
+
+    .btn:hover {
+        transition: .3s;
+    }
+
+    .title {
+        padding-left: 1rem;
+        margin: 1rem;
+    }
+
+    .text-danger {
+        color: red;
+    }
+
+    #book-list {
+        padding: 2rem 2rem;
+    }
+
+    .book-div {
+        height: 350px;
+        width: 250px;
+        justify-content: center;
+        text-align: center;
+        margin: 5px;
+        box-shadow: 0px 0px 4px 4px rgba(128, 128, 128, 0.637);
+        padding: .5rem ;
+        border-radius: 5px;
+    }
+
+    .book-div .img {
+        height: 60%;
+        width: 100%;
+    }
+    .buy-btn {
+        margin-top: 1rem;
+    }
+    .book-div img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+    .book-div .info {
+        height: 40%;
+        align-items: center;
+    }
+
+    .overlay {
+        position: absolute;
+        bottom: 0px;
+        background-color: rgb(90, 24, 24);
+    }
+</style>
 
 {% endblock style %}
 {% block title %}
@@ -15,7 +121,7 @@ Ibitabo
         <div class="text">
             <h2>Ibitabo bifasha urubyiruko</h2>
             <p>Twandika ibitabo bigufasha mu ngeri zitandukanye z'ubuzima.</p>
-            <button class="btn-book btn-book-explore">REBA IBITABO</button>
+            <button class="btn-book btn-book-explore" onclick="window.location.href='#book-list'">REBA IBITABO</button>
         </div>
         <div class="carousel">
             {% for book in books %}
@@ -32,7 +138,7 @@ Ibitabo
 
                 </div>
                 <div class="explore">
-                    <button class="btn-book btn-book-primary" onclick="window.location.href='#book-list'">SOMA</button>
+                    <button class="btn btn-primary" onclick="window.location.href='#book-list'">SOMA</button>
                 </div>
 
 
@@ -43,33 +149,41 @@ Ibitabo
 
 
     </div>
-    <section>
-        <div class="blog" id="blog-posts">
-            <div class="container">
-                <div class="owl-carousel owl-theme blog-post">
-                    {% for book in books %}
+    <section id="book-list">
+        <div class="row flex-row">
 
-
-                    <!-- Blog Post -->
-                    <div class="blog-content" data-aos="fade-right" data-aos-delay="200">
-                        <img src="{{book.cover.url}}" alt="post-1" class="image-contain">
-                        <div class="blog-title">
-                            <h3><a href="{{post.get_absoulte_url}}">{{book.title}}</a></h3>
-                            <br>
-                            <br>
-                            <a class="btn btn-blog " href="{{book.get_cart_url}}">BUY NOW</a>
-                            <span>{{book.order}}</span>
-                        </div>
+            {% for book in books %}
+            <div class="book-div">
+                <div class="img relative">
+                    <img class="h-full w-full contain" src="{{book.imgURL}}" alt="">
+                    <div class="overlay">
+                        <ul>
+                            <li class="icon-group"><i class="fab fa-facebook"></i></li>
+                        </ul>
                     </div>
-
-                    <!-- End post -->
-                    {% endfor %}
                 </div>
-                <div class="owl-navigation">
-                    <span class="owl-nav-prev"><i class="fas fa-long-arrow-alt-left"></i></span>
-                    <span class="owl-nav-next"><i class="fas fa-long-arrow-alt-right"></i></span>
+                <div class="info">
+                    <h3 class="title"><a href="{{book.get_absolute_url}}">{{book.title}}</a></h3>
+                    <div class="pricing">
+                        {% if book.on_discount %}
+                        <p>
+                            <strike class="text-danger">{{book.price|intcomma}}</strike>
+                            <span><b>{{book.discounted_price| intcomma}}
+                                    Rwf</b></span>
+                        </p>
+
+                        {% else %}
+                        <p>Price: {{book.price | intcomma}} Rwf</p>
+                        {% endif %}
+                    </div>
+                    <div class="buy-btn">
+                        <a href="{{book.get_cart_url}}" class="btn btn-primary">BUY NOW</a>
+                    </div>
                 </div>
             </div>
+
+            {% endfor %}
+
         </div>
     </section>
 </main>

@@ -143,47 +143,78 @@ main .carousel .book-card .explore button {
     transform: translateX(-50%);
 }
 
-main .book-list h2 {
-    font-family: 'Lexend';
-    font-weight: bolder;
-    font-size: 2rem;
-    text-align: center;
-
-}
-
-main .book-list {
-    padding: 2rem 1rem;
+.relative {
+    position: relative;
 }
 
 
-/* Individual Book */
-* {
-    border: 0;
-    margin: 0;
-    box-sizing: border-box;
+.px-4 {
+    padding: inherit 4rem !important;
+}
+
+.w-300 {
+    max-width: 300px;
+}
+
+.h-400 {
+    max-height: 400px;
+}
+
+.contain {
+    object-fit: contain;
+}
+
+.w-full {
+    width: 100%;
+}
+
+.h-full {
+    height: 100%;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.card .row {
+    padding: 2rem 4rem;
+}
+
+.col-md-6 {
+    width: 50%;
+}
+
+.flex-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.justify-center {
+    justify-content: center;
 }
 
 .btn {
     padding: .5rem 1rem;
     border-radius: 5px;
-    box-shadow: 0px 0px 2px 2px gray;
+    box-shadow: 0px 0px 2px 3px rgba(128, 128, 128, 0.226);
+    transition: .3s;
 }
 
-.btn-primary {
-    background-color: rgb(40, 40, 97);
-    color: white;
-    font-family: "Lexend";
-    margin-top: 2rem;
+.btn:hover {
+    transition: .3s;
 }
 
-.card .cover {
-    height: 300px;
-    width: 250px;
-
+.title {
+    padding-left: 1rem;
+    margin: 1rem;
 }
 
-.card .cover img {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
+.text-danger {
+    color: red;
+}
+
+.book-div {
+    width: 300px;
+    height: 400px;
 }

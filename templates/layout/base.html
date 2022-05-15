@@ -11,20 +11,30 @@
 
         Ahabanza{% endblock title %}</title>
     <link rel="icon" href="{% static 'assets/icon.png' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Abel&family=Anton&family=Josefin+Sans&family=Lexend+Deca&family=Livvic&display=swap"
+        rel="stylesheet">
 
     <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="{% static 'css/all.css' %}">
-
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- --------- Owl-Carousel ------------------->
-    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
+        integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css"
+        integrity="sha512-OTcub78R3msOCtY3Tc6FzeDJ8N9qvQn1Ph49ou13xgA9VsH9+LRxoFU6EqLhW4+PKRfU+/HReXmSZXHEkpYoOA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- ------------ AOS Library ------------------------- -->
-    <link rel="stylesheet" href="{% static 'css/aos.css' %}">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <!-- Custom Style   -->
-    <link rel="stylesheet" href="{% static 'css/Style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
 
     {% block header %}
 
@@ -98,8 +108,16 @@
 
                     </li>
 
+                    {% if not request.user.is_authenticated %}
+                    <li class="nav-link"><a href="{% url 'account_login' %}">Sign In</a></li>
+                    {% else %}
+                    <li class="nav-link font-bold"><a href="{% url 'account_logout' %}"
+                            class="logout text-red">Logout</a></li>
+                    {% endif %}
+
+
                     {% if request.user.is_staff %}
-                    <li class="nav-link"><a href="{% url 'admin:index' %}">Dashboard</a>
+                    <li class="nav-link font-bold"><a href="{% url 'admin:index' %}">Dashboard</a>
 
                     </li>
                     {% endif %}
@@ -107,9 +125,9 @@
                 </ul>
             </div>
             <div class="social text-gray">
-                <!-- <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
                 <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a> -->
+                <a href="#"><i class="fab fa-twitter"></i></a>
                 <a href="https://www.youtube.com/channel/UCDo3ISUi1Qve0VHwReHcgNA" target="_blank"><i
                         class="fab fa-youtube"></i></a>
             </div>
@@ -133,8 +151,8 @@
                 <p>Tugufasha kubona amakuru agezweho ndetse ninama zikubaka.</p>
             </div>
             <div class="newsletter" data-aos="fade-right" data-aos-delay="200">
-                <h2>Akanyamakuru</h2>
-                <p>Bona amakuru yacu mbere yabandi</p>
+                <h2>Ikinyamakuru</h2>
+                <p>Bona amakuru yacu mbere y'abandi</p>
                 <div class="form-element">
                     <input type="text" placeholder="Email"><span><i class="fas fa-chevron-right"></i></span>
                 </div>
@@ -164,8 +182,8 @@
                 <div>
                     <a href="facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
 
-                    <!-- <i class="fab fa-twitter"></i>
-                    <i class="fab fa-instagram"></i> -->
+                    <i class="fab fa-twitter"></i>
+                    <i class="fab fa-instagram"></i>
                     <a href="https://www.youtube.com/channel/UCDo3ISUi1Qve0VHwReHcgNA"><i
                             class="fab fa-youtube"></i></a>
 
@@ -189,10 +207,12 @@
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
     <!-- --------- Owl-Carousel js ------------------->
-    <script src="{% static 'js/owl.carousel.min.js' %}" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
+        integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <!-- ------------ AOS js Library  ------------------------- -->
-    <script src="{% static 'js/aos.js' %}" defer></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.5.0/dist/lazyload.min.js"></script>
 
