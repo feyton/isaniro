@@ -45,15 +45,18 @@ def cookieCart(request):
     for i in cart:
         try:
             product = Book.objects.get(id=i)
-            total = product.price * cart[i]["quantity"]
+            total = product.final_price * cart[i]["quantity"]
             cart_total += total
             cart_quantity += cart[i]["quantity"]
             item = {
                 'product': {
                     'id': product.id,
-                    'name': product.name,
+                    'name': product.title,
                     'price': product.price,
-                    'imgURL': product.imgURL
+                    'imgURL': product.imgURL,
+                    'on_discount': product.on_discount,
+                    'discounted_price': product.discounted_price,
+                    'summary': product.summary
                 },
                 "quantity": cart[i]['quantity'],
                 'get_total': total
@@ -79,7 +82,7 @@ def handle_payment(order, redirect_link, option="mobilemoneyrwanda"):
         },
         "customer": {
             "email": order['customer_email'],
-            "phoneNumber": "078724157",
+            "phoneNumber": order['telephone'],
             "name": order['name']},
         "customizations": {
             "title": "Isaniro Group",
@@ -108,4 +111,10 @@ def sign_book_token(data):
     signer = signing.TimestampSigner(
         key=settings.BOOK_SIGNATURE, salt="isaniro")
     token = signer.sign_object(data)
+    return token
+
+def sign_email_token(email):
+    signer = signing.TimestampSigner(
+    key=settings.BOOK_SIGNATURE, salt="isaniro")
+    token = signer.sign_object(email)
     return token

@@ -125,7 +125,7 @@
                 </ul>
             </div>
             <div class="social text-gray">
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="{% url 'cart-view'%}"><i class="fas fa-shopping-cart"></i></a>
                 <a href="#"><i class="fab fa-instagram"></i></a>
                 <a href="#"><i class="fab fa-twitter"></i></a>
                 <a href="https://www.youtube.com/channel/UCDo3ISUi1Qve0VHwReHcgNA" target="_blank"><i
@@ -296,6 +296,7 @@
             document.cookie = "cart=" + JSON.stringify(cart) + ";domain=;path=/";
         }
     </script>
+    <script src="{% static 'js/cart.js' %}"></script>
     {% block script %}
 
     {% endblock script %}

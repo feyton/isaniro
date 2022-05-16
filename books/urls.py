@@ -11,8 +11,10 @@ urlpatterns = [
     path("cart/", views.cart_view, name='cart-view'),
     path('checkout/', views.checkout_view, name='checkout-view'),
     path("book-download/<token>/", views.book_download, name='book-download'),
-    path("book/detail/<pk>/<slug>", views.bookDetail, name="book-view"),
-    path('payment-check', views.payment_check, name='payment-check')
+    path("book/detail/<pk>/<slug>/", views.bookDetail, name="book-view"),
+    path('payment-check', views.payment_check, name='payment-check'),
+    path('validate/<token>/', views.validateEmail, name='validate-email'),
+    path("reset-session/", views.resetSession, name='reset-session')
 
 
 ]

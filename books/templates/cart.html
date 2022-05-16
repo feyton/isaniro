@@ -105,7 +105,7 @@
             {% for item in items %}
             <li class="flex-row w-full item-div">
                 <div class="img-div col-md-3 w-full h-full">
-                    <img src="{{item.product.imgURL}}" class="w-full h-full" alt="{{item.product.name}}" />
+                    <img src="{{item.product.imgURL}}" class="w-full h-full" alt="{{item.product.title}}" />
                 </div>
                 <div class="col-md-3 font-lexend align-items-center d-flex justify-content-center font-bold">
                     <a href="{{item.product.get_absolute_url}}">{{item.product.title}} </a>
@@ -132,7 +132,11 @@
 
                 <div class="col-md-12">
                     <h3 class="font-lexend">Your cart is empty...</h3>
-                    <a href="/" class="btn btn-primary font-bold font-lexend bg-secondary">Continue Shopping</a>
+                    <div class="btn-group p2" style="margin-top: 2rem;">
+                        <a href="{% url 'books-list'%}"
+                            class="btn btn-primary font-bold font-lexend bg-secondary">Continue Shopping</a>
+                    </div>
+
 
                 </div>
             </li>
@@ -159,17 +163,7 @@
                 {% if not request.user.is_authenticated %}
 
 
-                <div class="remind-signup">
-                    <h5>You are not logged in into our website.</h5>
-                    <p>Creating an account gives you the freedom to store your purchases on your account. </p>
-                    <p>You can still process your purchase without account. Be reminded that, the link that will be sent
-                        to your
-                        email give you access. In case you lose it, there is no way we can verify your purchases.</p>
-                    <div class="button-group">
-                        <a href="{% url 'account_login'%}">Login here</a>
-                    </div>
-                    <h4>OR</h4>
-                </div>
+                {% include 'includes/remind-loggin.html' %}
                 {% endif %}
                 <div class="btn-div">
                     <a href="{% url 'checkout-view'%}" id="checkout-button"

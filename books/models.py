@@ -1,3 +1,4 @@
+from itertools import product
 from django.contrib.sites.models import Site
 from django.db.models.signals import post_save, pre_save
 from autoslug.fields import AutoSlugField
@@ -8,7 +9,7 @@ from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 from cloudinary.models import CloudinaryField
 
-from books.utils import notify_email, ref_code_generator, sign_book_token
+from books.utils import notify_email, ref_code_generator, sign_book_token, sign_email_token
 User = get_user_model()
 # Create your models here.
 
@@ -51,6 +52,12 @@ class Book(models.Model):
         except:
             url = ""
         return url
+
+    @property
+    def final_price(self):
+        if self.on_discount:
+            return self.discounted_price
+        return self.price
 
     @property
     def on_discount(self):
@@ -198,13 +205,84 @@ class Address(models.Model):
         max_length=20, choices=province_choices, default="Kigali")
     district = models.CharField(
         max_length=30, default="Gasabo", choices=region_choice)
-    vicinity = models.CharField(
-        max_length=233, blank=True, choices=vicinity_choice, default='Kabuga')
     location = models.CharField(max_length=255, blank=True, null=True)
     created_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return "%s-Address" % self.customer.user.first_name
+
+
+class AnonymousAddress(models.Model):
+    province_choices = [
+        ("NORTH", "North"),
+        ("SOUTH", "South"),
+        ("KIGALI", "Kigali"),
+        ("WEST", "West")
+    ]
+    region_choice = [
+        ("Gasabo", "Gasabo"),
+        ("Kicukiro", "Kicukiro"),
+        ("Huye", "Huye"),
+        ("Musanze", "Musanze")
+    ]
+    session_key = models.CharField(max_length=100, unique=True)
+    email = models.EmailField(unique=False)
+    full_name = models.CharField(max_length=100)
+    address = models.CharField(max_length=255, blank=False)
+    telephone = models.CharField(max_length=14, blank=False)
+    province = models.CharField(
+        max_length=20, choices=province_choices, default="Kigali")
+    district = models.CharField(
+        max_length=30, default="Gasabo", choices=region_choice)
+    location = models.CharField(max_length=255, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return "%s-Address" % self.full_name
+
+
+class AnonymousOrder(models.Model):
+    order_id = models.CharField(max_length=255, unique=True)
+    completed = models.BooleanField(default=False)
+    address = models.ForeignKey(
+        AnonymousAddress, on_delete=models.SET_NULL, null=True)
+    products = models.ManyToManyField(Book)
+    notified = models.BooleanField(default=False)
+    notified_customer = models.BooleanField(default=False)
+    total = models.PositiveIntegerField(default=0, blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        if not self.order_id:
+            self.order_id = ref_code_generator()
+        return super().save(*args, **kwargs)
+
+    def notify_seller(self):
+        print("Notifying seller")
+        if not self.notified == True:
+            print("Sending emails")
+            products = self.products.all()
+            self.notified = True
+            for item in products:
+                notify_email("email/to_author.html",
+                             item.author.email, {"item": {"product": item}}, "Order received")
+            self.save()
+            return
+        else:
+            print("Notifications are already sent")
+        return
+
+    def notify_customer(self):
+        print("Notifying email to the customer")
+        if not self.notified_customer == True:
+            print("Sending email")
+            notify_email("email/order.html",
+                         self.address.email, {"order": self})
+            self.notified_customer = True
+            self.save()
+            return
+        else:
+            print("Notifications are already sent")
+        return
 
 
 class BookUser(models.Model):
@@ -215,6 +293,22 @@ class Payment(models.Model):
     customer = models.ForeignKey(
         Customer, on_delete=models.SET_NULL, null=True)
     order = models.OneToOneField(Order, on_delete=models.SET_NULL, null=True)
+    token = models.CharField(max_length=255)
+    payment_method = models.CharField(max_length=50, default="mobilemoney")
+    status = models.CharField(max_length=255)
+    payment_id = models.CharField(max_length=255, unique=True)
+    currency = models.CharField(max_length=50, default="RWF")
+    amount = models.PositiveIntegerField()
+    amount_settled = models.PositiveIntegerField()
+
+
+class AnonymousPayment(models.Model):
+    session_key = models.CharField(max_length=100, unique=True)
+    address = models.ForeignKey(
+        AnonymousAddress, on_delete=models.SET_NULL, null=True)
+    email = models.EmailField()
+    order = models.OneToOneField(
+        AnonymousOrder, on_delete=models.SET_NULL, null=True)
     token = models.CharField(max_length=255)
     payment_method = models.CharField(max_length=50, default="mobilemoney")
     status = models.CharField(max_length=255)
@@ -236,6 +330,31 @@ class PayedBook(models.Model):
         return reverse('book-download', kwargs={'token': self.token})
 
 
+class AnonymousPayedBook(models.Model):
+    session_key = models.CharField(max_length=100, unique=True)
+    payment = models.ForeignKey(
+        AnonymousPayment, on_delete=models.SET_NULL, null=True, blank=False)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    token = models.TextField()
+
+    @property
+    def download_link(self, *args, **kwargs):
+        return reverse('book-download', kwargs={'token': self.token})
+
+
+def validate_anonymous_email(sender, instance, created, *args, **kwargs):
+    if created:
+        token = sign_email_token(
+            {'email': instance.email})
+        link = "%s/book/validate/%s" % (
+            Site.objects.get_current().domain, token)
+
+        data = {'user': instance,
+                'link': link}
+        notify_email('email/confirm-email.html', instance.email,
+                     data, message="Confirming email for purchase")
+
+
 def provision_book_receiver(sender, instance, created, *args, **kwargs):
     if created:
         link = "%s%s" % (Site.objects.get_current().domain,
@@ -246,3 +365,4 @@ def provision_book_receiver(sender, instance, created, *args, **kwargs):
 
 
 post_save.connect(provision_book_receiver, sender=PayedBook)
+post_save.connect(validate_anonymous_email, sender=AnonymousAddress)

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h3>Dear {{user.full_name}}</h3>
+    <p>We are sending this email to confirm that this is your email</p>
+    <p>You are attempting to purchase a book on our platform without an account. To keep you purchase safe we are doing
+        a precheck to see if you can access this email</p>
+    <p>Please, use the following link to confirm</p>
+    <a href="{{link}}">{{link}}</a>
+    <p>If you confirmed in the browser, you don't need to confirm again</p>
+</body>
+
+</html>
