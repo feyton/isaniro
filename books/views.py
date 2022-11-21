@@ -158,9 +158,12 @@ def checkout_view(request):
                 return render(request, 'checkout.html', context)
             if form.is_valid():
                 print('Valid')
+
                 address = form.save(commit=False)
+
                 address.customer = customer
                 address = address.save()
+                print(address)
                 host = request.get_host()
                 protocol = request.scheme
                 redirect_url = "%s://%s/book/payment-check" % (protocol, host)
@@ -170,7 +173,6 @@ def checkout_view(request):
                     'customer_id': order.customer.user.id,
                     'customer_email': order.customer.user.email,
                     'name': order.customer.user.get_full_name(),
-                    'telephone': address.telephone
                 }
                 print(order.order_id)
                 link = handle_payment(data, redirect_url)
@@ -310,7 +312,7 @@ def payment_check(request):
             try:
                 payment = AnonymousPayment.objects.get(payment_id=tx_id)
                 address = AnonymousAddress.objects.get(
-                        email=info['data']['customer']['email'])
+                    email=info['data']['customer']['email'])
                 order = AnonymousOrder.objects.get(address=address)
                 print("It exists")
             except:
@@ -362,7 +364,7 @@ def payment_check(request):
                 "quantity": cart_quantity or None,
                 "address": address or None
             }
-    
+
             response = render(
                 request, "payment-success-anonymous.html", context)
             response.delete_cookie('cart')

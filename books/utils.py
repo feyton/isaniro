@@ -82,7 +82,6 @@ def handle_payment(order, redirect_link, option="mobilemoneyrwanda"):
         },
         "customer": {
             "email": order['customer_email'],
-            "phoneNumber": order['telephone'],
             "name": order['name']},
         "customizations": {
             "title": "Isaniro Group",

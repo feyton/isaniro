@@ -1,6 +1,4 @@
 
-import django_heroku
-import dj_database_url
 import os
 from pathlib import Path
 import cloudinary
@@ -97,7 +95,6 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR/"assets"
 STATICFILES_DIRS = [BASE_DIR/"static"]
@@ -186,10 +183,22 @@ if MODE == "production":
 
     DATABASES = {
         'default': {
-
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'isancjhv_blog',
+            'USER': 'isancjhv_blog_user',
+            'PASSWORD': config('DB_PASS'),
+            'HOST': '127.0.0.1',
+            'PORT': '',
+            'OPTIONS': {
+                'sql_mode': 'STRICT_TRANS_TABLES',
+            }
         }
     }
-    DATABASES["default"] = dj_database_url.parse(config("DATABASE_URL"))
+    STATIC_ROOT = '/home/isancjhv/public_html/static/'
+    STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = "/home/isancjhv/public_html/media/"
 
 
 else:
@@ -205,5 +214,3 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 CSRF_TRUSTED_ORIGINS = ["https://*.herokuapp.com",
                         'https://isaniro.com', 'https://isaniro.com', "http://*.herokuapp.com"]
-
-django_heroku.settings(locals())
