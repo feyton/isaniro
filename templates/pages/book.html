@@ -159,11 +159,7 @@ Ibitabo
             <div class="book-div">
                 <div class="img relative">
                     <img class="h-full w-full contain" src="{{book.imgURL}}" alt="">
-                    <div class="overlay">
-                        <ul>
-                            <li class="icon-group"><i class="fab fa-facebook"></i></li>
-                        </ul>
-                    </div>
+
                 </div>
                 <div class="info">
                     <h3 class="title"><a href="{{book.get_absolute_url}}">{{book.title}}</a></h3>
@@ -180,7 +176,8 @@ Ibitabo
                         {% endif %}
                     </div>
                     <div class="buy-btn">
-                        <a href="{{book.get_cart_url}}" data-pk="{{book.id}}" class="btn btn-primary update-cart">BUY NOW</a>
+                        <a href="{{book.get_cart_url}}" data-pk="{{book.id}}" class="btn btn-primary update-cart">BUY
+                            NOW</a>
                     </div>
                 </div>
             </div>

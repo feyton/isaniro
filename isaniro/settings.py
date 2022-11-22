@@ -163,7 +163,7 @@ HITCOUNT_HITS_PER_IP_LIMIT = 0
 HITCOUNT_KEEP_HIT_ACTIVE = {'days': 3}
 
 cloudinary.config(cloud_name=config("cloud_name"), api_key=config(
-    "api_key"), api_secret=config("api_secret"))
+    "api_key"), api_secret=config("api_secret"), secure=True)
 
 FLUTTER_SECRET = config("FLUTTER_SECRET")
 BOOK_SIGNATURE = config("BOOK_SIGNATURE", default="dev")
@@ -209,6 +209,10 @@ else:
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
+    STATIC_ROOT = BASE_DIR/"assets"
+    STATIC_URL = 'static/'
+    MEDIA_URL = "media/"
+    MEDIA_ROOT = BASE_DIR/"media"
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 
