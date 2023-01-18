@@ -16,10 +16,17 @@ User = get_user_model()
 class Service(models.Model):
     title = models.CharField(max_length=255, blank=False, null=False)
     description = models.TextField(blank=True, null=True)
+    picture1 = CloudinaryField("picture1", blank=True, null=True)
+    picture2 = CloudinaryField("picture2", blank=True, null=True)
+    details = RichTextUploadingField(blank=True, null=True)
+    available = models.BooleanField(default=True)
 
     class Meta:
         verbose_name = 'service'
         verbose_name_plural = 'services'
+
+    def __str__(self):
+        return self.title
 
 
 class Category(models.Model):

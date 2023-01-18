@@ -1,4 +1,5 @@
 {% extends "layout/base.html" %}
+{% load cloudinary %}
 {% block style %}
 <style>
     .hero {
@@ -88,39 +89,22 @@
 
 <div class="hero">
     <div class="services-list">
+
+        {% for service in services %}
         <div class="service card">
             <div class="service-image">
-                <img src="/static/assets/construction.webp" alt="">
+                {% cloudinary service.picture1 crop="fill" height=200 width=300 %}
             </div>
             <div class="title">
-                <h2>Serivise zubwubatsi</h2>
+
             </div>
-            <div class="learn-more">
-                <button>Menya Byinshi</button>
-            </div>
+            <h2>{{ service.title }}</h2>
+            <p>{{service.description}}</p>
         </div>
-        <div class="service card card-middle">
-            <div class="service-image">
-                <img src="/static/assets/marketing.png" alt="">
-            </div>
-            <div class="title">
-                <h2>Kwamamaza ibikorwa</h2>
-            </div>
-            <div class="learn-more">
-                <button>Menya Byinshi</button>
-            </div>
-        </div>
-        <div class="service card">
-            <div class="service-image">
-                <img src="/static/assets/writting.jpg" alt="">
-            </div>
-            <div class="title">
-                <h2>Kwandika ibitabo</h2>
-            </div>
-            <div class="learn-more">
-                <button>Menya Byinshi</button>
-            </div>
-        </div>
+        {% endfor %}
+
+
+
     </div>
 </div>
 

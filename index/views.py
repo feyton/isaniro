@@ -1,4 +1,4 @@
-from blog.models import Category, Post, Tag
+from blog.models import Category, Post, Tag, Service
 from django.shortcuts import redirect, render
 
 
@@ -23,5 +23,6 @@ def add_subscriber(request):
 
 
 def service_view(request):
-    context = {}
+    services = Service.objects.filter(available=True)
+    context = {'services': services}
     return render(request, "pages/services.html", context)

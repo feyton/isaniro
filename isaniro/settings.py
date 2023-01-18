@@ -28,7 +28,6 @@ INSTALLED_APPS = [
     'django.contrib.redirects',
     "django_browser_reload",
     'blog',
-    'services',
     'books',
     'user',
     'index',
