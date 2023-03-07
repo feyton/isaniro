@@ -21,3 +21,10 @@ python manage.py migrate
 python manage.py runserver
 open http://localhost:8000/
 ```
+
+## Deployment 
+When deploying the application remember to run the following commands
+```
+python manage.py collectstatic
+python manage.py compress
+```
